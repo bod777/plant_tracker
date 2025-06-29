@@ -26,7 +26,7 @@ const Index = () => {
         const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: 'include' });
         if (res.ok) {
           const data = await res.json();
-          console.log(data);
+          // console.log(data);
           setUser(data);
         } else {
           setUser(null);
