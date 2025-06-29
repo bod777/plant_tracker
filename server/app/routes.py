@@ -120,12 +120,12 @@ async def get_plants(user=Depends(get_current_user)):
         plants.append(PlantResponse(**doc))
     return plants
 
-@router.get("/api/auth/me")
+@router.get("/auth/me")
 async def me(user=Depends(get_current_user)):
     # get_current_user returned the JWT payload with user info
     return { "email": user["email"], "sub": user["sub"] }
 
-@router.post("/api/auth/logout")
+@router.post("/auth/logout")
 async def logout(response: Response):
     response.delete_cookie("access_token")
     return JSONResponse({"detail": "Logged out"})
