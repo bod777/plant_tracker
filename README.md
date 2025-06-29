@@ -15,25 +15,28 @@ A full-stack plant tracker web application built with:
    cd plant-tracker
    ```
 
-2. **Backend Setup**  
+2. **Backend Setup**
    ```bash
    cd server
    pip install -r requirements.txt
    cp .env.sample .env
    # Fill in the required environment variables in .env
+   # FRONTEND_URL controls where the auth flow redirects after login
+   # ALLOWED_ORIGINS is a comma separated list used for CORS
    uvicorn app.main:app --reload
    ```
 
-3. **Frontend Setup**  
+3. **Frontend Setup**
    ```bash
    cd flora-finder-webapp-main
    cp .env.sample .env
+   # Set VITE_API_BASE to your backend URL (e.g. http://localhost:8000)
    npm install
    npm run dev
    ```
 
 4. **Use the App**
-   - Frontend runs at http://localhost:8080
+   - Frontend runs at http://localhost:8080 (or the URL specified in `FRONTEND_URL`)
    - Backend runs at http://localhost:8000
-   - Backend CORS allows requests from http://localhost:8080
+   - Backend CORS allows requests from the origins defined in `ALLOWED_ORIGINS`
    - Upload plant images, identify, and save to MongoDB.
