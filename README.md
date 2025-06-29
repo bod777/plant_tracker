@@ -40,3 +40,22 @@ A full-stack plant tracker web application built with:
    - Backend runs at http://localhost:8000
    - Backend CORS allows requests from the origins defined in `ALLOWED_ORIGINS`
    - Upload plant images, identify, and save to MongoDB.
+
+## Deploying to Heroku
+
+This repository contains both the FastAPI backend and the React frontend. To
+deploy them as a single Heroku app:
+
+1. Add the Node and Python buildpacks (Node first):
+   ```bash
+   heroku buildpacks:add heroku/nodejs
+   heroku buildpacks:add heroku/python
+   ```
+2. Push the code to Heroku. The root `package.json` defines a
+   `heroku-postbuild` script which installs dependencies (including dev
+   dependencies) and builds the React app. The compiled assets are served by
+   FastAPI from the `dist/` directory.
+3. Heroku will start the backend using the root `Procfile`:
+   ```bash
+   web: uvicorn app.main:app --host=0.0.0.0 --port=$PORT --app-dir server
+   ```
