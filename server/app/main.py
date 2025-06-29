@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+from fastapi.staticfiles import StaticFiles
 import os
 
 from .routes import router
@@ -42,3 +43,10 @@ app.add_middleware(
 # === Routers ===
 app.include_router(auth_router)
 app.include_router(router)
+
+# === Static Files ===
+frontend_dir = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../flora-finder-webapp-main/dist")
+)
+if os.path.isdir(frontend_dir):
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
