@@ -1,7 +1,6 @@
-from dotenv import load_dotenv
 import os
 import base64
-from fastapi import Depends, APIRouter, Response, HTTPException
+from fastapi import Depends, APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from typing import List
@@ -11,9 +10,6 @@ from kindwise import PlantApi, PlantIdentification
 from .mongodb_server import db
 from .models import PlantResponse, IdentifyRequest, Suggestion, SimilarImage, UpdateNotesRequest
 from .deps import get_current_user
-
-# Load environment variables
-load_dotenv()
 
 router = APIRouter(prefix="/api")
 
@@ -114,15 +110,9 @@ async def update_plant_notes(request: UpdateNotesRequest):
 # --- Fetch Plants ---
 @router.get("/my-plants", response_model=List[PlantResponse])
 async def get_plants(user=Depends(get_current_user)):
-    sub = user["sub"]
-    print(f"[my-plants] · querying for user_id={sub!r}")
-    
     # with the index in place this is now a quick lookup
-    docs = await db.plants.find().to_list(length=20)
-    
-    print(f"[my-plants] · returned {len(docs)} docs")
+    docs = await db.plants.find({"user_id": user["sub"]}).to_list(length=20)
     return [PlantResponse(**doc) for doc in docs]
-
 
 @router.get("/auth/me")
 async def me(user=Depends(get_current_user)):
