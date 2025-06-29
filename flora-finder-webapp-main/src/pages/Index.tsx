@@ -7,7 +7,7 @@ import HistorySection from '@/components/HistorySection';
 import AuthButton from '@/components/AuthButton';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { identifyPlant, fetchPlants } from '../api/api';
+import { identifyPlant, fetchPlants, API_BASE } from '../api/api';
 import { IdentifiedPlant } from '../api/models';
 
 const Index = () => {
@@ -23,7 +23,7 @@ const Index = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch('/api/auth/me', { credentials: 'include' });
+        const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: 'include' });
         if (res.ok) {
           const data = await res.json();
           console.log(data);
