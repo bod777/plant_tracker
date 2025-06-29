@@ -29,9 +29,10 @@ app.add_middleware(
     max_age=86400,
 )
 
+origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:8080")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=[o.strip() for o in origins.split(",")],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
