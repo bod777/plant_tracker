@@ -30,9 +30,10 @@ app.add_middleware(
 )
 
 origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:8080")
+origins_array = [o.strip() for o in origins.split(",")]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[o.strip() for o in origins.split(",")],
+    allow_origins=origins_array,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
