@@ -126,6 +126,8 @@ async def me(user=Depends(get_current_user)):
     return { "email": user["email"], "sub": user["sub"] }
 
 @router.post("/auth/logout")
-async def logout(response: Response):
+async def logout():
+    """Clear the auth cookie so the user is fully logged out."""
+    response = JSONResponse({"detail": "Logged out"})
     response.delete_cookie("access_token")
-    return JSONResponse({"detail": "Logged out"})
+    return response
