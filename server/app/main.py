@@ -1,18 +1,32 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 import os
+
 from .routes import router
 from .auth import router as auth_router
+from .mongodb_server import db  # <-- your Motor client
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # --- Startup code ---
+    # 1) Warm up the driver / open pool & auth
+    await db.client.admin.command("ping")
+    # 2) Create index on user_id for fast lookups
+    await db.plants.create_index("user_id", name="idx_user_id")
+    yield
+    # --- (optional) Shutdown code could go here ---
 
-# Add this *before* you include your auth router:
+app = FastAPI(lifespan=lifespan)
+
+# === Middlewares ===
 app.add_middleware(
     SessionMiddleware,
     secret_key=os.getenv("SESSION_SECRET_KEY", "a-strong-fallback-secret"),
-    session_cookie="session",       # optional, defaults to "session"
-    max_age=86400,                  # optional, seconds until cookie expires
+    session_cookie="session",
+    max_age=86400,
 )
 
 app.add_middleware(
@@ -23,6 +37,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Then include your routers:
+# === Routers ===
 app.include_router(auth_router)
 app.include_router(router)

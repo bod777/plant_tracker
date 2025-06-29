@@ -4,11 +4,11 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-MONGO_URI = os.getenv("MONGODB_URI")
+MONGODB_URI = os.getenv("MONGODB_URI")
 DB_NAME   = os.getenv("MONGODB_DB_NAME", "plant_tracker")
 
 client = motor.motor_asyncio.AsyncIOMotorClient(
-    MONGO_URI,
+    MONGODB_URI,
     server_api=ServerApi("1")
 ) 
 db = client[DB_NAME]

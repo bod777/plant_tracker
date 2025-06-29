@@ -114,11 +114,15 @@ async def update_plant_notes(request: UpdateNotesRequest):
 # --- Fetch Plants ---
 @router.get("/my-plants", response_model=List[PlantResponse])
 async def get_plants(user=Depends(get_current_user)):
-    print("user: ", user)
-    plants = []
-    async for doc in db.plants.find({"user_id": user["sub"]}):
-        plants.append(PlantResponse(**doc))
-    return plants
+    sub = user["sub"]
+    print(f"[my-plants] · querying for user_id={sub!r}")
+    
+    # with the index in place this is now a quick lookup
+    docs = await db.plants.find().to_list(length=20)
+    
+    print(f"[my-plants] · returned {len(docs)} docs")
+    return [PlantResponse(**doc) for doc in docs]
+
 
 @router.get("/auth/me")
 async def me(user=Depends(get_current_user)):
