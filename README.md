@@ -31,7 +31,8 @@ A full-stack plant tracker web application built with:
    npm run dev
    ```
 
-4. **Use the App**  
-   - Frontend runs at http://localhost:3000  
-   - Backend runs at http://localhost:8000  
+4. **Use the App**
+   - Frontend runs at http://localhost:8080
+   - Backend runs at http://localhost:8000
+   - Backend CORS allows requests from http://localhost:8080
    - Upload plant images, identify, and save to MongoDB.
