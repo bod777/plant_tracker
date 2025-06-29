@@ -52,8 +52,9 @@ deploy them as a single Heroku app:
    heroku buildpacks:add heroku/python
    ```
 2. Push the code to Heroku. The root `package.json` defines a
-   `heroku-postbuild` script which installs dependencies and builds the React
-   app. The compiled assets are served by FastAPI from the `dist/` directory.
+   `heroku-postbuild` script which installs dependencies (including dev
+   dependencies) and builds the React app. The compiled assets are served by
+   FastAPI from the `dist/` directory.
 3. Heroku will start the backend using the root `Procfile`:
    ```bash
    web: uvicorn app.main:app --host=0.0.0.0 --port=$PORT --app-dir server
