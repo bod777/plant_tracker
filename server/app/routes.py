@@ -24,7 +24,7 @@ if not api_key:
 plant_client = PlantApi(api_key=api_key)
 
 @router.post("/identify-plant")
-async def identify_plant(request: IdentifyRequest):
+async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user)):
     """
     Identify a plant from a base64-encoded image string.
     """
@@ -81,7 +81,7 @@ async def identify_plant(request: IdentifyRequest):
         ))
 
     response = PlantResponse(
-        user_id=request.user_id,
+        user_id=user["sub"],
         access_token=identification.access_token,
         is_plant_boolean=identification.result.is_plant.binary,
         is_plant_probability=identification.result.is_plant.probability,
@@ -116,7 +116,7 @@ async def update_plant_notes(request: UpdateNotesRequest):
 async def get_plants(user=Depends(get_current_user)):
     print("user: ", user)
     plants = []
-    async for doc in db.plants.find():
+    async for doc in db.plants.find({"user_id": user["sub"]}):
         plants.append(PlantResponse(**doc))
     return plants
 
