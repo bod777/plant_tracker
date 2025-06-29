@@ -5,9 +5,13 @@ import {
   IdentifiedPlant,
 } from './models';
 
+// Base API URL used throughout the frontend when communicating with the backend
+// Falls back to localhost if the env variable is undefined
+export const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 // Base API client
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: `${API_BASE}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
