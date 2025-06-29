@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 import os
 from .routes import router
@@ -12,6 +13,14 @@ app.add_middleware(
     secret_key=os.getenv("SESSION_SECRET_KEY", "a-strong-fallback-secret"),
     session_cookie="session",       # optional, defaults to "session"
     max_age=86400,                  # optional, seconds until cookie expires
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Then include your routers:
