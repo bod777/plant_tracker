@@ -11,4 +11,4 @@ client = motor.motor_asyncio.AsyncIOMotorClient(
     MONGO_URI,
     server_api=ServerApi("1")
 ) 
-db = client["Cluster0"]
+db = client[DB_NAME]
