@@ -19,14 +19,15 @@ A full-stack plant tracker web application built with:
    ```bash
    cd server
    pip install -r requirements.txt
-   cp .env.example .env
-   # Fill in MONGODB_URI and PLANT_ID_API_KEY in .env
+   cp .env.sample .env
+   # Fill in the required environment variables in .env
    uvicorn app.main:app --reload
    ```
 
 3. **Frontend Setup**  
    ```bash
-   cd client
+   cd flora-finder-webapp-main
+   cp .env.sample .env
    npm install
    npm run dev
    ```
