@@ -55,7 +55,9 @@ deploy them as a single Heroku app:
    `heroku-postbuild` script which installs dependencies (including dev
    dependencies) and builds the React app. The compiled assets are served by
    FastAPI from the `dist/` directory.
-3. Heroku will start the backend using the root `Procfile`:
+3. Python dependencies are installed from the root `requirements.txt`, which
+   simply references `server/requirements.txt`.
+4. Heroku will start the backend using the root `Procfile`:
    ```bash
    web: uvicorn app.main:app --host=0.0.0.0 --port=$PORT --app-dir server
    ```
