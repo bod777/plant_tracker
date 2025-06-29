@@ -10,7 +10,7 @@ from fastapi import Depends
 
 from .mongodb_server import db
 from .models import PlantResponse, IdentifyRequest, Suggestion, SimilarImage, UpdateNotesRequest
-from .auth import get_current_user
+from .deps import get_current_user
 
 # Load environment variables
 load_dotenv()
