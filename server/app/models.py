@@ -28,7 +28,6 @@ class Suggestion(BaseModel):
     best_soil_type: Optional[str] = None
     cultural_significance: Optional[str] = None
     best_watering: Optional[str] = None
-    details: Optional[Dict[str, Any]] = None
     similar_images: Optional[List[SimilarImage]] = []
 
 class PlantResponse(BaseModel):

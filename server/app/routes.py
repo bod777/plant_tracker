@@ -1,16 +1,16 @@
+from dotenv import load_dotenv
 import os
 import base64
-from fastapi import APIRouter, HTTPException
-from dotenv import load_dotenv
+from fastapi import Depends, APIRouter, Response, HTTPException
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 from typing import List
 from bson import ObjectId
 from kindwise import PlantApi, PlantIdentification
-from fastapi.encoders import jsonable_encoder
-from fastapi import Depends
 
 from .mongodb_server import db
 from .models import PlantResponse, IdentifyRequest, Suggestion, SimilarImage, UpdateNotesRequest
-from .auth import get_current_user
+from .deps import get_current_user
 
 # Load environment variables
 load_dotenv()
@@ -119,3 +119,13 @@ async def get_plants(user=Depends(get_current_user)):
     async for doc in db.plants.find():
         plants.append(PlantResponse(**doc))
     return plants
+
+@router.get("/api/auth/me")
+async def me(user=Depends(get_current_user)):
+    # get_current_user returned the JWT payload with user info
+    return { "email": user["email"], "sub": user["sub"] }
+
+@router.post("/api/auth/logout")
+async def logout(response: Response):
+    response.delete_cookie("access_token")
+    return JSONResponse({"detail": "Logged out"})

@@ -12,18 +12,17 @@ export interface Suggestion {
   name: string;
   probability: number;
   common_names?: string[];
-  taxonomy?: Record<string, any>;
+  taxonomy?: Record<string, unknown>;
   url?: string;
   description?: string;
   synonyms?: string[];
-  edible_parts?: string;
-  watering?: Record<string, any>;
+  edible_parts?: string[];
+  watering?: Record<string, unknown>;
   propagation_methods?: string[];
   best_light_condition?: string;
   best_soil_type?: string;
   cultural_significance?: string;
   best_watering?: string;
-  details?: Record<string, any>;
   similar_images?: SimilarImage[];
 }
 

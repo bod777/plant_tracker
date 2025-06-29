@@ -16,7 +16,7 @@ oauth.register(
     client_id=os.getenv('GOOGLE_CLIENT_ID'),
     client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-    client_kwargs={'scope': 'openid email profile'},
+    client_kwargs={'scope': 'openid email profile'}
 )
 
 # 2) “Login” endpoint: redirect user to Google
@@ -34,7 +34,9 @@ async def auth_callback(request: Request):
         return RedirectResponse(url="/?error=oauth_failure")
 
     # 4) Fetch the user’s profile
-    user_info = await oauth.google.parse_id_token(request, token)
+    # user_info = await oauth.google.parse_id_token(request, token)
+    resp = await oauth.google.get('https://openidconnect.googleapis.com/v1/userinfo', token=token)
+    user_info = resp.json()
     # user_info contains keys like: sub, email, name, picture, ...
     # Now you can upsert this user into Mongo and issue your own JWT / session cookie
 
@@ -52,6 +54,6 @@ async def auth_callback(request: Request):
     }
     jwt_token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm="HS256")
 
-    response = RedirectResponse(url="http://localhost:3000/")  # send user home
+    response = RedirectResponse(url="http://localhost:8080/")  # send user home
     response.set_cookie("access_token", jwt_token, httponly=True, max_age=3600)
     return response
