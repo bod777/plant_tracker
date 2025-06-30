@@ -23,6 +23,14 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       </Card>
     );
   }
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(result.url)
+      alert("Link copied to clipboard!")
+    } catch (err) {
+      console.error("Failed to copy!", err)
+    }
+  }
 
   const confidenceColor = result.confidence >= 90 ? 'bg-green-500' : 
                           result.confidence >= 70 ? 'bg-yellow-500' : 'bg-red-500';
@@ -82,11 +90,23 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           </div>
 
           <div className="flex space-x-3">
-            <Button className="flex-1 bg-green-600 hover:bg-green-700">
-              <Bookmark className="mr-2 h-4 w-4" />
-              Save to Favorites
+            <Button asChild className="flex-1 bg-green-600 hover:bg-green-700">
+              <a
+                href={result.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center py-2"
+              >
+                Wikipedia Page
+              </a>
             </Button>
-            <Button variant="outline" className="flex-1">
+
+            {/* Share button: onClick copies plant.url */}
+            <Button
+              variant="outline"
+              className="flex-1"
+              onClick={copyLink}
+            >
               Share Result
             </Button>
           </div>

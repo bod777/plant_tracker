@@ -58,9 +58,9 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
             desc = details['description'].get('value')
         suggestions.append(Suggestion(
             id=s.id,
-            name=s.name,
+            name=s.name.title(),
             probability=s.probability,
-            common_names=details.get('common_names'),
+            common_names=[c.title() for c in details.get('common_names')],
             taxonomy=details.get('taxonomy'),
             url=details.get('url'),
             description=desc,

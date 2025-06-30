@@ -3,10 +3,10 @@ import React from 'react';
 import { Clock, Award } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PlantIdentification } from '@/pages/Index';
+import { IdentifiedPlant } from '@/api/models';
 
 interface PlantCardProps {
-  plant: PlantIdentification;
+  plant: IdentifiedPlant;
   onClick: () => void;
 }
 
