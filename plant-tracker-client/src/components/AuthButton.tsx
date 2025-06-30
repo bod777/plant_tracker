@@ -22,7 +22,7 @@ export default function AuthButton() {
           credentials: 'include'
         }).then(() => window.location.reload());
       }}>
-        Sign out ({user.email})
+        Sign out
       </button>
     );
   }
