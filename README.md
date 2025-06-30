@@ -28,7 +28,7 @@ A full-stack plant tracker web application built with:
 
 3. **Frontend Setup**
    ```bash
-   cd flora-finder-webapp-main
+   cd plant-tracker-client
    cp .env.sample .env
    # Set VITE_API_BASE to your backend URL (e.g. http://localhost:8000)
    # Optionally set VITE_GOOGLE_SITE_VERIFICATION for Google search console

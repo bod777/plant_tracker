@@ -2,6 +2,6 @@
   "name": "plant-tracker",
   "private": true,
   "scripts": {
-    "heroku-postbuild": "cd flora-finder-webapp-main && npm install --include=dev && npm run build"
+    "heroku-postbuild": "cd plant-tracker-client && npm install --include=dev && npm run build"
   }
 }

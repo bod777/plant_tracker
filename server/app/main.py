@@ -46,7 +46,7 @@ app.include_router(router)
 
 # === Static Files ===
 frontend_dir = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../flora-finder-webapp-main/dist")
+    os.path.join(os.path.dirname(__file__), "../../plant-tracker-client/dist")
 )
 if os.path.isdir(frontend_dir):
     app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
