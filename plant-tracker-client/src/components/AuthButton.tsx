@@ -1,6 +1,7 @@
 // src/components/AuthButton.tsx
 import React, { useEffect, useState } from 'react';
 import { API_BASE } from '../api/api';
+import { Button } from '@/components/ui/button';
 
 export default function AuthButton() {
   const [user, setUser] = useState<{ email: string } | null>(null);
@@ -15,24 +16,31 @@ export default function AuthButton() {
 
   if (user) {
     return (
-      <button onClick={() => {
-        // logging out just clears the cookie
-        fetch(`${API_BASE}/api/auth/logout`, {
-          method: 'POST',
-          credentials: 'include'
-        }).then(() => window.location.reload());
-      }}>
+      <Button
+        onClick={() => {
+          // logging out just clears the cookie
+          fetch(`${API_BASE}/api/auth/logout`, {
+            method: 'POST',
+            credentials: 'include'
+          }).then(() => window.location.reload());
+        }}
+        variant="outline"
+        size="sm"
+      >
         Sign out
-      </button>
+      </Button>
     );
   }
 
   return (
-    <button onClick={() => {
-      // Redirect to your FastAPI Google login endpoint:
-      window.location.href = `${API_BASE}/api/auth/google/login`;
-    }}>
+    <Button
+      onClick={() => {
+        // Redirect to your FastAPI Google login endpoint:
+        window.location.href = `${API_BASE}/api/auth/google/login`;
+      }}
+      className="bg-green-600 hover:bg-green-700 text-white"
+    >
       Sign in with Google
-    </button>
+    </Button>
   );
 }

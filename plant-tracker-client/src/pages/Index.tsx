@@ -81,8 +81,17 @@ const Index = () => {
     }
     if (!user) {
       return (
-        <div className="flex items-center justify-center h-full">
-          <AuthButton />
+        <div className="flex flex-col items-center justify-center text-center space-y-6 py-16">
+          <div>
+            <Leaf className="h-10 w-10 text-green-600 mx-auto" />
+            <h1 className="text-5xl font-bold text-gray-800 mt-4">Plant Tracker</h1>
+          </div>
+          <p className="text-lg text-gray-600 max-w-xl">
+            Sign in with Google to identify plants from photos and keep a history of your discoveries.
+          </p>
+          <div>
+            <AuthButton />
+          </div>
         </div>
       );
     }
