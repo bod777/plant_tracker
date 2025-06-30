@@ -4,13 +4,13 @@ import { ArrowLeft, Calendar, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { PlantIdentification } from '@/pages/Index';
+import { IdentifiedPlant } from '@/api/models';
 import PlantCard from './PlantCard';
 
 interface HistorySectionProps {
-  history: PlantIdentification[];
+  history: IdentifiedPlant[];
   onBack: () => void;
-  onSelectResult: (result: PlantIdentification) => void;
+  onSelectResult: (result: IdentifiedPlant) => void;
 }
 
 const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSelectResult }) => {
@@ -28,7 +28,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
     }
     groups[date].push(item);
     return groups;
-  }, {} as Record<string, PlantIdentification[]>);
+  }, {} as Record<string, IdentifiedPlant[]>);
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
