@@ -9,3 +9,4 @@ authlib
 starlette
 PyJWT
 itsdangerous
+kindwise-api-client==0.6.0
