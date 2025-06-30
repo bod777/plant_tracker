@@ -49,7 +49,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
-        <h2 className="text-2xl font-bold text-gray-800">Plant Identified</h2>
+        {/* <h2 className="text-2xl font-bold text-gray-800">Plant Identified</h2> */}
         <Button onClick={onViewHistory} variant="outline" size="lg">
           <Eye className="mr-2 h-4 w-4" />
           History
