@@ -60,8 +60,9 @@ export async function identifyPlant(
     watering: topSuggestion.best_watering,
     soil_type: topSuggestion.best_soil_type,
     light_condition: topSuggestion.best_light_condition,
+    similar_images: topSuggestion.similar_images,
     timestamp: new Date(resp.datetime!)
-  };  
+  };
   return newIdentification;
 }
 
@@ -92,6 +93,7 @@ export async function fetchPlants(): Promise<IdentifiedPlant[]> {
       soil_type: topSuggestion.best_soil_type,
       light_condition: topSuggestion.best_light_condition,
       url: topSuggestion.url,
+      similar_images: topSuggestion.similar_images,
       timestamp: new Date(resp.datetime!)
     };
     return newIdentification;

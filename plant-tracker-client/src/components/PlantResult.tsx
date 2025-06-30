@@ -1,10 +1,17 @@
 
 import React from 'react';
-import { ArrowLeft, Clock, Eye, Bookmark } from 'lucide-react';
+import { ArrowLeft, Clock, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { IdentifiedPlant } from '../api/models';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from '@/components/ui/carousel';
 
 interface PlantResultProps {
   result: IdentifiedPlant | null;
@@ -50,13 +57,23 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Image */}
+        {/* Image Carousel */}
         <Card className="overflow-hidden">
-          <img
-            src={result.image}
-            alt="Identified plant"
-            className="w-full h-80 object-cover"
-          />
+          <Carousel className="w-full">
+            <CarouselContent>
+              {[result.image, ...(result.similar_images?.map(img => img.url) || [])].map((src, idx) => (
+                <CarouselItem key={idx} className="flex items-center justify-center">
+                  <img
+                    src={src}
+                    alt={`Plant image ${idx}`}
+                    className="w-full h-80 object-cover"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </Card>
 
         {/* Results */}
