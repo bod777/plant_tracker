@@ -7,7 +7,9 @@ import {
 
 // Base API URL used throughout the frontend when communicating with the backend
 // Falls back to localhost if the env variable is undefined
-export const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+export const API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  '//localhost:8000'; // protocol-relative fallback to avoid mixed content
 
 // Base API client
 const apiClient = axios.create({
