@@ -31,6 +31,7 @@ A full-stack plant tracker web application built with:
    cd flora-finder-webapp-main
    cp .env.sample .env
    # Set VITE_API_BASE to your backend URL (e.g. http://localhost:8000)
+   # Optionally set VITE_GOOGLE_SITE_VERIFICATION for Google search console
    npm install
    npm run dev
    ```
