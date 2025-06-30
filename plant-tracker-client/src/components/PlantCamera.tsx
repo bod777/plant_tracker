@@ -100,7 +100,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
       </div>
 
       <Card className="overflow-hidden">
-        <div className="relative aspect-[4/3] bg-gray-900">
+        <div className="relative aspect-[3/4] sm:aspect-[4/3] bg-gray-900">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
               <div className="text-white text-lg">Starting camera...</div>
