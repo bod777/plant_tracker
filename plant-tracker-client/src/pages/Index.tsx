@@ -123,9 +123,9 @@ const Index = () => {
         return (
           <>
             <div className="flex justify-between items-center mb-8">
-              <div>
-                <Leaf className="h-8 w-8 text-green-600" />
-                <h1 className="text-4xl font-bold text-gray-800 inline ml-2">Plant Tracker</h1>
+              <div className="flex items-center">
+                <Leaf className="h-8 w-8 text-green-600 mr-2" />
+                <h1 className="text-4xl font-bold text-gray-800">Plant Tracker</h1>
               </div>
               <AuthButton />
             </div>
