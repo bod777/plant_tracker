@@ -41,12 +41,15 @@ const Index = () => {
     })();
   }, []);
 
-  // After authentication, always land on the home route
+  // After authentication, replace the OAuth callback route with the home page
+  // in browser history. Only run once so normal navigation isn't affected.
+  const [didReplaceAuthRoute, setDidReplaceAuthRoute] = useState(false);
   useEffect(() => {
-    if (!authLoading && user) {
-      navigate('/');
+    if (!didReplaceAuthRoute && !authLoading && user) {
+      navigate('/', { replace: true });
+      setDidReplaceAuthRoute(true);
     }
-  }, [authLoading, user, navigate]);
+  }, [didReplaceAuthRoute, authLoading, user, navigate]);
 
   // Load history after auth
   useEffect(() => {
