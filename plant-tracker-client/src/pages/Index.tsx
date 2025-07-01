@@ -85,7 +85,7 @@ const Index = () => {
   if (authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-        <div className="container mx-auto px-4 py-8 text-center">
+        <div className="container mx-auto px-4 py-6 md:py-8 text-center">
           <Leaf className="h-8 w-8 text-green-600 animate-pulse mx-auto" />
           <p className="mt-4 text-gray-600">Checking authentication...</p>
         </div>
@@ -122,7 +122,7 @@ const Index = () => {
 
     return (
       <>
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-6 md:mb-8">
           <div className="flex items-center">
             <Leaf className="h-8 w-8 text-green-600 mr-2" />
             <h1 className="text-4xl font-bold text-gray-800">Plant Tracker</h1>
@@ -130,16 +130,16 @@ const Index = () => {
           <AuthButton />
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 md:space-y-8">
           <div className="text-center space-y-4">
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Identify plants instantly using your camera or by uploading photos. Discover the botanical world around you!
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto">
             <Card
-              className="p-8 hover:shadow-lg transition-shadow cursor-pointer group"
+              className="p-6 md:p-8 hover:shadow-lg transition-shadow cursor-pointer group"
               onClick={() => navigate('/camera')}
             >
               <div className="text-center space-y-4">
@@ -154,7 +154,7 @@ const Index = () => {
             </Card>
 
             <Card
-              className="p-8 hover:shadow-lg transition-shadow cursor-pointer group"
+              className="p-6 md:p-8 hover:shadow-lg transition-shadow cursor-pointer group"
               onClick={() => navigate('/upload')}
             >
               <div className="text-center space-y-4">
@@ -188,8 +188,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="container mx-auto px-4 py-6 md:py-8">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route
