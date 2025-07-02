@@ -24,12 +24,23 @@ interface PlantResultProps {
 const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory }) => {
   const [notes, setNotes] = React.useState(result?.notes || '');
   const [saving, setSaving] = React.useState(false);
+  const [editing, setEditing] = React.useState(!result?.notes);
+  const [showSaved, setShowSaved] = React.useState(false);
+
+  React.useEffect(() => {
+    setNotes(result?.notes || '');
+    setEditing(!result?.notes);
+  }, [result]);
 
   const handleSaveNotes = async () => {
     if (!result) return;
     setSaving(true);
     try {
       await updatePlantNotes({ id: result.id, notes });
+      result.notes = notes;
+      setEditing(false);
+      setShowSaved(true);
+      setTimeout(() => setShowSaved(false), 2000);
     } catch {
       alert('Failed to save notes');
     } finally {
@@ -141,6 +152,48 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
         </Card>
       </div>
 
+      {/* Notes */}
+      <Card className="p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <h4 className="text-xl font-semibold text-gray-800">Your Notes</h4>
+          {showSaved && (
+            <span className="text-sm text-green-600">Saved!</span>
+          )}
+        </div>
+        {editing ? (
+          <>
+            <Textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Add notes..."
+            />
+            <div className="flex space-x-2">
+              <Button onClick={handleSaveNotes} disabled={saving}>
+                {saving ? 'Saving...' : 'Save Notes'}
+              </Button>
+              {result.notes && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setNotes(result.notes || '');
+                    setEditing(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="space-y-2">
+            <p className="whitespace-pre-wrap text-gray-700">{notes}</p>
+            <Button variant="outline" onClick={() => setEditing(true)}>
+              Edit
+            </Button>
+          </div>
+        )}
+      </Card>
+
       {/* Additional Information */}
       <Card className="p-6">
         <h4 className="text-xl font-semibold text-gray-800 mb-4">
@@ -160,19 +213,6 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
             <p className="text-green-700">{result.soil_type}</p>
           </div>
         </div>
-      </Card>
-
-      {/* Notes */}
-      <Card className="p-6 space-y-4">
-        <h4 className="text-xl font-semibold text-gray-800">Your Notes</h4>
-        <Textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Add notes..."
-        />
-        <Button onClick={handleSaveNotes} disabled={saving}>
-          {saving ? 'Saving...' : 'Save Notes'}
-        </Button>
       </Card>
     </div>
   );
