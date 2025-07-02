@@ -30,14 +30,6 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       </Card>
     );
   }
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(result.url)
-      alert("Link copied to clipboard!")
-    } catch (err) {
-      console.error("Failed to copy!", err)
-    }
-  }
 
   const confidenceColor = result.confidence >= 90 ? 'bg-green-500' : 
                           result.confidence >= 70 ? 'bg-yellow-500' : 'bg-red-500';
@@ -118,13 +110,16 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
               </a>
             </Button>
 
-            {/* Share button: onClick copies plant.url */}
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={copyLink}
-            >
-              Share Result
+            {/* Button to Google search the plant name */}
+            <Button asChild variant="outline" className="flex-1">
+              <a
+                href={`https://www.google.com/search?q=${encodeURIComponent(result.plantName)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center py-2"
+              >
+                Search Google
+              </a>
             </Button>
           </div>
         </Card>
