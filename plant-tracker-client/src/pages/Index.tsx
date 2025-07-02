@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { identifyPlant, fetchPlants, API_BASE } from '../api/api';
 import { IdentifiedPlant } from '../api/models';
+import { useGeolocation } from '@/hooks/use-location';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 
 const Index = () => {
@@ -17,6 +18,7 @@ const Index = () => {
 
   const [currentResult, setCurrentResult] = useState<IdentifiedPlant | null>(null);
   const [identificationHistory, setIdentificationHistory] = useState<IdentifiedPlant[]>([]);
+  const { latitude, longitude } = useGeolocation();
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,7 +72,11 @@ const Index = () => {
 
   const handleImageCapture = async (imageData: string) => {
     try {
-      const resp: IdentifiedPlant = await identifyPlant(imageData, 53.282275, -6.116891);
+      const resp: IdentifiedPlant = await identifyPlant(
+        imageData,
+        latitude ?? undefined,
+        longitude ?? undefined
+      );
       setCurrentResult(resp);
       setIdentificationHistory(prev => [resp, ...prev]);
       navigate('/result');

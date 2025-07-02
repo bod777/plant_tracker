@@ -41,6 +41,7 @@ A full-stack plant tracker web application built with:
    - Backend runs at http://localhost:8000
    - Backend CORS allows requests from the origins defined in `ALLOWED_ORIGINS`
    - Upload plant images, identify, and save to MongoDB.
+   - Your browser will ask for location permission when identifying a plant so latitude and longitude can be stored with each entry.
 
 ## Deploying to Heroku
 
@@ -62,3 +63,11 @@ deploy them as a single Heroku app:
    ```bash
    web: uvicorn app.main:app --host=0.0.0.0 --port=$PORT --app-dir server
    ```
+
+## Running Tests
+
+Use pytest to run the backend test suite:
+```bash
+pytest
+```
+
