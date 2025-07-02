@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import os
 
 from .routes import router
@@ -49,4 +50,13 @@ frontend_dir = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../plant-tracker-client/dist")
 )
 if os.path.isdir(frontend_dir):
-    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+    class SPAStaticFiles(StaticFiles):
+        async def get_response(self, path, scope):
+            response = await super().get_response(path, scope)
+            if response.status_code == 404:
+                # Return index.html for any non-file path so that client-side
+                # routing works when the page is refreshed or directly visited.
+                return FileResponse(os.path.join(self.directory, "index.html"))
+            return response
+
+    app.mount("/", SPAStaticFiles(directory=frontend_dir, html=True), name="frontend")
