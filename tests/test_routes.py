@@ -61,7 +61,10 @@ def test_logout(client):
 def test_get_plants(client):
     resp = client.get("/api/my-plants")
     assert resp.status_code == 200
-    assert isinstance(resp.json(), list)
+    data = resp.json()
+    assert isinstance(data, list)
+    if data:
+        assert "id" in data[0]
 
 def test_update_notes_not_found(client, monkeypatch):
     # patch db to have no docs so update_one returns matched_count=0
