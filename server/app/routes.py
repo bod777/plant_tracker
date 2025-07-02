@@ -91,7 +91,8 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
 
     # Immediately save to MongoDB
     doc = jsonable_encoder(response)
-    await db.plants.insert_one(doc)
+    result = await db.plants.insert_one(doc)
+    response.id = str(result.inserted_id)
 
     return response
 
@@ -112,7 +113,11 @@ async def update_plant_notes(request: UpdateNotesRequest):
 async def get_plants(user=Depends(get_current_user)):
     # with the index in place this is now a quick lookup
     docs = await db.plants.find({"user_id": user["sub"]}).to_list(length=20)
-    return [PlantResponse(**doc) for doc in docs]
+    results = []
+    for doc in docs:
+        doc["id"] = str(doc.get("_id"))
+        results.append(PlantResponse(**doc))
+    return results
 
 @router.get("/auth/me")
 async def me(user=Depends(get_current_user)):

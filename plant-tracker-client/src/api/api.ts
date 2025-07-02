@@ -51,7 +51,7 @@ export async function identifyPlant(
   const topSuggestion = resp.suggestions[0];
 
   const newIdentification: IdentifiedPlant = {
-    id: topSuggestion.id || Date.now().toString(), // Use the ID from the suggestion if available
+    id: resp.id || topSuggestion.id || Date.now().toString(),
     image: resp.image_data!,
     plantName: topSuggestion.common_names?.[0] || topSuggestion.name, // Prefer common name, fallback to scientific
     scientificName: topSuggestion.name, // Always store the scientific name
@@ -61,7 +61,8 @@ export async function identifyPlant(
     soil_type: topSuggestion.best_soil_type,
     light_condition: topSuggestion.best_light_condition,
     similar_images: topSuggestion.similar_images,
-    timestamp: new Date(resp.datetime!)
+    timestamp: new Date(resp.datetime!),
+    notes: resp.notes
   };
   return newIdentification;
 }
@@ -83,7 +84,7 @@ export async function fetchPlants(): Promise<IdentifiedPlant[]> {
     const topSuggestion = resp.suggestions[0];
 
     const newIdentification: IdentifiedPlant = {
-      id: topSuggestion.id || resp.datetime || Date.now().toString(), // Use suggestion ID, fallback to datetime or now
+      id: resp.id || topSuggestion.id || resp.datetime || Date.now().toString(),
       image: resp.image_data!,
       plantName: topSuggestion.common_names?.[0] || topSuggestion.name,
       scientificName: topSuggestion.name,
@@ -94,7 +95,8 @@ export async function fetchPlants(): Promise<IdentifiedPlant[]> {
       light_condition: topSuggestion.best_light_condition,
       url: topSuggestion.url,
       similar_images: topSuggestion.similar_images,
-      timestamp: new Date(resp.datetime!)
+      timestamp: new Date(resp.datetime!),
+      notes: resp.notes
     };
     return newIdentification;
   }).filter((plant): plant is IdentifiedPlant => plant !== null); // Filter out any nulls

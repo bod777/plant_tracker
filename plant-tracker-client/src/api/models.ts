@@ -30,6 +30,7 @@ export interface Suggestion {
  * Represents the raw response from the `identifyPlant` API endpoint.
  */
 export interface ApiPlantResponse {
+  id?: string;
   user_id?: string;
   access_token?: string;
   is_plant_boolean: boolean;
@@ -59,6 +60,7 @@ export interface IdentifiedPlant {
   url?: string;
   similar_images?: SimilarImage[];
   timestamp: Date;
+  notes?: string;
 }
 
 /**

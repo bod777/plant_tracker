@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { IdentifiedPlant } from '../api/models';
+import { updatePlantNotes } from '@/api/api';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Carousel,
   CarouselContent,
@@ -20,6 +22,20 @@ interface PlantResultProps {
 }
 
 const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory }) => {
+  const [notes, setNotes] = React.useState(result?.notes || '');
+  const [saving, setSaving] = React.useState(false);
+
+  const handleSaveNotes = async () => {
+    if (!result) return;
+    setSaving(true);
+    try {
+      await updatePlantNotes({ id: result.id, notes });
+    } catch {
+      alert('Failed to save notes');
+    } finally {
+      setSaving(false);
+    }
+  };
   if (!result) {
     return (
       <Card className="max-w-2xl mx-auto p-8 text-center">
@@ -144,6 +160,19 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
             <p className="text-green-700">{result.soil_type}</p>
           </div>
         </div>
+      </Card>
+
+      {/* Notes */}
+      <Card className="p-6 space-y-4">
+        <h4 className="text-xl font-semibold text-gray-800">Your Notes</h4>
+        <Textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Add notes..."
+        />
+        <Button onClick={handleSaveNotes} disabled={saving}>
+          {saving ? 'Saving...' : 'Save Notes'}
+        </Button>
       </Card>
     </div>
   );

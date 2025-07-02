@@ -31,6 +31,7 @@ class Suggestion(BaseModel):
     similar_images: Optional[List[SimilarImage]] = []
 
 class PlantResponse(BaseModel):
+    id: Optional[str] = None
     user_id: Optional[str] = None
     access_token: Optional[str] = None
     is_plant_boolean: bool
