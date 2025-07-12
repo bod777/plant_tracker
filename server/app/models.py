@@ -34,15 +34,16 @@ class PlantResponse(BaseModel):
     id: Optional[str] = None
     user_id: Optional[str] = None
     access_token: Optional[str] = None
-    is_plant_boolean: bool
-    is_plant_probability: float
-    suggestions: List[Suggestion]
+    is_plant_boolean: Optional[bool] = None
+    is_plant_probability: Optional[float] = None
+    suggestions: Optional[List[Suggestion]] = []
     notes: Optional[str] = None
     datetime: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
     image_data: Optional[str] = None
     images: Optional[List[str]] = None
+    _ts: Optional[int] = None
 
 class UpdateNotesRequest(BaseModel):
     id: str
