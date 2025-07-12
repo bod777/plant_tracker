@@ -43,7 +43,7 @@ export async function identifyPlant(
   if (threshold) {
     payload.threshold = threshold;
   } else {
-    payload.threshold = 0.1;
+    payload.threshold = 0.01;
   }
   const response = await apiClient.post<ApiPlantResponse>('/identify-plant', payload);
   const resp = response.data
