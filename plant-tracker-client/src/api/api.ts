@@ -31,7 +31,8 @@ export async function identifyPlant(
   images: string[],
   latitude?: number,
   longitude?: number,
-  userId?: string
+  userId?: string,
+  threshold?: number,
 ): Promise<IdentifiedPlant> {
   const payload: Partial<ApiPlantResponse> = {
     images,
@@ -39,7 +40,11 @@ export async function identifyPlant(
     longitude
   };
   if (userId) payload.user_id = userId;
-
+  if (threshold) {
+    payload.threshold = threshold;
+  } else {
+    payload.threshold = 0.1;
+  }
   const response = await apiClient.post<ApiPlantResponse>('/identify-plant', payload);
   const resp = response.data
   // It's good practice to check if suggestions exist

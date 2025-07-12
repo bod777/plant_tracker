@@ -52,7 +52,7 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
 
     suggestions: List[Suggestion] = []
     for s in identification.result.classification.suggestions or []:
-        if s.probability < 0.5:
+        if s.probability < request.threshold:
             continue
         details = s.details
         desc = None

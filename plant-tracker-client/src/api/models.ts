@@ -42,6 +42,7 @@ export interface ApiPlantResponse {
   longitude?: number;
   images?: string[]; // used when sending a request
   image_data?: string;
+  threshold?: number;
 }
 
 /**
