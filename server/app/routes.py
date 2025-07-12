@@ -1,5 +1,6 @@
 import os
 import base64
+import time
 from fastapi import Depends, APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -89,7 +90,8 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
         latitude=identification.input.latitude,
         longitude=identification.input.longitude,
         image_data=request.images[0] if request.images else None,
-        images=request.images
+        images=request.images,
+        _ts=int(time.time())
     )
 
     # Immediately save to MongoDB
@@ -105,7 +107,7 @@ async def update_plant_notes(request: UpdateNotesRequest):
         raise HTTPException(status_code=400, detail="Invalid plant ID")
     result = await db.plants.update_one(
         {"_id": ObjectId(request.id)},
-        {"$set": {"notes": request.notes}}
+        {"$set": {"notes": request.notes, "_ts": int(time.time())}}
     )
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Plant not found")
