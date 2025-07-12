@@ -21,20 +21,20 @@ const apiClient = axios.create({
 });
 
 /**
- * Send base64 image data to identify endpoint and save immediately.
- * @param imageData Base64-encoded image string
+ * Send one or more base64 images to the identify endpoint and save immediately.
+ * @param images Array of base64-encoded image strings
  * @param notes Optional user notes
  * @param userId Optional user identifier
  * @returns PlantResponse from server
  */
 export async function identifyPlant(
-  imageData: string,
+  images: string[],
   latitude?: number,
   longitude?: number,
   userId?: string
 ): Promise<IdentifiedPlant> {
   const payload: Partial<ApiPlantResponse> = {
-    image_data: imageData,
+    images,
     latitude,
     longitude
   };
@@ -53,6 +53,7 @@ export async function identifyPlant(
   const newIdentification: IdentifiedPlant = {
     id: resp.id || topSuggestion.id || Date.now().toString(),
     image: resp.image_data!,
+    images: resp.images ?? (resp.image_data ? [resp.image_data] : []),
     plantName: topSuggestion.common_names?.[0] || topSuggestion.name, // Prefer common name, fallback to scientific
     scientificName: topSuggestion.name, // Always store the scientific name
     confidence: Math.round(topSuggestion.probability * 100),
@@ -86,6 +87,7 @@ export async function fetchPlants(): Promise<IdentifiedPlant[]> {
     const newIdentification: IdentifiedPlant = {
       id: resp.id || topSuggestion.id || resp.datetime || Date.now().toString(),
       image: resp.image_data!,
+      images: resp.images ?? (resp.image_data ? [resp.image_data] : []),
       plantName: topSuggestion.common_names?.[0] || topSuggestion.name,
       scientificName: topSuggestion.name,
       confidence: Math.round(topSuggestion.probability * 100),
