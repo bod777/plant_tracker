@@ -21,20 +21,20 @@ const apiClient = axios.create({
 });
 
 /**
- * Send base64 image data to identify endpoint and save immediately.
- * @param imageData Base64-encoded image string
+ * Send one or more base64 images to the identify endpoint and save immediately.
+ * @param images Array of base64-encoded image strings
  * @param notes Optional user notes
  * @param userId Optional user identifier
  * @returns PlantResponse from server
  */
 export async function identifyPlant(
-  imageData: string,
+  images: string[],
   latitude?: number,
   longitude?: number,
   userId?: string
 ): Promise<IdentifiedPlant> {
   const payload: Partial<ApiPlantResponse> = {
-    image_data: imageData,
+    images,
     latitude,
     longitude
   };

@@ -5,16 +5,20 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 interface ImageUploadProps {
-  onUpload: (imageData: string) => void;
+  onUpload: (images: string[]) => void;
   onBack: () => void;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [previews, setPreviews] = useState<string[]>([]);
 
   const handleFile = (file: File) => {
+    if (previews.length >= 5) {
+      alert('You can upload up to 5 images.');
+      return;
+    }
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file');
       return;
@@ -23,7 +27,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const imageData = e.target?.result as string;
-      setPreview(imageData);
+      setPreviews(prev => [...prev, imageData]);
     };
     reader.readAsDataURL(file);
   };
@@ -43,25 +47,29 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
     e.stopPropagation();
     setDragActive(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files) {
+      Array.from(e.dataTransfer.files).forEach(handleFile);
     }
   };
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      handleFile(e.target.files[0]);
+    if (e.target.files) {
+      Array.from(e.target.files).forEach(handleFile);
     }
   };
 
   const handleUpload = () => {
-    if (preview) {
-      onUpload(preview);
+    if (previews.length) {
+      onUpload(previews);
     }
   };
 
-  const clearPreview = () => {
-    setPreview(null);
+  const clearPreview = (idx?: number) => {
+    if (idx === undefined) {
+      setPreviews([]);
+    } else {
+      setPreviews(prev => prev.filter((_, i) => i !== idx));
+    }
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -79,7 +87,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
       </div>
 
       <Card className="p-8">
-        {!preview ? (
+        {previews.length === 0 ? (
           <div
             className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-colors ${
               dragActive
@@ -127,25 +135,41 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="relative">
-              <img
-                src={preview}
-                alt="Plant preview"
-                className="w-full max-h-96 object-contain rounded-lg"
-              />
-              <Button
-                onClick={clearPreview}
-                variant="outline"
-                size="sm"
-                className="absolute top-4 right-4 bg-white"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {previews.map((p, idx) => (
+                <div key={idx} className="relative">
+                  <img
+                    src={p}
+                    alt={`preview-${idx}`}
+                    className="w-full h-40 object-cover rounded-lg"
+                  />
+                  <Button
+                    onClick={() => clearPreview(idx)}
+                    variant="outline"
+                    size="sm"
+                    className="absolute top-1 right-1 bg-white"
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))
+              {previews.length < 5 && (
+                <div className="flex items-center justify-center border-2 border-dashed rounded-lg cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileInput}
+                    className="hidden"
+                  />
+                  <Upload className="h-8 w-8 text-gray-400" />
+                </div>
+              )}
             </div>
-            
+
             <div className="flex justify-center space-x-4">
-              <Button onClick={clearPreview} variant="outline">
-                Choose Different Image
+              <Button onClick={() => clearPreview()} variant="outline">
+                Clear All
               </Button>
               <Button onClick={handleUpload} className="bg-green-600 hover:bg-green-700">
                 Identify Plant

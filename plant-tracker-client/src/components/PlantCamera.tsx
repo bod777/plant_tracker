@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 interface PlantCameraProps {
-  onCapture: (imageData: string) => void;
+  onCapture: (images: string[]) => void;
   onBack: () => void;
 }
 
@@ -16,6 +16,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment');
+  const [captures, setCaptures] = useState<string[]>([]);
 
   useEffect(() => {
     startCamera();
@@ -53,6 +54,10 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
 
   const capturePhoto = () => {
     if (!videoRef.current || !canvasRef.current) return;
+    if (captures.length >= 5) {
+      alert('You can capture up to 5 photos.');
+      return;
+    }
 
     const canvas = canvasRef.current;
     const video = videoRef.current;
@@ -65,7 +70,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
     context.drawImage(video, 0, 0);
 
     const imageData = canvas.toDataURL('image/jpeg', 0.8);
-    onCapture(imageData);
+    setCaptures(prev => [...prev, imageData]);
   };
 
   const switchCamera = () => {
@@ -131,6 +136,35 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
           )}
         </div>
       </Card>
+
+      {captures.length > 0 && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {captures.map((img, idx) => (
+              <div key={idx} className="relative">
+                <img src={img} alt={`capture-${idx}`} className="w-full h-32 object-cover rounded-lg" />
+                <Button
+                  onClick={() => setCaptures(c => c.filter((_, i) => i !== idx))}
+                  variant="outline"
+                  size="sm"
+                  className="absolute top-1 right-1 bg-white"
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+            ))
+          </div>
+
+          <div className="flex justify-center space-x-4">
+            <Button onClick={() => setCaptures([])} variant="outline">
+              Clear All
+            </Button>
+            <Button onClick={() => onCapture(captures)} disabled={captures.length === 0} className="bg-green-600 hover:bg-green-700">
+              Identify Plant
+            </Button>
+          </div>
+        </div>
+      )}
 
       <div className="text-center text-gray-600">
         <p>Position the plant in the center of the frame and tap the camera button to capture</p>

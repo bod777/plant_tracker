@@ -40,6 +40,7 @@ export interface ApiPlantResponse {
   datetime?: string;
   latitude?: number;
   longitude?: number;
+  images?: string[]; // used when sending a request
   image_data?: string;
 }
 
