@@ -53,6 +53,7 @@ export async function identifyPlant(
   const newIdentification: IdentifiedPlant = {
     id: resp.id || topSuggestion.id || Date.now().toString(),
     image: resp.image_data!,
+    images: resp.images ?? (resp.image_data ? [resp.image_data] : []),
     plantName: topSuggestion.common_names?.[0] || topSuggestion.name, // Prefer common name, fallback to scientific
     scientificName: topSuggestion.name, // Always store the scientific name
     confidence: Math.round(topSuggestion.probability * 100),
@@ -86,6 +87,7 @@ export async function fetchPlants(): Promise<IdentifiedPlant[]> {
     const newIdentification: IdentifiedPlant = {
       id: resp.id || topSuggestion.id || resp.datetime || Date.now().toString(),
       image: resp.image_data!,
+      images: resp.images ?? (resp.image_data ? [resp.image_data] : []),
       plantName: topSuggestion.common_names?.[0] || topSuggestion.name,
       scientificName: topSuggestion.name,
       confidence: Math.round(topSuggestion.probability * 100),
