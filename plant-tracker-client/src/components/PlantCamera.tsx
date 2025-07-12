@@ -154,7 +154,6 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
                 </div>
               ))}
             </div>
-
           <div className="flex justify-center space-x-4">
             <Button onClick={() => setCaptures([])} variant="outline">
               Clear All
