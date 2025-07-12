@@ -152,7 +152,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
                     <X className="h-3 w-3" />
                   </Button>
                 </div>
-              ))
+              ))}
               {previews.length < 5 && (
                 <div className="flex items-center justify-center border-2 border-dashed rounded-lg cursor-pointer" onClick={() => fileInputRef.current?.click()}>
                   <input

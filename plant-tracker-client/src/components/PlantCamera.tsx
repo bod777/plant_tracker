@@ -140,8 +140,8 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
       {captures.length > 0 && (
         <div className="space-y-4">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {captures.map((img, idx) => (
-              <div key={idx} className="relative">
+              {captures.map((img, idx) => (
+                <div key={idx} className="relative">
                 <img src={img} alt={`capture-${idx}`} className="w-full h-32 object-cover rounded-lg" />
                 <Button
                   onClick={() => setCaptures(c => c.filter((_, i) => i !== idx))}
@@ -151,10 +151,9 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
                 >
                   <X className="h-3 w-3" />
                 </Button>
-              </div>
-            ))
-          </div>
-
+                </div>
+              ))}
+            </div>
           <div className="flex justify-center space-x-4">
             <Button onClick={() => setCaptures([])} variant="outline">
               Clear All
