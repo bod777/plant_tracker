@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi import Request, HTTPException
 import os
 
 from .routes import router
@@ -60,3 +61,10 @@ if os.path.isdir(frontend_dir):
             return response
 
     app.mount("/", SPAStaticFiles(directory=frontend_dir, html=True), name="frontend")
+
+    @app.exception_handler(404)
+    async def spa_fallback(request: Request, exc: HTTPException):
+        """Serve index.html for unknown non-API routes."""
+        if not request.url.path.startswith("/api"):
+            return FileResponse(os.path.join(frontend_dir, "index.html"))
+        return JSONResponse({"detail": "Not Found"}, status_code=404)
