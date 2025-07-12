@@ -6,7 +6,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from typing import List
 from bson import ObjectId
-from kindwise import PlantApi, PlantIdentification
+from kindwise import PlantApi, PlantIdentification, ClassificationLevel
 
 from .mongodb_server import db
 from .models import PlantResponse, IdentifyRequest, Suggestion, SimilarImage, UpdateNotesRequest
@@ -39,6 +39,7 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
             details=details_to_return,
             latitude_longitude=(request.latitude, request.longitude),
             language=['en'],
+            classification_level=ClassificationLevel.ALL
         )
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Identification failed: {e}")
