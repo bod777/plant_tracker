@@ -70,10 +70,10 @@ const Index = () => {
     })();
   }, [user]);
 
-  const handleImageCapture = async (imageData: string) => {
+  const handleImageCapture = async (images: string[]) => {
     try {
       const resp: IdentifiedPlant = await identifyPlant(
-        imageData,
+        images,
         latitude ?? undefined,
         longitude ?? undefined
       );

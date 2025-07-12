@@ -21,18 +21,20 @@ plant_client = PlantApi(api_key=api_key)
 
 @router.post("/identify-plant")
 async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user)):
-    """
-    Identify a plant from a base64-encoded image string.
-    """
+    """Identify a plant from one or more base64-encoded image strings."""
     try:
-        # Decode base64 string to bytes
-        b64_str = request.image_data.split(",", 1)[1]
-        details_to_return = ['common_names', 'url', 'description', 'synonyms', 'edible_parts', 'propagation_methods', 'watering', 'best_watering',  'taxonomy', 'best_light_condition', 'best_soil_type', 'cultural_significance', 'image']
+        # Decode each base64 string to raw bytes
+        b64_images = [img.split(",", 1)[1] if "," in img else img for img in request.images]
+        img_bytes_list = [base64.b64decode(b64) for b64 in b64_images]
+        details_to_return = [
+            'common_names', 'url', 'description', 'synonyms', 'edible_parts',
+            'propagation_methods', 'watering', 'best_watering', 'taxonomy',
+            'best_light_condition', 'best_soil_type', 'cultural_significance', 'image'
+        ]
 
-        # 2a) if you want to pass raw bytes:
-        img_bytes = base64.b64decode(b64_str)
+        # Pass the raw bytes list to the client
         identification: PlantIdentification = plant_client.identify(
-            img_bytes,
+            img_bytes_list,
             details=details_to_return,
             latitude_longitude=(request.latitude, request.longitude),
             language=['en'],
@@ -86,7 +88,8 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
         datetime=str(identification.input.datetime),
         latitude=identification.input.latitude,
         longitude=identification.input.longitude,
-        image_data=request.image_data
+        image_data=request.images[0] if request.images else None,
+        images=request.images
     )
 
     # Immediately save to MongoDB

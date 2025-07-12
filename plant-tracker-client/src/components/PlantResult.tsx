@@ -80,7 +80,10 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
         <Card className="overflow-hidden">
           <Carousel className="w-full">
             <CarouselContent>
-              {[result.image, ...(result.similar_images?.map(img => img.url) || [])].map((src, idx) => (
+              {[
+                ...(result.images ?? [result.image]),
+                ...(result.similar_images?.map(img => img.url) || [])
+              ].map((src, idx) => (
                 <CarouselItem key={idx} className="flex items-center justify-center">
                   <img
                     src={src}

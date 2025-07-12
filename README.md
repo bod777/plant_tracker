@@ -38,6 +38,8 @@ A full-stack plant tracker web application built with:
 
 4. **Use the App**
    - Frontend runs at http://localhost:8080 (or the URL specified in `FRONTEND_URL`)
+   - You can capture or upload up to **five** photos for a single identification request.
+   - All submitted photos are stored with the plant and shown alongside similar images.
    - Backend runs at http://localhost:8000
    - Backend CORS allows requests from the origins defined in `ALLOWED_ORIGINS`
    - Upload plant images, identify, and save to MongoDB.
