@@ -4,7 +4,7 @@ from typing import List, Optional, Dict, Any
 # --- Pydantic Models ---
 class IdentifyRequest(BaseModel):
     user_id: Optional[str] = None
-    images: List[str]  # up to 5 base64-encoded images
+    image_data: List[str]  # up to 5 base64-encoded images
     latitude: float
     longitude: float
 
@@ -41,8 +41,7 @@ class PlantResponse(BaseModel):
     datetime: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
-    image_data: Optional[str] = None
-    images: Optional[List[str]] = None
+    image_data: Optional[List[str]] = None
     _ts: Optional[int] = None
 
 class UpdateNotesRequest(BaseModel):

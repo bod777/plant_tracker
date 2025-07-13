@@ -21,7 +21,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick }) => {
     >
       <div className="relative">
         <img
-          src={plant.image}
+          src={plant.image_data[0]}
           alt={plant.plantName}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
         />

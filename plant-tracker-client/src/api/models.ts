@@ -40,8 +40,7 @@ export interface ApiPlantResponse {
   datetime?: string;
   latitude?: number;
   longitude?: number;
-  images?: string[]; // used when sending a request
-  image_data?: string;
+  image_data?: string[]; 
   threshold?: number;
 }
 
@@ -51,8 +50,7 @@ export interface ApiPlantResponse {
  */
 export interface IdentifiedPlant {
   id: string; // Unique ID for the result in the history list
-  image: string; // The base64 image data of the identified plant
-  images?: string[]; // All uploaded images
+  image_data: string[]; // All uploaded images
   plantName: string; // The primary name from the top suggestion
   scientificName?: string; // A common name, if available
   confidence: number; // Probability percentage

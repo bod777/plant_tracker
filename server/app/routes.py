@@ -25,14 +25,13 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
     """Identify a plant from one or more base64-encoded image strings."""
     try:
         # Decode each base64 string to raw bytes
-        b64_images = [img.split(",", 1)[1] if "," in img else img for img in request.images]
+        b64_images = [img.split(",", 1)[1] if "," in img else img for img in request.image_data]
         img_bytes_list = [base64.b64decode(b64) for b64 in b64_images]
         details_to_return = [
             'common_names', 'url', 'description', 'synonyms', 'edible_parts',
             'propagation_methods', 'watering', 'best_watering', 'taxonomy',
             'best_light_condition', 'best_soil_type', 'cultural_significance', 'image'
         ]
-
         # Pass the raw bytes list to the client
         identification: PlantIdentification = plant_client.identify(
             img_bytes_list,
@@ -54,8 +53,8 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
 
     suggestions: List[Suggestion] = []
     for s in identification.result.classification.suggestions or []:
-        if s.probability < request.threshold:
-            continue
+        # if s.probability < request.threshold:
+        #     continue
         details = s.details
         desc = None
         if details.get('description'):
@@ -90,8 +89,7 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
         datetime=str(identification.input.datetime),
         latitude=identification.input.latitude,
         longitude=identification.input.longitude,
-        image_data=request.images[0] if request.images else None,
-        images=request.images,
+        image_data=request.image_data,
         _ts=int(time.time())
     )
 
