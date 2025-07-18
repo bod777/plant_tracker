@@ -90,13 +90,14 @@ const Index = () => {
 
       setCurrentResult(resp);
       setIdentificationHistory(prev => [resp, ...prev]);
-      setIdentifying(false);
       navigate('/result');
-      } catch (e) {
-        console.error(e);
-        toast({ description: 'Failed to identify plant.' });
-      }
-    };
+    } catch (e) {
+      console.error(e);
+      toast({ description: 'Failed to identify plant.' });
+    } finally {
+      setIdentifying(false);
+    }
+  };
 
   const handleImageUpload = handleImageCapture;
 
