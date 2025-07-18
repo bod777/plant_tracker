@@ -22,7 +22,7 @@ interface HistorySectionProps {
 
 const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSelectResult }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [sortOption, setSortOption] = React.useState<'time' | 'name'>('time');
+  const [sortOption, setSortOption] = React.useState<'newest' | 'oldest' | 'nameAsc' | 'nameDesc'>('newest');
 
   const filteredHistory = history.filter(item =>
     item.plantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -30,13 +30,20 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
   );
 
   const sortedHistory = [...filteredHistory].sort((a, b) => {
-    if (sortOption === 'name') {
-      return a.plantName.localeCompare(b.plantName);
+    switch (sortOption) {
+      case 'nameAsc':
+        return a.plantName.localeCompare(b.plantName);
+      case 'nameDesc':
+        return b.plantName.localeCompare(a.plantName);
+      case 'oldest':
+        return a.timestamp.getTime() - b.timestamp.getTime();
+      case 'newest':
+      default:
+        return b.timestamp.getTime() - a.timestamp.getTime();
     }
-    return b.timestamp.getTime() - a.timestamp.getTime();
   });
 
-  const groupedHistory = sortOption === 'time'
+  const groupedHistory = (sortOption === 'newest' || sortOption === 'oldest')
     ? sortedHistory.reduce((groups, item) => {
         const date = item.timestamp.toDateString();
         if (!groups[date]) {
@@ -70,13 +77,15 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
           />
         </div>
         <div className="max-w-xs">
-          <Select value={sortOption} onValueChange={value => setSortOption(value as 'time' | 'name')}>
+          <Select value={sortOption} onValueChange={value => setSortOption(value as 'newest' | 'oldest' | 'nameAsc' | 'nameDesc')}>
             <SelectTrigger>
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="time">Time (Newest)</SelectItem>
-              <SelectItem value="name">Name (A-Z)</SelectItem>
+              <SelectItem value="newest">Newest</SelectItem>
+              <SelectItem value="oldest">Oldest</SelectItem>
+              <SelectItem value="nameAsc">Name (A-Z)</SelectItem>
+              <SelectItem value="nameDesc">Name (Z-A)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -94,10 +103,14 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
             </p>
           </div>
         </Card>
-      ) : sortOption === 'time' ? (
+      ) : (sortOption === 'newest' || sortOption === 'oldest') ? (
         <div className="space-y-8">
           {Object.entries(groupedHistory)
-            .sort(([a], [b]) => new Date(b).getTime() - new Date(a).getTime())
+            .sort(([a], [b]) =>
+              sortOption === 'oldest'
+                ? new Date(a).getTime() - new Date(b).getTime()
+                : new Date(b).getTime() - new Date(a).getTime()
+            )
             .map(([date, items]) => (
               <div key={date} className="space-y-4">
                 <div className="flex items-center space-x-2 text-gray-600">
