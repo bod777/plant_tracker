@@ -4,6 +4,17 @@ import { Clock, Award, Trash } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { IdentifiedPlant } from '@/api/models';
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@/components/ui/alert-dialog';
 
 interface PlantCardProps {
   plant: IdentifiedPlant;
@@ -27,15 +38,30 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick, onDelete }) => {
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
         />
         {onDelete && (
-          <button
-            className="absolute top-2 left-2 bg-red-600 bg-opacity-75 text-white rounded-full p-1 hover:bg-opacity-100"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(plant.id);
-            }}
-          >
-            <Trash className="h-3 w-3" />
-          </button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button
+                className="absolute top-2 left-2 bg-red-600 bg-opacity-75 text-white rounded-full p-1 hover:bg-opacity-100"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Trash className="h-3 w-3" />
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete record?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={() => onDelete(plant.id)}>
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         )}
         <Badge
           variant="outline"
