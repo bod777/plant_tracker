@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { IdentifiedPlant } from '../api/models';
 import { updatePlantNotes } from '@/api/api';
 import { Textarea } from '@/components/ui/textarea';
+import TaxonomyChart from './TaxonomyChart';
 import {
   Carousel,
   CarouselContent,
@@ -154,6 +155,14 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           </div>
         </Card>
       </div>
+
+      {/* Taxonomy */}
+      {result.taxonomy && (
+        <Card className="p-6 space-y-4">
+          <h4 className="text-xl font-semibold text-gray-800">Taxonomy</h4>
+          <TaxonomyChart taxonomy={result.taxonomy} />
+        </Card>
+      )}
 
       {/* Notes */}
       <Card className="p-6 space-y-4">
