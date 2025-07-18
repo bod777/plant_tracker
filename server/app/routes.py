@@ -112,6 +112,16 @@ async def update_plant_notes(request: UpdateNotesRequest):
         raise HTTPException(status_code=404, detail="Plant not found")
     return {"id": request.id, "notes": request.notes}
 
+@router.delete("/delete-plant/{plant_id}")
+async def delete_plant(plant_id: str, user=Depends(get_current_user)):
+    """Delete a plant record by id for the current user."""
+    if not ObjectId.is_valid(plant_id):
+        raise HTTPException(status_code=400, detail="Invalid plant ID")
+    result = await db.plants.delete_one({"_id": ObjectId(plant_id), "user_id": user["sub"]})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Plant not found")
+    return {"id": plant_id}
+
 # --- Fetch Plants ---
 @router.get("/my-plants", response_model=List[PlantResponse])
 async def get_plants(user=Depends(get_current_user)):

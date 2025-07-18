@@ -7,10 +7,11 @@ import HistorySection from '@/components/HistorySection';
 import AuthButton from '@/components/AuthButton';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { identifyPlant, fetchPlants, API_BASE } from '../api/api';
+import { identifyPlant, fetchPlants, deletePlant, API_BASE } from '../api/api';
 import { IdentifiedPlant } from '../api/models';
 import { useGeolocation } from '@/hooks/use-location';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [user, setUser] = useState<{ email: string } | null>(null);
@@ -64,7 +65,7 @@ const Index = () => {
         setIdentificationHistory(historyData);
       } catch (error) {
         console.error('Failed to fetch identification history:', error);
-        alert('Could not load previous identifications.');
+        toast({ description: 'Could not load previous identifications.' });
       } finally {
         setIsLoading(false);
       }
@@ -83,14 +84,24 @@ const Index = () => {
       setIdentificationHistory(prev => [resp, ...prev]);
       setIdentifying(false);
       navigate('/result');
+      } catch (e) {
+        console.error(e);
+        toast({ description: 'Failed to identify plant.' });
+      }
+    };
+
+  const handleImageUpload = handleImageCapture;
+
+  const handleDeletePlant = async (id: string) => {
+    try {
+      await deletePlant(id);
+      setIdentificationHistory(prev => prev.filter(p => p.id !== id));
     } catch (e) {
       console.error(e);
       alert('Failed to identify plant. Please try again.');
       setIdentifying(false);
     }
   };
-
-  const handleImageUpload = handleImageCapture;
 
   if (authLoading) {
     return (
@@ -231,6 +242,7 @@ const Index = () => {
                   setCurrentResult(result);
                   navigate('/result');
                 }}
+                onDelete={handleDeletePlant}
               />
             }
           />
