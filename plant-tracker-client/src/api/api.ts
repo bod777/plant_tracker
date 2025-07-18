@@ -120,3 +120,11 @@ export async function updatePlantNotes(
   const response = await apiClient.put<UpdateNotesRequest>('/update-plant-notes', params);
   return response.data;
 }
+
+/**
+ * Delete a plant record by id.
+ * @param id Document id to delete
+ */
+export async function deletePlant(id: string): Promise<void> {
+  await apiClient.delete(`/delete-plant/${id}`);
+}

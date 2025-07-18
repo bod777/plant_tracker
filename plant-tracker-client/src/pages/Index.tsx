@@ -7,7 +7,7 @@ import HistorySection from '@/components/HistorySection';
 import AuthButton from '@/components/AuthButton';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { identifyPlant, fetchPlants, API_BASE } from '../api/api';
+import { identifyPlant, fetchPlants, deletePlant, API_BASE } from '../api/api';
 import { IdentifiedPlant } from '../api/models';
 import { useGeolocation } from '@/hooks/use-location';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
@@ -87,6 +87,16 @@ const Index = () => {
   };
 
   const handleImageUpload = handleImageCapture;
+
+  const handleDeletePlant = async (id: string) => {
+    try {
+      await deletePlant(id);
+      setIdentificationHistory(prev => prev.filter(p => p.id !== id));
+    } catch (e) {
+      console.error(e);
+      alert('Failed to delete plant');
+    }
+  };
 
   if (authLoading) {
     return (
@@ -226,6 +236,7 @@ const Index = () => {
                   setCurrentResult(result);
                   navigate('/result');
                 }}
+                onDelete={handleDeletePlant}
               />
             }
           />
