@@ -75,11 +75,19 @@ const Index = () => {
   const handleImageCapture = async (images: string[]) => {
     setIdentifying(true);
     try {
-      const resp: IdentifiedPlant = await identifyPlant(
+      const resp = await identifyPlant(
         images,
         latitude ?? undefined,
         longitude ?? undefined
       );
+
+      if (!resp) {
+        alert(
+          'Failed to identify plant. Try taking more photos. Tips: https://plant.id/collection/xQQUmUFTkdZp1iI'
+        );
+        return;
+      }
+
       setCurrentResult(resp);
       setIdentificationHistory(prev => [resp, ...prev]);
       setIdentifying(false);
@@ -98,7 +106,10 @@ const Index = () => {
       setIdentificationHistory(prev => prev.filter(p => p.id !== id));
     } catch (e) {
       console.error(e);
-      alert('Failed to identify plant. Please try again.');
+      alert(
+        'Failed to identify plant. Try taking more photos. Tips: https://plant.id/collection/xQQUmUFTkdZp1iI'
+      );
+    } finally {
       setIdentifying(false);
     }
   };
