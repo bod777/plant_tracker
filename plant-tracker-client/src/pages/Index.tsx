@@ -5,6 +5,7 @@ import ImageUpload from '@/components/ImageUpload';
 import PlantResult from '@/components/PlantResult';
 import HistorySection from '@/components/HistorySection';
 import AuthButton from '@/components/AuthButton';
+import ThemeToggle from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { identifyPlant, fetchPlants, deletePlant, API_BASE } from '../api/api';
@@ -122,7 +123,8 @@ const Index = () => {
         <p className="text-lg text-gray-600 max-w-xl">
           Sign in with Google to identify plants from photos and keep a history of your discoveries.
         </p>
-        <div>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
           <AuthButton />
         </div>
       </div>
@@ -146,7 +148,10 @@ const Index = () => {
             <Leaf className="h-8 w-8 text-green-600 mr-2" />
             <h1 className="text-4xl font-bold text-gray-800">Plant Tracker</h1>
           </div>
-          <AuthButton />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <AuthButton />
+          </div>
         </div>
 
         <div className="space-y-6 md:space-y-8">
