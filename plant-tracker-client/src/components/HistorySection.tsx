@@ -4,6 +4,13 @@ import { ArrowLeft, Calendar, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '@/components/ui/select';
 import { IdentifiedPlant } from '@/api/models';
 import PlantCard from './PlantCard';
 
@@ -11,24 +18,42 @@ interface HistorySectionProps {
   history: IdentifiedPlant[];
   onBack: () => void;
   onSelectResult: (result: IdentifiedPlant) => void;
+  onDelete?: (id: string) => void;
 }
 
-const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSelectResult }) => {
+const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSelectResult, onDelete }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [sortOption, setSortOption] = React.useState<'newest' | 'oldest' | 'nameAsc' | 'nameDesc'>('newest');
 
-  const filteredHistory = history.filter(item => 
+  const filteredHistory = history.filter(item =>
     item.plantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.scientificName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const groupedHistory = filteredHistory.reduce((groups, item) => {
-    const date = item.timestamp.toDateString();
-    if (!groups[date]) {
-      groups[date] = [];
+  const sortedHistory = [...filteredHistory].sort((a, b) => {
+    switch (sortOption) {
+      case 'nameAsc':
+        return a.plantName.localeCompare(b.plantName);
+      case 'nameDesc':
+        return b.plantName.localeCompare(a.plantName);
+      case 'oldest':
+        return a.timestamp.getTime() - b.timestamp.getTime();
+      case 'newest':
+      default:
+        return b.timestamp.getTime() - a.timestamp.getTime();
     }
-    groups[date].push(item);
-    return groups;
-  }, {} as Record<string, IdentifiedPlant[]>);
+  });
+
+  const groupedHistory = (sortOption === 'newest' || sortOption === 'oldest')
+    ? sortedHistory.reduce((groups, item) => {
+        const date = item.timestamp.toDateString();
+        if (!groups[date]) {
+          groups[date] = [];
+        }
+        groups[date].push(item);
+        return groups;
+      }, {} as Record<string, IdentifiedPlant[]>)
+    : { all: sortedHistory } as Record<string, IdentifiedPlant[]>;
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -42,7 +67,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
       </div>
 
       {/* Search */}
-      <Card className="p-4">
+      <Card className="p-4 space-y-4">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
@@ -51,6 +76,19 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
           />
+        </div>
+        <div className="max-w-xs">
+          <Select value={sortOption} onValueChange={value => setSortOption(value as 'newest' | 'oldest' | 'nameAsc' | 'nameDesc')}>
+            <SelectTrigger>
+              <SelectValue placeholder="Sort" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="newest">Newest</SelectItem>
+              <SelectItem value="oldest">Oldest</SelectItem>
+              <SelectItem value="nameAsc">Name (A-Z)</SelectItem>
+              <SelectItem value="nameDesc">Name (Z-A)</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </Card>
 
@@ -66,10 +104,14 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
             </p>
           </div>
         </Card>
-      ) : (
+      ) : (sortOption === 'newest' || sortOption === 'oldest') ? (
         <div className="space-y-8">
           {Object.entries(groupedHistory)
-            .sort(([a], [b]) => new Date(b).getTime() - new Date(a).getTime())
+            .sort(([a], [b]) =>
+              sortOption === 'oldest'
+                ? new Date(a).getTime() - new Date(b).getTime()
+                : new Date(b).getTime() - new Date(a).getTime()
+            )
             .map(([date, items]) => (
               <div key={date} className="space-y-4">
                 <div className="flex items-center space-x-2 text-gray-600">
@@ -77,18 +119,30 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
                   <h3 className="font-semibold">{date}</h3>
                   <span className="text-sm">({items.length} identification{items.length !== 1 ? 's' : ''})</span>
                 </div>
-                
+
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {items.map((item) => (
                     <PlantCard
                       key={item.id}
                       plant={item}
                       onClick={() => onSelectResult(item)}
+                      onDelete={onDelete}
                     />
                   ))}
                 </div>
               </div>
             ))}
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {groupedHistory.all.map((item) => (
+            <PlantCard
+              key={item.id}
+              plant={item}
+              onClick={() => onSelectResult(item)}
+              onDelete={onDelete}
+            />
+          ))}
         </div>
       )}
 

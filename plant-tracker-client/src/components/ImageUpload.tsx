@@ -3,24 +3,26 @@ import React, { useRef, useState } from 'react';
 import { Upload, X, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { toast } from '@/hooks/use-toast';
 
 interface ImageUploadProps {
   onUpload: (images: string[]) => void;
   onBack: () => void;
+  identifying?: boolean;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
   const [previews, setPreviews] = useState<string[]>([]);
 
   const handleFile = (file: File) => {
     if (previews.length >= 5) {
-      alert('You can upload up to 5 images.');
+      toast({ description: 'You can upload up to 5 images.' });
       return;
     }
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
+      toast({ description: 'Please select an image file' });
       return;
     }
 
@@ -76,7 +78,15 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="relative max-w-4xl mx-auto space-y-6">
+      {identifying && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="flex items-center space-x-2 text-white">
+            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <span>Identifying...</span>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <Button onClick={onBack} variant="outline" size="lg">
           <X className="mr-2 h-4 w-4" />
