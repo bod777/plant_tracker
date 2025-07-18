@@ -82,6 +82,7 @@ const Index = () => {
       );
       setCurrentResult(resp);
       setIdentificationHistory(prev => [resp, ...prev]);
+      setIdentifying(false);
       navigate('/result');
       } catch (e) {
         console.error(e);
@@ -97,7 +98,8 @@ const Index = () => {
       setIdentificationHistory(prev => prev.filter(p => p.id !== id));
     } catch (e) {
       console.error(e);
-      alert('Failed to delete plant');
+      alert('Failed to identify plant. Please try again.');
+      setIdentifying(false);
     }
   };
 
