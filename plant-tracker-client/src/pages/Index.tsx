@@ -11,6 +11,7 @@ import { identifyPlant, fetchPlants, deletePlant, API_BASE } from '../api/api';
 import { IdentifiedPlant } from '../api/models';
 import { useGeolocation } from '@/hooks/use-location';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [user, setUser] = useState<{ email: string } | null>(null);
@@ -20,6 +21,7 @@ const Index = () => {
   const [identificationHistory, setIdentificationHistory] = useState<IdentifiedPlant[]>([]);
   const { latitude, longitude } = useGeolocation();
   const [isLoading, setIsLoading] = useState(true);
+  const [identifying, setIdentifying] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -63,7 +65,7 @@ const Index = () => {
         setIdentificationHistory(historyData);
       } catch (error) {
         console.error('Failed to fetch identification history:', error);
-        alert('Could not load previous identifications.');
+        toast({ description: 'Could not load previous identifications.' });
       } finally {
         setIsLoading(false);
       }
@@ -71,6 +73,7 @@ const Index = () => {
   }, [user]);
 
   const handleImageCapture = async (images: string[]) => {
+    setIdentifying(true);
     try {
       const resp: IdentifiedPlant = await identifyPlant(
         images,
@@ -80,11 +83,11 @@ const Index = () => {
       setCurrentResult(resp);
       setIdentificationHistory(prev => [resp, ...prev]);
       navigate('/result');
-    } catch (e) {
-      console.error(e);
-      alert('Failed to identify plant. Please try again.');
-    }
-  };
+      } catch (e) {
+        console.error(e);
+        toast({ description: 'Failed to identify plant.' });
+      }
+    };
 
   const handleImageUpload = handleImageCapture;
 
@@ -210,17 +213,18 @@ const Index = () => {
           <Route path="/" element={<Home />} />
           <Route
             path="/camera"
-            element={<PlantCamera onCapture={handleImageCapture} onBack={() => navigate('/')} />}
+            element={<PlantCamera identifying={identifying} onCapture={handleImageCapture} onBack={() => navigate('/')} />}
           />
           <Route
             path="/upload"
-            element={<ImageUpload onUpload={handleImageUpload} onBack={() => navigate('/')} />}
+            element={<ImageUpload identifying={identifying} onUpload={handleImageUpload} onBack={() => navigate('/')} />}
           />
           <Route
             path="/result"
             element={
               <PlantResult
                 result={currentResult}
+                identifying={identifying}
                 onBack={() => navigate('/')}
                 onViewHistory={() => navigate('/history')}
               />

@@ -6,7 +6,9 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { IdentifiedPlant } from '../api/models';
 import { updatePlantNotes } from '@/api/api';
+import { toast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
+import TaxonomyChart from './TaxonomyChart';
 import {
   Carousel,
   CarouselContent,
@@ -19,9 +21,10 @@ interface PlantResultProps {
   result: IdentifiedPlant | null;
   onBack: () => void;
   onViewHistory: () => void;
+  identifying?: boolean;
 }
 
-const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory }) => {
+const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory, identifying }) => {
   const [notes, setNotes] = React.useState(result?.notes || '');
   const [saving, setSaving] = React.useState(false);
   const [editing, setEditing] = React.useState(!result?.notes);
@@ -42,7 +45,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       setShowSaved(true);
       setTimeout(() => setShowSaved(false), 2000);
     } catch {
-      alert('Failed to save notes');
+      toast({ description: 'Failed to save notes' });
     } finally {
       setSaving(false);
     }
@@ -62,7 +65,15 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
                           result.confidence >= 70 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="relative max-w-4xl mx-auto space-y-6">
+      {identifying && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="flex items-center space-x-2 text-white">
+            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <span>Identifying...</span>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <Button onClick={onBack} variant="outline" size="lg">
           <ArrowLeft className="mr-2 h-4 w-4" />
@@ -154,6 +165,14 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           </div>
         </Card>
       </div>
+
+      {/* Taxonomy */}
+      {result.taxonomy && (
+        <Card className="p-6 space-y-4">
+          <h4 className="text-xl font-semibold text-gray-800">Taxonomy</h4>
+          <TaxonomyChart taxonomy={result.taxonomy} />
+        </Card>
+      )}
 
       {/* Notes */}
       <Card className="p-6 space-y-4">

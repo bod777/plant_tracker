@@ -3,13 +3,15 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Camera, X, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { toast } from '@/hooks/use-toast';
 
 interface PlantCameraProps {
   onCapture: (images: string[]) => void;
   onBack: () => void;
+  identifying?: boolean;
 }
 
-const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
+const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifying }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
@@ -55,7 +57,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
   const capturePhoto = () => {
     if (!videoRef.current || !canvasRef.current) return;
     if (captures.length >= 5) {
-      alert('You can capture up to 5 photos.');
+      toast({ description: 'You can capture up to 5 photos.' });
       return;
     }
 
@@ -91,7 +93,15 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="relative max-w-4xl mx-auto space-y-6">
+      {identifying && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="flex items-center space-x-2 text-white">
+            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <span>Identifying...</span>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <Button onClick={onBack} variant="outline" size="lg">
           <X className="mr-2 h-4 w-4" />
