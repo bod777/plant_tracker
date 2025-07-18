@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Clock, Award } from 'lucide-react';
+import { Clock, Award, Trash } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { IdentifiedPlant } from '@/api/models';
@@ -8,9 +8,10 @@ import { IdentifiedPlant } from '@/api/models';
 interface PlantCardProps {
   plant: IdentifiedPlant;
   onClick: () => void;
+  onDelete?: (id: string) => void;
 }
 
-const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick }) => {
+const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick, onDelete }) => {
   const confidenceColor = plant.confidence >= 90 ? 'bg-green-500' : 
                           plant.confidence >= 70 ? 'bg-yellow-500' : 'bg-red-500';
 
@@ -25,8 +26,19 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick }) => {
           alt={plant.plantName}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
         />
-        <Badge 
-          variant="outline" 
+        {onDelete && (
+          <button
+            className="absolute top-2 left-2 bg-red-600 bg-opacity-75 text-white rounded-full p-1 hover:bg-opacity-100"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(plant.id);
+            }}
+          >
+            <Trash className="h-3 w-3" />
+          </button>
+        )}
+        <Badge
+          variant="outline"
           className={`absolute top-2 right-2 ${confidenceColor} text-white border-none`}
         >
           <Award className="mr-1 h-3 w-3" />
