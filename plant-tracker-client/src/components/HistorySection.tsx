@@ -18,9 +18,10 @@ interface HistorySectionProps {
   history: IdentifiedPlant[];
   onBack: () => void;
   onSelectResult: (result: IdentifiedPlant) => void;
+  onDelete?: (id: string) => void;
 }
 
-const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSelectResult }) => {
+const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSelectResult, onDelete }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [sortOption, setSortOption] = React.useState<'newest' | 'oldest' | 'nameAsc' | 'nameDesc'>('newest');
 
@@ -125,6 +126,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
                       key={item.id}
                       plant={item}
                       onClick={() => onSelectResult(item)}
+                      onDelete={onDelete}
                     />
                   ))}
                 </div>
@@ -138,6 +140,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
               key={item.id}
               plant={item}
               onClick={() => onSelectResult(item)}
+              onDelete={onDelete}
             />
           ))}
         </div>
