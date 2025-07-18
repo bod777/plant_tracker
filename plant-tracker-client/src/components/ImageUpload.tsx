@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Upload, X, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { toast } from '@/hooks/use-toast';
 
 interface ImageUploadProps {
   onUpload: (images: string[]) => void;
@@ -16,11 +17,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack }) => {
 
   const handleFile = (file: File) => {
     if (previews.length >= 5) {
-      alert('You can upload up to 5 images.');
+      toast({ description: 'You can upload up to 5 images.' });
       return;
     }
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
+      toast({ description: 'Please select an image file' });
       return;
     }
 

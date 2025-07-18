@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { IdentifiedPlant } from '../api/models';
 import { updatePlantNotes } from '@/api/api';
+import { toast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
 import {
   Carousel,
@@ -42,7 +43,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       setShowSaved(true);
       setTimeout(() => setShowSaved(false), 2000);
     } catch {
-      alert('Failed to save notes');
+      toast({ description: 'Failed to save notes' });
     } finally {
       setSaving(false);
     }

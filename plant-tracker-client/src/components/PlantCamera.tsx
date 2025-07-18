@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Camera, X, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { toast } from '@/hooks/use-toast';
 
 interface PlantCameraProps {
   onCapture: (images: string[]) => void;
@@ -55,7 +56,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack }) => {
   const capturePhoto = () => {
     if (!videoRef.current || !canvasRef.current) return;
     if (captures.length >= 5) {
-      alert('You can capture up to 5 photos.');
+      toast({ description: 'You can capture up to 5 photos.' });
       return;
     }
 
