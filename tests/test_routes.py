@@ -1,6 +1,9 @@
 import types
+import os
 import pytest
 from fastapi.testclient import TestClient
+
+os.environ.setdefault("PLANT_ID_API_KEY", "test")
 
 from server.app import routes, main, deps
 
@@ -21,6 +24,11 @@ class DummyPlants:
     async def update_one(self, filter_, update):
         matched = 1 if self.docs else 0
         return types.SimpleNamespace(matched_count=matched)
+    async def delete_one(self, filter_):
+        before = len(self.docs)
+        self.docs = [d for d in self.docs if str(d.get("_id")) != str(filter_.get("_id"))]
+        deleted = before - len(self.docs)
+        return types.SimpleNamespace(deleted_count=deleted)
     async def create_index(self, *args, **kwargs):
         pass
 
@@ -39,7 +47,7 @@ class DummyDB:
 
 @pytest.fixture
 def client(monkeypatch):
-    fake_db = DummyDB([{"_id": "abc", "user_id": "user1"}])
+    fake_db = DummyDB([{"_id": "507f1f77bcf86cd799439011", "user_id": "user1"}])
     monkeypatch.setattr(routes, "db", fake_db)
     monkeypatch.setattr(main, "db", fake_db)
     main.app.dependency_overrides[deps.get_current_user] = lambda: {"sub": "user1", "email": "test@example.com"}
@@ -74,6 +82,21 @@ def test_update_notes_not_found(client, monkeypatch):
     with TestClient(main.app) as c:
         main.app.dependency_overrides[deps.get_current_user] = lambda: {"sub": "user1", "email": "test@example.com"}
         resp = c.put("/api/update-plant-notes", json={"id": "507f1f77bcf86cd799439011", "notes": "hi"})
+    main.app.dependency_overrides.clear()
+    assert resp.status_code == 404
+
+def test_delete_plant(client):
+    resp = client.delete("/api/delete-plant/507f1f77bcf86cd799439011")
+    assert resp.status_code == 200
+    assert resp.json()["id"] == "507f1f77bcf86cd799439011"
+
+def test_delete_plant_not_found(client, monkeypatch):
+    empty_db = DummyDB([])
+    monkeypatch.setattr(routes, "db", empty_db)
+    monkeypatch.setattr(main, "db", empty_db)
+    with TestClient(main.app) as c:
+        main.app.dependency_overrides[deps.get_current_user] = lambda: {"sub": "user1", "email": "test@example.com"}
+        resp = c.delete("/api/delete-plant/507f1f77bcf86cd799439011")
     main.app.dependency_overrides.clear()
     assert resp.status_code == 404
 

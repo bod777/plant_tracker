@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from '@/hooks/use-toast';
 import {
   ApiPlantResponse,
   UpdateNotesRequest,
@@ -49,7 +50,7 @@ export async function identifyPlant(
   const resp = response.data
   // It's good practice to check if suggestions exist
   if (!resp.suggestions || resp.suggestions.length === 0) {
-    alert('Could not identify the plant from the image.');
+    toast({ description: 'Could not identify the plant from the image.' });
     return;
   }
 
@@ -65,6 +66,7 @@ export async function identifyPlant(
     watering: topSuggestion.best_watering,
     soil_type: topSuggestion.best_soil_type,
     light_condition: topSuggestion.best_light_condition,
+    taxonomy: topSuggestion.taxonomy as Record<string, string> | undefined,
     similar_images: topSuggestion.similar_images,
     timestamp: new Date(resp.datetime!),
     notes: resp.notes
@@ -96,13 +98,14 @@ export async function fetchPlants(): Promise<IdentifiedPlant[]> {
       confidence: Math.round(topSuggestion.probability * 100),
       description: topSuggestion.description,
       watering: topSuggestion.best_watering,
-      soil_type: topSuggestion.best_soil_type,
-      light_condition: topSuggestion.best_light_condition,
-      url: topSuggestion.url,
-      similar_images: topSuggestion.similar_images,
-      timestamp: new Date(resp.datetime!),
-      notes: resp.notes
-    };
+    soil_type: topSuggestion.best_soil_type,
+    light_condition: topSuggestion.best_light_condition,
+    taxonomy: topSuggestion.taxonomy as Record<string, string> | undefined,
+    url: topSuggestion.url,
+    similar_images: topSuggestion.similar_images,
+    timestamp: new Date(resp.datetime!),
+    notes: resp.notes
+  };
     return newIdentification;
   }).filter((plant): plant is IdentifiedPlant => plant !== null); // Filter out any nulls
 
@@ -119,4 +122,12 @@ export async function updatePlantNotes(
 ): Promise<UpdateNotesRequest> {
   const response = await apiClient.put<UpdateNotesRequest>('/update-plant-notes', params);
   return response.data;
+}
+
+/**
+ * Delete a plant record by id.
+ * @param id Document id to delete
+ */
+export async function deletePlant(id: string): Promise<void> {
+  await apiClient.delete(`/delete-plant/${id}`);
 }

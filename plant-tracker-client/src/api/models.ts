@@ -59,6 +59,7 @@ export interface IdentifiedPlant {
   soil_type?: string;
   light_condition?: string;
   url?: string;
+  taxonomy?: Record<string, string>;
   similar_images?: SimilarImage[];
   timestamp: Date;
   notes?: string;
