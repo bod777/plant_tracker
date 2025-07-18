@@ -21,6 +21,7 @@ const Index = () => {
   const [identificationHistory, setIdentificationHistory] = useState<IdentifiedPlant[]>([]);
   const { latitude, longitude } = useGeolocation();
   const [isLoading, setIsLoading] = useState(true);
+  const [identifying, setIdentifying] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -72,6 +73,7 @@ const Index = () => {
   }, [user]);
 
   const handleImageCapture = async (images: string[]) => {
+    setIdentifying(true);
     try {
       const resp: IdentifiedPlant = await identifyPlant(
         images,
@@ -211,17 +213,18 @@ const Index = () => {
           <Route path="/" element={<Home />} />
           <Route
             path="/camera"
-            element={<PlantCamera onCapture={handleImageCapture} onBack={() => navigate('/')} />}
+            element={<PlantCamera identifying={identifying} onCapture={handleImageCapture} onBack={() => navigate('/')} />}
           />
           <Route
             path="/upload"
-            element={<ImageUpload onUpload={handleImageUpload} onBack={() => navigate('/')} />}
+            element={<ImageUpload identifying={identifying} onUpload={handleImageUpload} onBack={() => navigate('/')} />}
           />
           <Route
             path="/result"
             element={
               <PlantResult
                 result={currentResult}
+                identifying={identifying}
                 onBack={() => navigate('/')}
                 onViewHistory={() => navigate('/history')}
               />

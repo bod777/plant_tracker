@@ -21,9 +21,10 @@ interface PlantResultProps {
   result: IdentifiedPlant | null;
   onBack: () => void;
   onViewHistory: () => void;
+  identifying?: boolean;
 }
 
-const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory }) => {
+const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory, identifying }) => {
   const [notes, setNotes] = React.useState(result?.notes || '');
   const [saving, setSaving] = React.useState(false);
   const [editing, setEditing] = React.useState(!result?.notes);
@@ -64,7 +65,15 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
                           result.confidence >= 70 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="relative max-w-4xl mx-auto space-y-6">
+      {identifying && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="flex items-center space-x-2 text-white">
+            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <span>Identifying...</span>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <Button onClick={onBack} variant="outline" size="lg">
           <ArrowLeft className="mr-2 h-4 w-4" />
