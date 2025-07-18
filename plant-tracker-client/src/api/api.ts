@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from '@/hooks/use-toast';
 import {
   ApiPlantResponse,
   UpdateNotesRequest,
@@ -49,7 +50,7 @@ export async function identifyPlant(
   const resp = response.data
   // It's good practice to check if suggestions exist
   if (!resp.suggestions || resp.suggestions.length === 0) {
-    alert('Could not identify the plant from the image.');
+    toast({ description: 'Could not identify the plant from the image.' });
     return;
   }
 
