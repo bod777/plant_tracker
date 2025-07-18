@@ -20,6 +20,7 @@ const Index = () => {
   const [identificationHistory, setIdentificationHistory] = useState<IdentifiedPlant[]>([]);
   const { latitude, longitude } = useGeolocation();
   const [isLoading, setIsLoading] = useState(true);
+  const [identifying, setIdentifying] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -71,18 +72,32 @@ const Index = () => {
   }, [user]);
 
   const handleImageCapture = async (images: string[]) => {
+    setIdentifying(true);
     try {
-      const resp: IdentifiedPlant = await identifyPlant(
+      const resp = await identifyPlant(
         images,
         latitude ?? undefined,
         longitude ?? undefined
       );
+
+      if (!resp) {
+        alert(
+          'Failed to identify plant. Try taking more photos. Tips: https://plant.id/collection/xQQUmUFTkdZp1iI'
+        );
+        return;
+      }
+
       setCurrentResult(resp);
       setIdentificationHistory(prev => [resp, ...prev]);
+      setIdentifying(false);
       navigate('/result');
     } catch (e) {
       console.error(e);
-      alert('Failed to identify plant. Please try again.');
+      alert(
+        'Failed to identify plant. Try taking more photos. Tips: https://plant.id/collection/xQQUmUFTkdZp1iI'
+      );
+    } finally {
+      setIdentifying(false);
     }
   };
 
@@ -200,17 +215,18 @@ const Index = () => {
           <Route path="/" element={<Home />} />
           <Route
             path="/camera"
-            element={<PlantCamera onCapture={handleImageCapture} onBack={() => navigate('/')} />}
+            element={<PlantCamera identifying={identifying} onCapture={handleImageCapture} onBack={() => navigate('/')} />}
           />
           <Route
             path="/upload"
-            element={<ImageUpload onUpload={handleImageUpload} onBack={() => navigate('/')} />}
+            element={<ImageUpload identifying={identifying} onUpload={handleImageUpload} onBack={() => navigate('/')} />}
           />
           <Route
             path="/result"
             element={
               <PlantResult
                 result={currentResult}
+                identifying={identifying}
                 onBack={() => navigate('/')}
                 onViewHistory={() => navigate('/history')}
               />
