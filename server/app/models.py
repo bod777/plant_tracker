@@ -1,16 +1,20 @@
 from pydantic import BaseModel, HttpUrl
 from typing import List, Optional, Dict, Any
 
+
 # --- Pydantic Models ---
 class IdentifyRequest(BaseModel):
     user_id: Optional[str] = None
     image_data: List[str]  # up to 5 base64-encoded images
     latitude: float
     longitude: float
+    organs: Optional[List[str]] = None
+
 
 class SimilarImage(BaseModel):
     url: HttpUrl
     similarity: float
+
 
 class Suggestion(BaseModel):
     id: str
@@ -30,6 +34,7 @@ class Suggestion(BaseModel):
     best_watering: Optional[str] = None
     similar_images: Optional[List[SimilarImage]] = []
 
+
 class PlantResponse(BaseModel):
     id: Optional[str] = None
     user_id: Optional[str] = None
@@ -42,7 +47,9 @@ class PlantResponse(BaseModel):
     latitude: Optional[float] = None
     longitude: Optional[float] = None
     image_data: Optional[List[str]] = None
+    organs: Optional[List[str]] = None
     _ts: Optional[int] = None
+
 
 class UpdateNotesRequest(BaseModel):
     id: str
