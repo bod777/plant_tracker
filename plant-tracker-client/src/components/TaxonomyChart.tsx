@@ -1,4 +1,6 @@
 import React from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 
 interface TaxonomyChartProps {
   taxonomy: Record<string, string>;
@@ -14,26 +16,43 @@ const LEVEL_ORDER = [
   'species',
 ];
 
-const NODE_RADIUS = 18;
-const H_SPACING = 110;
-const V_MARGIN = 20;
+const DEFAULT_NODE_RADIUS = 18;
+const DEFAULT_SPACING = 110;
+const DEFAULT_MARGIN = 20;
 const TEXT_OFFSET = 12;
 
+const MOBILE_NODE_RADIUS = 14;
+const MOBILE_SPACING = 80;
+const MOBILE_MARGIN = 10;
+
 const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
+  const isMobile = useIsMobile();
+
+  const NODE_RADIUS = isMobile ? MOBILE_NODE_RADIUS : DEFAULT_NODE_RADIUS;
+  const SPACING = isMobile ? MOBILE_SPACING : DEFAULT_SPACING;
+  const MARGIN = isMobile ? MOBILE_MARGIN : DEFAULT_MARGIN;
+
+  const BASE_HEIGHT = 100;
+
   const entries = LEVEL_ORDER
     .filter((level) => taxonomy[level])
     .map((level) => ({ level, value: taxonomy[level] }));
 
   if (entries.length === 0) return null;
 
-  const width = H_SPACING * (entries.length - 1) + NODE_RADIUS * 2;
-  const height = 100 + V_MARGIN * 2;
+  const width = isMobile
+    ? NODE_RADIUS * 2 + MARGIN * 2
+    : SPACING * (entries.length - 1) + NODE_RADIUS * 2;
+  const height = isMobile
+    ? SPACING * (entries.length - 1) + NODE_RADIUS * 2 + MARGIN * 2
+    : BASE_HEIGHT + MARGIN * 2;
 
   return (
-    <div className="overflow-x-auto">
+    <div className={cn(isMobile ? 'overflow-y-auto' : 'overflow-x-auto')}>
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        className="w-full h-32"
+        className={cn('w-full', isMobile ? '' : 'h-32')}
+        style={isMobile ? { height } : undefined}
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -50,9 +69,14 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
           </marker>
         </defs>
         {entries.map(({ level, value }, idx) => {
-          const x = NODE_RADIUS + idx * H_SPACING;
-          const y = NODE_RADIUS + V_MARGIN + TEXT_OFFSET;
-          const nextX = NODE_RADIUS + (idx + 1) * H_SPACING;
+          const x = isMobile
+            ? NODE_RADIUS + MARGIN
+            : NODE_RADIUS + idx * SPACING;
+          const y = isMobile
+            ? NODE_RADIUS + MARGIN + TEXT_OFFSET + idx * SPACING
+            : NODE_RADIUS + MARGIN + TEXT_OFFSET;
+          const nextX = isMobile ? x : NODE_RADIUS + (idx + 1) * SPACING;
+          const nextY = NODE_RADIUS + MARGIN + TEXT_OFFSET + (idx + 1) * SPACING;
 
           return (
             <g key={level}>
@@ -60,8 +84,8 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
                 <line
                   x1={x}
                   y1={y}
-                  x2={nextX}
-                  y2={y}
+                  x2={isMobile ? x : nextX}
+                  y2={isMobile ? nextY : y}
                   stroke="#22c55e"
                   strokeWidth={2}
                   markerEnd="url(#arrow)"
@@ -71,7 +95,7 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
                 x={x}
                 y={y - NODE_RADIUS - TEXT_OFFSET / 2}
                 textAnchor="middle"
-                className="text-xs capitalize text-gray-700"
+                className={cn('capitalize text-gray-700', isMobile ? 'text-[10px]' : 'text-xs')}
               >
                 {level}
               </text>
@@ -81,7 +105,7 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
                 y={y}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                className="fill-white text-xs"
+                className={cn('fill-white', isMobile ? 'text-[10px]' : 'text-xs')}
               >
                 {level[0].toUpperCase()}
               </text>
@@ -89,7 +113,7 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
                 x={x}
                 y={y + NODE_RADIUS + TEXT_OFFSET}
                 textAnchor="middle"
-                className="text-xs"
+                className={cn(isMobile ? 'text-[10px]' : 'text-xs')}
               >
                 {value}
               </text>
