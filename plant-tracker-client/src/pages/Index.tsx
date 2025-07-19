@@ -72,15 +72,13 @@ const Index = () => {
     })();
   }, [user]);
 
-  const handleImageCapture = async (images: { image: string; organ: string }[]) => {
+  const handleImageCapture = async (images: { file: File; organ: string }[]) => {
     setIdentifying(true);
     try {
       const resp = await identifyPlant(
-        images.map(i => i.image),
+        images.map(i => i.file),
         latitude ?? undefined,
         longitude ?? undefined,
-        undefined,
-        undefined,
         images.map(i => i.organ)
       );
 

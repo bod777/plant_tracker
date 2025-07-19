@@ -13,7 +13,7 @@ import {
 import { toast } from '@/hooks/use-toast';
 
 interface ImageUploadProps {
-  onUpload: (images: { image: string; organ: string }[]) => void;
+  onUpload: (images: { file: File; organ: string }[]) => void;
   onBack: () => void;
   identifying?: boolean;
 }
@@ -21,7 +21,7 @@ interface ImageUploadProps {
 const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
-  const [previews, setPreviews] = useState<{ image: string; organ: string }[]>([]);
+  const [previews, setPreviews] = useState<{ file: File; preview: string; organ: string }[]>([]);
 
   const handleFile = (file: File) => {
     if (previews.length >= 5) {
@@ -36,7 +36,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
     const reader = new FileReader();
     reader.onload = (e) => {
       const imageData = e.target?.result as string;
-      setPreviews(prev => [...prev, { image: imageData, organ: 'auto' }]);
+      setPreviews(prev => [...prev, { file, preview: imageData, organ: 'auto' }]);
     };
     reader.readAsDataURL(file);
   };
@@ -69,7 +69,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
 
   const handleUpload = () => {
     if (previews.length) {
-      onUpload(previews);
+      onUpload(previews.map(p => ({ file: p.file, organ: p.organ })));
     }
   };
 
@@ -156,7 +156,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
               {previews.map((p, idx) => (
                 <div key={idx} className="relative space-y-2">
                   <img
-                    src={p.image}
+                    src={p.preview}
                     alt={`preview-${idx}`}
                     className="w-full h-40 object-cover rounded-lg"
                   />

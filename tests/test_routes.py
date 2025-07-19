@@ -166,12 +166,8 @@ def test_identify_plant_passes_organs(client, monkeypatch):
 
     resp = client.post(
         "/api/identify-plant",
-        json={
-            "image_data": ["data:image/jpeg;base64,aGVsbG8="],
-            "latitude": 0.0,
-            "longitude": 0.0,
-            "organs": ["leaf"],
-        },
+        files=[("files", ("img.jpg", b"hello", "image/jpeg"))],
+        data={"latitude": "0.0", "longitude": "0.0", "organs": "leaf"},
     )
 
     assert resp.status_code == 200
