@@ -22,25 +22,35 @@ const apiClient = axios.create({
 });
 
 /**
- * Send one or more image files to the identify endpoint and save immediately.
- * @param files Array of image File objects
+ * Send one or more base64 images to the identify endpoint and save immediately.
+ * @param images Array of base64-encoded image strings
+ * @param notes Optional user notes
+ * @param userId Optional user identifier
  * @returns PlantResponse from server
  */
 export async function identifyPlant(
-  files: File[],
+  image_data: string[],
   latitude?: number,
   longitude?: number,
+  userId?: string,
+  threshold?: number,
   organs?: string[],
 ): Promise<IdentifiedPlant> {
-  const formData = new FormData();
-  files.forEach(f => formData.append('files', f));
-  if (latitude !== undefined) formData.append('latitude', latitude.toString());
-  if (longitude !== undefined) formData.append('longitude', longitude.toString());
-  if (organs) organs.forEach(o => formData.append('organs', o));
-
-  const response = await apiClient.post<ApiPlantResponse>('/identify-plant', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
+  const payload: Partial<ApiPlantResponse> = {
+    image_data,
+    latitude,
+    longitude,
+  };
+  if (userId) payload.user_id = userId;
+  if (threshold) {
+    payload.threshold = threshold;
+  } else {
+    payload.threshold = 0.01;
+  }
+  if (organs) {
+    payload.organs = organs;
+  }
+  const response = await apiClient.post<ApiPlantResponse>('/identify-plant', payload);
   const resp = response.data
   // It's good practice to check if suggestions exist
   if (!resp.suggestions || resp.suggestions.length === 0) {

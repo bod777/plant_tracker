@@ -1,16 +1,17 @@
 import os
 import base64
 import time
-from fastapi import Depends, APIRouter, HTTPException, UploadFile, File, Form
+from fastapi import Depends, APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from typing import List, Optional
+from typing import List
 from bson import ObjectId
 from kindwise import PlantApi, PlantIdentification, ClassificationLevel
 
 from .mongodb_server import db
 from .models import (
     PlantResponse,
+    IdentifyRequest,
     Suggestion,
     SimilarImage,
     UpdateNotesRequest,
@@ -27,17 +28,14 @@ plant_client = PlantApi(api_key=api_key)
 
 
 @router.post("/identify-plant")
-async def identify_plant(
-    files: List[UploadFile] = File(..., description="up to 5 images"),
-    latitude: float = Form(...),
-    longitude: float = Form(...),
-    organs: Optional[List[str]] = Form(None),
-    user=Depends(get_current_user),
-):
-    """Identify a plant from uploaded image files."""
+async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user)):
+    """Identify a plant from one or more base64-encoded image strings."""
     try:
-        img_bytes_list = [await f.read() for f in files]
-        encoded_images = [base64.b64encode(b).decode() for b in img_bytes_list]
+        # Decode each base64 string to raw bytes
+        b64_images = [
+            img.split(",", 1)[1] if "," in img else img for img in request.image_data
+        ]
+        img_bytes_list = [base64.b64decode(b64) for b64 in b64_images]
         details_to_return = [
             "common_names",
             "url",
@@ -57,8 +55,8 @@ async def identify_plant(
         identification: PlantIdentification = plant_client.identify(
             img_bytes_list,
             details=details_to_return,
-            organs=organs,
-            latitude_longitude=(latitude, longitude),
+            organs=request.organs,
+            latitude_longitude=(request.latitude, request.longitude),
             language=["en"],
             classification_level=ClassificationLevel.ALL,
         )
@@ -77,7 +75,8 @@ async def identify_plant(
 
     suggestions: List[Suggestion] = []
     for s in identification.result.classification.suggestions or []:
-        # Additional filtering based on probability could be done here
+        # if s.probability < request.threshold:
+        #     continue
         details = s.details
         desc = None
         if details.get("description"):
@@ -116,8 +115,8 @@ async def identify_plant(
         datetime=str(identification.input.datetime),
         latitude=identification.input.latitude,
         longitude=identification.input.longitude,
-        image_data=encoded_images,
-        organs=organs,
+        image_data=request.image_data,
+        organs=request.organs,
         _ts=int(time.time()),
     )
 

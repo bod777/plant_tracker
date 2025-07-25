@@ -3,6 +3,14 @@ from typing import List, Optional, Dict, Any
 
 
 # --- Pydantic Models ---
+class IdentifyRequest(BaseModel):
+    user_id: Optional[str] = None
+    image_data: List[str]  # up to 5 base64-encoded images
+    latitude: float
+    longitude: float
+    organs: Optional[List[str]] = None
+
+
 class SimilarImage(BaseModel):
     url: HttpUrl
     similarity: float
