@@ -41,34 +41,9 @@ def build_dict(arr):
     return result
 
 def get_care_guide(plant_name):
-    """Fetch the care guide for a given plant name.
-
-    This helper wraps the Perenual API call with some basic error handling so
-    callers don't have to deal with network or parsing errors.
-    """
-
-    url = (
-        f"{Config.PERENUAL_API}{Config.PERENUAL_ENDPOINT}?key={Config.PERENUAL_KEY}&q={plant_name}"
-    )
-
-    try:
-        response = requests.request("GET", url, headers={}, data={})
-        response.raise_for_status()
-    except requests.RequestException as exc:
-        logger.error("Error requesting care guide for %s: %s", plant_name, exc)
-        return {}
-
-    try:
-        json_data = json.loads(response.text)
-    except json.JSONDecodeError as exc:
-        logger.error("Invalid JSON received for %s: %s", plant_name, exc)
-        return {}
-
-    try:
-        top_result = json_data["data"][0]
-        care_dict = build_dict(top_result["section"])
-    except (KeyError, IndexError, TypeError) as exc:
-        logger.error("Unexpected response structure for %s: %s", plant_name, exc)
-        return {}
-
+    url = f"{Config.PERENUAL_API}{Config.PERENUAL_ENDPOINT}?key={Config.PERENUAL_KEY}&q={plant_name}"
+    response = requests.request("GET", url, headers={}, data={})
+    json_data = json.loads(response.text)
+    top_result = json_data["data"][0]
+    care_dict = build_dict(top_result["section"])
     return care_dict
