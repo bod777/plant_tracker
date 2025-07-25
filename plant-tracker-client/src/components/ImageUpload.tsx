@@ -3,17 +3,10 @@ import React, { useRef, useState } from 'react';
 import { Upload, X, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
 
 interface ImageUploadProps {
-  onUpload: (images: { image: string; organ: string }[]) => void;
+  onUpload: (images: string[]) => void;
   onBack: () => void;
   identifying?: boolean;
 }
@@ -21,7 +14,7 @@ interface ImageUploadProps {
 const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
-  const [previews, setPreviews] = useState<{ image: string; organ: string }[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
 
   const handleFile = (file: File) => {
     if (previews.length >= 5) {
@@ -36,7 +29,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
     const reader = new FileReader();
     reader.onload = (e) => {
       const imageData = e.target?.result as string;
-      setPreviews(prev => [...prev, { image: imageData, organ: 'auto' }]);
+      setPreviews(prev => [...prev, imageData]);
     };
     reader.readAsDataURL(file);
   };
@@ -154,33 +147,20 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
           <div className="space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {previews.map((p, idx) => (
-                <div key={idx} className="relative space-y-2">
+                <div key={idx} className="relative">
                   <img
-                    src={p.image}
+                    src={p}
                     alt={`preview-${idx}`}
                     className="w-full h-40 object-cover rounded-lg"
                   />
-                  <div className="flex items-center space-x-2">
-                    <Select value={p.organ} onValueChange={val => setPreviews(prev => prev.map((img,i)=> i===idx ? { ...img, organ: val } : img))}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="leaf">leaf</SelectItem>
-                        <SelectItem value="flower">flower</SelectItem>
-                        <SelectItem value="fruit">fruit</SelectItem>
-                        <SelectItem value="bark">bark</SelectItem>
-                        <SelectItem value="auto">auto</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Button
-                      onClick={() => clearPreview(idx)}
-                      variant="outline"
-                      size="sm"
-                    >
-                      <X className="h-3 w-3" />
-                    </Button>
-                  </div>
+                  <Button
+                    onClick={() => clearPreview(idx)}
+                    variant="outline"
+                    size="sm"
+                    className="absolute top-1 right-1 bg-white"
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
                 </div>
               ))}
               {previews.length < 5 && (

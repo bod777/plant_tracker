@@ -40,8 +40,7 @@ export interface ApiPlantResponse {
   datetime?: string;
   latitude?: number;
   longitude?: number;
-  image_data?: string[];
-  organs?: string[];
+  image_data?: string[]; 
   threshold?: number;
 }
 

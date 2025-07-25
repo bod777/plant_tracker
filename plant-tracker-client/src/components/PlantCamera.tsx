@@ -3,17 +3,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Camera, X, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
 
 interface PlantCameraProps {
-  onCapture: (images: { image: string; organ: string }[]) => void;
+  onCapture: (images: string[]) => void;
   onBack: () => void;
   identifying?: boolean;
 }
@@ -25,7 +18,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment');
-  const [captures, setCaptures] = useState<{ image: string; organ: string }[]>([]);
+  const [captures, setCaptures] = useState<string[]>([]);
 
   useEffect(() => {
     startCamera();
@@ -79,7 +72,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
     context.drawImage(video, 0, 0);
 
     const imageData = canvas.toDataURL('image/jpeg', 0.8);
-    setCaptures(prev => [...prev, { image: imageData, organ: 'auto' }]);
+    setCaptures(prev => [...prev, imageData]);
   };
 
   const switchCamera = () => {
@@ -157,30 +150,17 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
       {captures.length > 0 && (
         <div className="space-y-4">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {captures.map((cap, idx) => (
-                <div key={idx} className="relative space-y-2">
-                <img src={cap.image} alt={`capture-${idx}`} className="w-full h-32 object-cover rounded-lg" />
-                <div className="flex items-center space-x-2">
-                  <Select value={cap.organ} onValueChange={val => setCaptures(c => c.map((p,i)=> i===idx ? { ...p, organ: val } : p))}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="leaf">leaf</SelectItem>
-                      <SelectItem value="flower">flower</SelectItem>
-                      <SelectItem value="fruit">fruit</SelectItem>
-                      <SelectItem value="bark">bark</SelectItem>
-                      <SelectItem value="auto">auto</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button
-                    onClick={() => setCaptures(c => c.filter((_, i) => i !== idx))}
-                    variant="outline"
-                    size="sm"
-                  >
-                    <X className="h-3 w-3" />
-                  </Button>
-                </div>
+              {captures.map((img, idx) => (
+                <div key={idx} className="relative">
+                <img src={img} alt={`capture-${idx}`} className="w-full h-32 object-cover rounded-lg" />
+                <Button
+                  onClick={() => setCaptures(c => c.filter((_, i) => i !== idx))}
+                  variant="outline"
+                  size="sm"
+                  className="absolute top-1 right-1 bg-white"
+                >
+                  <X className="h-3 w-3" />
+                </Button>
                 </div>
               ))}
             </div>
