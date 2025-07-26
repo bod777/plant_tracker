@@ -1,3 +1,8 @@
+# TO DO: fix the idnetify_plant function to deal with the new plantid.py class
+# TO DO: Create a new route for plantnet and perenual apis
+# TO DO: Rename the identify-plant route
+
+
 import os
 import base64
 import time

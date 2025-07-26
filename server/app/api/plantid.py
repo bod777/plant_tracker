@@ -1,3 +1,5 @@
+# TO DO: Convert into a class
+# TO DO: Call the identify and parse_identification functions
 import os
 from typing import List
 
