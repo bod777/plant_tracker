@@ -722,3 +722,527 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2025-07-26 23:47:05 [INFO] __main__: Perenual API call took 0.73 seconds
 2025-07-26 23:47:05 [ERROR] __main__: Failed fetching care guide for Cistus crispus L.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Cistus%20crispus%20L.'
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2025-07-26 23:53:07 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:53:07 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:53:07 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:53:07 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:53:07 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:53:07 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:53:10 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:53:10 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:53:10 [INFO] __main__: PlantNet API call took 2.95 seconds
+2025-07-26 23:53:10 [INFO] __main__: PlantNet API call took 2.95 seconds
+2025-07-26 23:53:10 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:53:10 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:53:11 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:11 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:11 [INFO] __main__: Perenual API call took 1.28 seconds
+2025-07-26 23:53:11 [INFO] __main__: Perenual API call took 1.28 seconds
+2025-07-26 23:53:11 [WARNING] __main__: Perenual API quota exceeded for Lavandula angustifolia Mill.. Falling back to scraping.
+2025-07-26 23:53:11 [WARNING] __main__: Perenual API quota exceeded for Lavandula angustifolia Mill.. Falling back to scraping.
+2025-07-26 23:53:11 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:53:11 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:53:12 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:53:12 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:53:12 [INFO] __main__: Search page scrape took 1.16 seconds
+2025-07-26 23:53:12 [INFO] __main__: Search page scrape took 1.16 seconds
+2025-07-26 23:53:12 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:53:12 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:53:12 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:53:12 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:53:12 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:53:12 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:53:13 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=English%20lavender "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:13 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=English%20lavender "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:13 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:53:13 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:53:13 [WARNING] __main__: Perenual API quota exceeded for English lavender. Falling back to scraping.
+2025-07-26 23:53:13 [WARNING] __main__: Perenual API quota exceeded for English lavender. Falling back to scraping.
+2025-07-26 23:53:13 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:53:13 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:53:15 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:53:15 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:53:15 [INFO] __main__: Search page scrape took 1.39 seconds
+2025-07-26 23:53:15 [INFO] __main__: Search page scrape took 1.39 seconds
+2025-07-26 23:53:15 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:53:15 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:53:17 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:53:17 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:53:17 [INFO] __main__: Care page scrape took 2.17 seconds
+2025-07-26 23:53:17 [INFO] __main__: Care page scrape took 2.17 seconds
+2025-07-26 23:53:17 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:17 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:17 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia
+2025-07-26 23:53:17 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia
+2025-07-26 23:53:17 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4703
+2025-07-26 23:53:17 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4703
+2025-07-26 23:53:19 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4703 "HTTP/1.1 200 OK"
+2025-07-26 23:53:19 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4703 "HTTP/1.1 200 OK"
+2025-07-26 23:53:19 [INFO] __main__: Care page scrape took 1.74 seconds
+2025-07-26 23:53:19 [INFO] __main__: Care page scrape took 1.74 seconds
+2025-07-26 23:53:19 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:19 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:19 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Buena Vista'
+2025-07-26 23:53:19 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Buena Vista'
+2025-07-26 23:53:19 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4704
+2025-07-26 23:53:19 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4704
+2025-07-26 23:53:21 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4704 "HTTP/1.1 200 OK"
+2025-07-26 23:53:21 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4704 "HTTP/1.1 200 OK"
+2025-07-26 23:53:21 [INFO] __main__: Care page scrape took 1.81 seconds
+2025-07-26 23:53:21 [INFO] __main__: Care page scrape took 1.81 seconds
+2025-07-26 23:53:21 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:21 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:21 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote'
+2025-07-26 23:53:21 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote'
+2025-07-26 23:53:21 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4705
+2025-07-26 23:53:21 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4705
+2025-07-26 23:53:22 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4705 "HTTP/1.1 200 OK"
+2025-07-26 23:53:22 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4705 "HTTP/1.1 200 OK"
+2025-07-26 23:53:22 [INFO] __main__: Care page scrape took 1.55 seconds
+2025-07-26 23:53:22 [INFO] __main__: Care page scrape took 1.55 seconds
+2025-07-26 23:53:23 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:23 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:23 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote Superior'
+2025-07-26 23:53:23 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote Superior'
+2025-07-26 23:53:23 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4706
+2025-07-26 23:53:23 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4706
+2025-07-26 23:53:24 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4706 "HTTP/1.1 200 OK"
+2025-07-26 23:53:24 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4706 "HTTP/1.1 200 OK"
+2025-07-26 23:53:24 [INFO] __main__: Care page scrape took 1.78 seconds
+2025-07-26 23:53:24 [INFO] __main__: Care page scrape took 1.78 seconds
+2025-07-26 23:53:25 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:25 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:25 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'KERLAVANGEM' SWEET ROMANCE
+2025-07-26 23:53:25 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'KERLAVANGEM' SWEET ROMANCE
+2025-07-26 23:53:25 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4707
+2025-07-26 23:53:25 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4707
+2025-07-26 23:53:26 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4707 "HTTP/1.1 200 OK"
+2025-07-26 23:53:26 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4707 "HTTP/1.1 200 OK"
+2025-07-26 23:53:26 [INFO] __main__: Care page scrape took 1.72 seconds
+2025-07-26 23:53:26 [INFO] __main__: Care page scrape took 1.72 seconds
+2025-07-26 23:53:26 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:26 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:26 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavandula Schola' BLUE CUSHION
+2025-07-26 23:53:26 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavandula Schola' BLUE CUSHION
+2025-07-26 23:53:26 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4708
+2025-07-26 23:53:26 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4708
+2025-07-26 23:53:28 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4708 "HTTP/1.1 200 OK"
+2025-07-26 23:53:28 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4708 "HTTP/1.1 200 OK"
+2025-07-26 23:53:28 [INFO] __main__: Care page scrape took 1.66 seconds
+2025-07-26 23:53:28 [INFO] __main__: Care page scrape took 1.66 seconds
+2025-07-26 23:53:28 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:28 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:28 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavang 21' VIOLET INTRIGUE
+2025-07-26 23:53:28 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavang 21' VIOLET INTRIGUE
+2025-07-26 23:53:28 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4709
+2025-07-26 23:53:28 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4709
+2025-07-26 23:53:30 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4709 "HTTP/1.1 200 OK"
+2025-07-26 23:53:30 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4709 "HTTP/1.1 200 OK"
+2025-07-26 23:53:30 [INFO] __main__: Care page scrape took 1.44 seconds
+2025-07-26 23:53:30 [INFO] __main__: Care page scrape took 1.44 seconds
+2025-07-26 23:53:30 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:30 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:30 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Potpourri Sky Blue'
+2025-07-26 23:53:30 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Potpourri Sky Blue'
+2025-07-26 23:53:30 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4710
+2025-07-26 23:53:30 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4710
+2025-07-26 23:53:31 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4710 "HTTP/1.1 200 OK"
+2025-07-26 23:53:31 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4710 "HTTP/1.1 200 OK"
+2025-07-26 23:53:31 [INFO] __main__: Care page scrape took 1.72 seconds
+2025-07-26 23:53:31 [INFO] __main__: Care page scrape took 1.72 seconds
+2025-07-26 23:53:32 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:32 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:32 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Rosea'
+2025-07-26 23:53:32 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Rosea'
+2025-07-26 23:53:32 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4711
+2025-07-26 23:53:32 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4711
+2025-07-26 23:53:33 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4711 "HTTP/1.1 200 OK"
+2025-07-26 23:53:33 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4711 "HTTP/1.1 200 OK"
+2025-07-26 23:53:33 [INFO] __main__: Care page scrape took 1.49 seconds
+2025-07-26 23:53:33 [INFO] __main__: Care page scrape took 1.49 seconds
+2025-07-26 23:53:33 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:33 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:33 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Royal Velvet'
+2025-07-26 23:53:33 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Royal Velvet'
+2025-07-26 23:53:33 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4712
+2025-07-26 23:53:33 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4712
+2025-07-26 23:53:35 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4712 "HTTP/1.1 200 OK"
+2025-07-26 23:53:35 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4712 "HTTP/1.1 200 OK"
+2025-07-26 23:53:35 [INFO] __main__: Care page scrape took 1.45 seconds
+2025-07-26 23:53:35 [INFO] __main__: Care page scrape took 1.45 seconds
+2025-07-26 23:53:35 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:35 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:35 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Sharon Roberts'
+2025-07-26 23:53:35 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Sharon Roberts'
+2025-07-26 23:53:35 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4713
+2025-07-26 23:53:35 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4713
+2025-07-26 23:53:36 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4713 "HTTP/1.1 200 OK"
+2025-07-26 23:53:36 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4713 "HTTP/1.1 200 OK"
+2025-07-26 23:53:36 [INFO] __main__: Care page scrape took 1.50 seconds
+2025-07-26 23:53:36 [INFO] __main__: Care page scrape took 1.50 seconds
+2025-07-26 23:53:37 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:37 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:37 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'SuperBlue'
+2025-07-26 23:53:37 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'SuperBlue'
+2025-07-26 23:53:37 [INFO] __main__: Number of care entries found for 'English lavender': 12
+2025-07-26 23:53:37 [INFO] __main__: Number of care entries found for 'English lavender': 12
+2025-07-26 23:53:37 [INFO] __main__: Total number of entries: 12 
+2025-07-26 23:53:37 [INFO] __main__: Total number of entries: 12 
+2025-07-26 23:53:37 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:53:37 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:53:37 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Common%20Lavender "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:37 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Common%20Lavender "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:37 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:53:37 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:53:37 [WARNING] __main__: Perenual API quota exceeded for Common Lavender. Falling back to scraping.
+2025-07-26 23:53:37 [WARNING] __main__: Perenual API quota exceeded for Common Lavender. Falling back to scraping.
+2025-07-26 23:53:37 [INFO] __main__: Scraping search results for: Common Lavender
+2025-07-26 23:53:37 [INFO] __main__: Scraping search results for: Common Lavender
+2025-07-26 23:53:39 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:53:39 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:53:39 [INFO] __main__: Search page scrape took 1.16 seconds
+2025-07-26 23:53:39 [INFO] __main__: Search page scrape took 1.16 seconds
+2025-07-26 23:53:39 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:53:39 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:53:39 [INFO] __main__: Total number of entries: 12 
+2025-07-26 23:53:39 [INFO] __main__: Total number of entries: 12 
+2025-07-26 23:53:39 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:53:39 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:53:39 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Lavender "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:39 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Lavender "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:53:39 [INFO] __main__: Perenual API call took 0.75 seconds
+2025-07-26 23:53:39 [INFO] __main__: Perenual API call took 0.75 seconds
+2025-07-26 23:53:39 [WARNING] __main__: Perenual API quota exceeded for Lavender. Falling back to scraping.
+2025-07-26 23:53:39 [WARNING] __main__: Perenual API quota exceeded for Lavender. Falling back to scraping.
+2025-07-26 23:53:39 [INFO] __main__: Scraping search results for: Lavender
+2025-07-26 23:53:39 [INFO] __main__: Scraping search results for: Lavender
+2025-07-26 23:53:41 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:53:41 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:53:41 [INFO] __main__: Search page scrape took 1.23 seconds
+2025-07-26 23:53:41 [INFO] __main__: Search page scrape took 1.23 seconds
+2025-07-26 23:53:41 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/677
+2025-07-26 23:53:41 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/677
+2025-07-26 23:53:42 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/677 "HTTP/1.1 200 OK"
+2025-07-26 23:53:42 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/677 "HTTP/1.1 200 OK"
+2025-07-26 23:53:42 [INFO] __main__: Care page scrape took 1.52 seconds
+2025-07-26 23:53:42 [INFO] __main__: Care page scrape took 1.52 seconds
+2025-07-26 23:53:42 [INFO] __main__: Extracted Common Name: ornamental onion
+2025-07-26 23:53:42 [INFO] __main__: Extracted Common Name: ornamental onion
+2025-07-26 23:53:42 [INFO] __main__: Extracted Scientific Name: Allium 'Lavender Bubbles'
+2025-07-26 23:53:42 [INFO] __main__: Extracted Scientific Name: Allium 'Lavender Bubbles'
+2025-07-26 23:53:42 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/2301
+2025-07-26 23:53:42 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/2301
+2025-07-26 23:53:44 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/2301 "HTTP/1.1 200 OK"
+2025-07-26 23:53:44 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/2301 "HTTP/1.1 200 OK"
+2025-07-26 23:53:44 [INFO] __main__: Care page scrape took 1.41 seconds
+2025-07-26 23:53:44 [INFO] __main__: Care page scrape took 1.41 seconds
+2025-07-26 23:53:44 [INFO] __main__: Extracted Common Name: dahlia
+2025-07-26 23:53:44 [INFO] __main__: Extracted Common Name: dahlia
+2025-07-26 23:53:44 [INFO] __main__: Extracted Scientific Name: Dahlia 'Lavender Chiffon'
+2025-07-26 23:53:44 [INFO] __main__: Extracted Scientific Name: Dahlia 'Lavender Chiffon'
+2025-07-26 23:53:44 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3245
+2025-07-26 23:53:44 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3245
+2025-07-26 23:53:46 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3245 "HTTP/1.1 200 OK"
+2025-07-26 23:53:46 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3245 "HTTP/1.1 200 OK"
+2025-07-26 23:53:46 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:53:46 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:53:46 [INFO] __main__: Extracted Common Name: sea lavender
+2025-07-26 23:53:46 [INFO] __main__: Extracted Common Name: sea lavender
+2025-07-26 23:53:46 [INFO] __main__: Extracted Scientific Name: Goniolimon incanum 'Blue Diamond'
+2025-07-26 23:53:46 [INFO] __main__: Extracted Scientific Name: Goniolimon incanum 'Blue Diamond'
+2025-07-26 23:53:46 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3554
+2025-07-26 23:53:46 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3554
+2025-07-26 23:53:47 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3554 "HTTP/1.1 200 OK"
+2025-07-26 23:53:47 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3554 "HTTP/1.1 200 OK"
+2025-07-26 23:53:47 [INFO] __main__: Care page scrape took 1.62 seconds
+2025-07-26 23:53:47 [INFO] __main__: Care page scrape took 1.62 seconds
+2025-07-26 23:53:47 [INFO] __main__: Extracted Common Name: daylily
+2025-07-26 23:53:47 [INFO] __main__: Extracted Common Name: daylily
+2025-07-26 23:53:47 [INFO] __main__: Extracted Scientific Name: Hemerocallis 'Lavender Stardust'
+2025-07-26 23:53:47 [INFO] __main__: Extracted Scientific Name: Hemerocallis 'Lavender Stardust'
+2025-07-26 23:53:47 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3584
+2025-07-26 23:53:47 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3584
+2025-07-26 23:53:49 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3584 "HTTP/1.1 200 OK"
+2025-07-26 23:53:49 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3584 "HTTP/1.1 200 OK"
+2025-07-26 23:53:49 [INFO] __main__: Care page scrape took 1.61 seconds
+2025-07-26 23:53:49 [INFO] __main__: Care page scrape took 1.61 seconds
+2025-07-26 23:53:49 [INFO] __main__: Extracted Common Name: daylily
+2025-07-26 23:53:49 [INFO] __main__: Extracted Common Name: daylily
+2025-07-26 23:53:49 [INFO] __main__: Extracted Scientific Name: Hemerocallis 'Pink Lavender Appeal'
+2025-07-26 23:53:49 [INFO] __main__: Extracted Scientific Name: Hemerocallis 'Pink Lavender Appeal'
+2025-07-26 23:53:49 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3822
+2025-07-26 23:53:49 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/3822
+2025-07-26 23:53:51 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3822 "HTTP/1.1 200 OK"
+2025-07-26 23:53:51 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/3822 "HTTP/1.1 200 OK"
+2025-07-26 23:53:51 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:53:51 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:53:51 [INFO] __main__: Extracted Common Name: rose of Sharon
+2025-07-26 23:53:51 [INFO] __main__: Extracted Common Name: rose of Sharon
+2025-07-26 23:53:51 [INFO] __main__: Extracted Scientific Name: Hibiscus syriacus 'Notwoodone' LAVENDER CHIFFON
+2025-07-26 23:53:51 [INFO] __main__: Extracted Scientific Name: Hibiscus syriacus 'Notwoodone' LAVENDER CHIFFON
+2025-07-26 23:53:51 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4377
+2025-07-26 23:53:51 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4377
+2025-07-26 23:53:53 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4377 "HTTP/1.1 200 OK"
+2025-07-26 23:53:53 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4377 "HTTP/1.1 200 OK"
+2025-07-26 23:53:53 [INFO] __main__: Care page scrape took 1.75 seconds
+2025-07-26 23:53:53 [INFO] __main__: Care page scrape took 1.75 seconds
+2025-07-26 23:53:53 [INFO] __main__: Extracted Common Name: Siberian iris
+2025-07-26 23:53:53 [INFO] __main__: Extracted Common Name: Siberian iris
+2025-07-26 23:53:53 [INFO] __main__: Extracted Scientific Name: Iris 'Lavender Bounty'
+2025-07-26 23:53:53 [INFO] __main__: Extracted Scientific Name: Iris 'Lavender Bounty'
+2025-07-26 23:53:53 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4658
+2025-07-26 23:53:53 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4658
+2025-07-26 23:53:55 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4658 "HTTP/1.1 200 OK"
+2025-07-26 23:53:55 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4658 "HTTP/1.1 200 OK"
+2025-07-26 23:53:55 [INFO] __main__: Care page scrape took 2.42 seconds
+2025-07-26 23:53:55 [INFO] __main__: Care page scrape took 2.42 seconds
+2025-07-26 23:53:56 [INFO] __main__: Extracted Common Name: crape myrtle
+2025-07-26 23:53:56 [INFO] __main__: Extracted Common Name: crape myrtle
+2025-07-26 23:53:56 [INFO] __main__: Extracted Scientific Name: Lagerstroemia 'JD818' EARLY BIRD LAVENDER
+2025-07-26 23:53:56 [INFO] __main__: Extracted Scientific Name: Lagerstroemia 'JD818' EARLY BIRD LAVENDER
+2025-07-26 23:53:56 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:53:56 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:53:58 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:53:58 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:53:58 [INFO] __main__: Care page scrape took 2.64 seconds
+2025-07-26 23:53:58 [INFO] __main__: Care page scrape took 2.64 seconds
+2025-07-26 23:53:58 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:58 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:53:58 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia
+2025-07-26 23:53:58 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia
+2025-07-26 23:53:58 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4703
+2025-07-26 23:53:58 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4703
+2025-07-26 23:54:00 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4703 "HTTP/1.1 200 OK"
+2025-07-26 23:54:00 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4703 "HTTP/1.1 200 OK"
+2025-07-26 23:54:00 [INFO] __main__: Care page scrape took 1.58 seconds
+2025-07-26 23:54:00 [INFO] __main__: Care page scrape took 1.58 seconds
+2025-07-26 23:54:00 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:00 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:00 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Buena Vista'
+2025-07-26 23:54:00 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Buena Vista'
+2025-07-26 23:54:00 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4704
+2025-07-26 23:54:00 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4704
+2025-07-26 23:54:02 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4704 "HTTP/1.1 200 OK"
+2025-07-26 23:54:02 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4704 "HTTP/1.1 200 OK"
+2025-07-26 23:54:02 [INFO] __main__: Care page scrape took 1.66 seconds
+2025-07-26 23:54:02 [INFO] __main__: Care page scrape took 1.66 seconds
+2025-07-26 23:54:02 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:02 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:02 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote'
+2025-07-26 23:54:02 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote'
+2025-07-26 23:54:02 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4705
+2025-07-26 23:54:02 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4705
+2025-07-26 23:54:04 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4705 "HTTP/1.1 200 OK"
+2025-07-26 23:54:04 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4705 "HTTP/1.1 200 OK"
+2025-07-26 23:54:04 [INFO] __main__: Care page scrape took 1.74 seconds
+2025-07-26 23:54:04 [INFO] __main__: Care page scrape took 1.74 seconds
+2025-07-26 23:54:04 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:04 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:04 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote Superior'
+2025-07-26 23:54:04 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Hidcote Superior'
+2025-07-26 23:54:04 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4706
+2025-07-26 23:54:04 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4706
+2025-07-26 23:54:06 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4706 "HTTP/1.1 200 OK"
+2025-07-26 23:54:06 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4706 "HTTP/1.1 200 OK"
+2025-07-26 23:54:06 [INFO] __main__: Care page scrape took 1.83 seconds
+2025-07-26 23:54:06 [INFO] __main__: Care page scrape took 1.83 seconds
+2025-07-26 23:54:06 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:06 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:06 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'KERLAVANGEM' SWEET ROMANCE
+2025-07-26 23:54:06 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'KERLAVANGEM' SWEET ROMANCE
+2025-07-26 23:54:06 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4707
+2025-07-26 23:54:06 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4707
+2025-07-26 23:54:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4707 "HTTP/1.1 200 OK"
+2025-07-26 23:54:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4707 "HTTP/1.1 200 OK"
+2025-07-26 23:54:07 [INFO] __main__: Care page scrape took 1.58 seconds
+2025-07-26 23:54:07 [INFO] __main__: Care page scrape took 1.58 seconds
+2025-07-26 23:54:07 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:07 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:07 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavandula Schola' BLUE CUSHION
+2025-07-26 23:54:07 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavandula Schola' BLUE CUSHION
+2025-07-26 23:54:07 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4708
+2025-07-26 23:54:07 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4708
+2025-07-26 23:54:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4708 "HTTP/1.1 200 OK"
+2025-07-26 23:54:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4708 "HTTP/1.1 200 OK"
+2025-07-26 23:54:09 [INFO] __main__: Care page scrape took 1.72 seconds
+2025-07-26 23:54:09 [INFO] __main__: Care page scrape took 1.72 seconds
+2025-07-26 23:54:09 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:09 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:09 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavang 21' VIOLET INTRIGUE
+2025-07-26 23:54:09 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Lavang 21' VIOLET INTRIGUE
+2025-07-26 23:54:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4709
+2025-07-26 23:54:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4709
+2025-07-26 23:54:11 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4709 "HTTP/1.1 200 OK"
+2025-07-26 23:54:11 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4709 "HTTP/1.1 200 OK"
+2025-07-26 23:54:11 [INFO] __main__: Care page scrape took 1.52 seconds
+2025-07-26 23:54:11 [INFO] __main__: Care page scrape took 1.52 seconds
+2025-07-26 23:54:11 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:11 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:11 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Potpourri Sky Blue'
+2025-07-26 23:54:11 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Potpourri Sky Blue'
+2025-07-26 23:54:11 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4710
+2025-07-26 23:54:11 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4710
+2025-07-26 23:54:13 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4710 "HTTP/1.1 200 OK"
+2025-07-26 23:54:13 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4710 "HTTP/1.1 200 OK"
+2025-07-26 23:54:13 [INFO] __main__: Care page scrape took 1.59 seconds
+2025-07-26 23:54:13 [INFO] __main__: Care page scrape took 1.59 seconds
+2025-07-26 23:54:13 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:13 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:13 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Rosea'
+2025-07-26 23:54:13 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Rosea'
+2025-07-26 23:54:13 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4711
+2025-07-26 23:54:13 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4711
+2025-07-26 23:54:14 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4711 "HTTP/1.1 200 OK"
+2025-07-26 23:54:14 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4711 "HTTP/1.1 200 OK"
+2025-07-26 23:54:14 [INFO] __main__: Care page scrape took 1.51 seconds
+2025-07-26 23:54:14 [INFO] __main__: Care page scrape took 1.51 seconds
+2025-07-26 23:54:14 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:14 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:14 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Royal Velvet'
+2025-07-26 23:54:14 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Royal Velvet'
+2025-07-26 23:54:14 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4712
+2025-07-26 23:54:14 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4712
+2025-07-26 23:54:16 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4712 "HTTP/1.1 200 OK"
+2025-07-26 23:54:16 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4712 "HTTP/1.1 200 OK"
+2025-07-26 23:54:16 [INFO] __main__: Care page scrape took 1.47 seconds
+2025-07-26 23:54:16 [INFO] __main__: Care page scrape took 1.47 seconds
+2025-07-26 23:54:16 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:16 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:16 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Sharon Roberts'
+2025-07-26 23:54:16 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'Sharon Roberts'
+2025-07-26 23:54:16 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4713
+2025-07-26 23:54:16 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4713
+2025-07-26 23:54:18 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4713 "HTTP/1.1 200 OK"
+2025-07-26 23:54:18 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4713 "HTTP/1.1 200 OK"
+2025-07-26 23:54:18 [INFO] __main__: Care page scrape took 1.53 seconds
+2025-07-26 23:54:18 [INFO] __main__: Care page scrape took 1.53 seconds
+2025-07-26 23:54:18 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:18 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:54:18 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'SuperBlue'
+2025-07-26 23:54:18 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia 'SuperBlue'
+2025-07-26 23:54:18 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4718
+2025-07-26 23:54:18 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4718
+2025-07-26 23:54:19 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4718 "HTTP/1.1 200 OK"
+2025-07-26 23:54:19 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4718 "HTTP/1.1 200 OK"
+2025-07-26 23:54:19 [INFO] __main__: Care page scrape took 1.77 seconds
+2025-07-26 23:54:19 [INFO] __main__: Care page scrape took 1.77 seconds
+2025-07-26 23:54:20 [INFO] __main__: Extracted Common Name: lavender
+2025-07-26 23:54:20 [INFO] __main__: Extracted Common Name: lavender
+2025-07-26 23:54:20 [INFO] __main__: Extracted Scientific Name: Lavandula intermedia 'Niko' PHENOMENAL
+2025-07-26 23:54:20 [INFO] __main__: Extracted Scientific Name: Lavandula intermedia 'Niko' PHENOMENAL
+2025-07-26 23:54:20 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4721
+2025-07-26 23:54:20 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4721
+2025-07-26 23:54:21 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4721 "HTTP/1.1 200 OK"
+2025-07-26 23:54:21 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4721 "HTTP/1.1 200 OK"
+2025-07-26 23:54:21 [INFO] __main__: Care page scrape took 1.69 seconds
+2025-07-26 23:54:21 [INFO] __main__: Care page scrape took 1.69 seconds
+2025-07-26 23:54:21 [INFO] __main__: Extracted Common Name: lavender
+2025-07-26 23:54:21 [INFO] __main__: Extracted Common Name: lavender
+2025-07-26 23:54:21 [INFO] __main__: Extracted Scientific Name: Lavandula 'Regal Splendour'
+2025-07-26 23:54:21 [INFO] __main__: Extracted Scientific Name: Lavandula 'Regal Splendour'
+2025-07-26 23:54:21 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4722
+2025-07-26 23:54:21 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4722
+2025-07-26 23:54:24 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4722 "HTTP/1.1 200 OK"
+2025-07-26 23:54:24 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4722 "HTTP/1.1 200 OK"
+2025-07-26 23:54:24 [INFO] __main__: Care page scrape took 2.50 seconds
+2025-07-26 23:54:24 [INFO] __main__: Care page scrape took 2.50 seconds
+2025-07-26 23:54:24 [INFO] __main__: Extracted Common Name: lavender
+2025-07-26 23:54:24 [INFO] __main__: Extracted Common Name: lavender
+2025-07-26 23:54:24 [INFO] __main__: Extracted Scientific Name: Lavandula 'Silver Frost'
+2025-07-26 23:54:24 [INFO] __main__: Extracted Scientific Name: Lavandula 'Silver Frost'
+2025-07-26 23:54:24 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4723
+2025-07-26 23:54:24 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4723
+2025-07-26 23:54:27 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4723 "HTTP/1.1 200 OK"
+2025-07-26 23:54:27 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4723 "HTTP/1.1 200 OK"
+2025-07-26 23:54:27 [INFO] __main__: Care page scrape took 2.86 seconds
+2025-07-26 23:54:27 [INFO] __main__: Care page scrape took 2.86 seconds
+2025-07-26 23:54:27 [INFO] __main__: Extracted Common Name: Spanish lavender
+2025-07-26 23:54:27 [INFO] __main__: Extracted Common Name: Spanish lavender
+2025-07-26 23:54:27 [INFO] __main__: Extracted Scientific Name: Lavandula stoechas 'Bandera Deep Rose'
+2025-07-26 23:54:27 [INFO] __main__: Extracted Scientific Name: Lavandula stoechas 'Bandera Deep Rose'
+2025-07-26 23:54:27 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4908
+2025-07-26 23:54:27 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4908
+2025-07-26 23:54:29 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4908 "HTTP/1.1 200 OK"
+2025-07-26 23:54:29 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4908 "HTTP/1.1 200 OK"
+2025-07-26 23:54:29 [INFO] __main__: Care page scrape took 1.47 seconds
+2025-07-26 23:54:29 [INFO] __main__: Care page scrape took 1.47 seconds
+2025-07-26 23:54:29 [INFO] __main__: Extracted Common Name: sea lavender
+2025-07-26 23:54:29 [INFO] __main__: Extracted Common Name: sea lavender
+2025-07-26 23:54:29 [INFO] __main__: Extracted Scientific Name: Limonium platyphyllum
+2025-07-26 23:54:29 [INFO] __main__: Extracted Scientific Name: Limonium platyphyllum
+2025-07-26 23:54:29 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/5235
+2025-07-26 23:54:29 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/5235
+2025-07-26 23:54:30 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/5235 "HTTP/1.1 200 OK"
+2025-07-26 23:54:30 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/5235 "HTTP/1.1 200 OK"
+2025-07-26 23:54:30 [INFO] __main__: Care page scrape took 1.53 seconds
+2025-07-26 23:54:30 [INFO] __main__: Care page scrape took 1.53 seconds
+2025-07-26 23:54:30 [INFO] __main__: Extracted Common Name: bee balm
+2025-07-26 23:54:30 [INFO] __main__: Extracted Common Name: bee balm
+2025-07-26 23:54:30 [INFO] __main__: Extracted Scientific Name: Monarda didyma 'Pardon My Lavender'
+2025-07-26 23:54:30 [INFO] __main__: Extracted Scientific Name: Monarda didyma 'Pardon My Lavender'
+2025-07-26 23:54:30 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/5901
+2025-07-26 23:54:30 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/5901
+2025-07-26 23:54:32 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/5901 "HTTP/1.1 200 OK"
+2025-07-26 23:54:32 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/5901 "HTTP/1.1 200 OK"
+2025-07-26 23:54:32 [INFO] __main__: Care page scrape took 1.56 seconds
+2025-07-26 23:54:32 [INFO] __main__: Care page scrape took 1.56 seconds
+2025-07-26 23:54:32 [INFO] __main__: Extracted Common Name: garden phlox
+2025-07-26 23:54:32 [INFO] __main__: Extracted Common Name: garden phlox
+2025-07-26 23:54:32 [INFO] __main__: Extracted Scientific Name: Phlox paniculata 'David's Lavender'
+2025-07-26 23:54:32 [INFO] __main__: Extracted Scientific Name: Phlox paniculata 'David's Lavender'
+2025-07-26 23:54:32 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/5938
+2025-07-26 23:54:32 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/5938
+2025-07-26 23:54:34 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/5938 "HTTP/1.1 200 OK"
+2025-07-26 23:54:34 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/5938 "HTTP/1.1 200 OK"
+2025-07-26 23:54:34 [INFO] __main__: Care page scrape took 1.91 seconds
+2025-07-26 23:54:34 [INFO] __main__: Care page scrape took 1.91 seconds
+2025-07-26 23:54:34 [INFO] __main__: Extracted Common Name: moss phlox
+2025-07-26 23:54:34 [INFO] __main__: Extracted Common Name: moss phlox
+2025-07-26 23:54:34 [INFO] __main__: Extracted Scientific Name: Phlox subulata 'Bedazzled Lavender'
+2025-07-26 23:54:34 [INFO] __main__: Extracted Scientific Name: Phlox subulata 'Bedazzled Lavender'
+2025-07-26 23:54:34 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6203
+2025-07-26 23:54:34 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6203
+2025-07-26 23:54:36 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6203 "HTTP/1.1 200 OK"
+2025-07-26 23:54:36 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6203 "HTTP/1.1 200 OK"
+2025-07-26 23:54:36 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:54:36 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:54:36 [INFO] __main__: Extracted Common Name: Swedish ivy
+2025-07-26 23:54:36 [INFO] __main__: Extracted Common Name: Swedish ivy
+2025-07-26 23:54:36 [INFO] __main__: Extracted Scientific Name: Plectranthus 'Mona Lavender'
+2025-07-26 23:54:36 [INFO] __main__: Extracted Scientific Name: Plectranthus 'Mona Lavender'
+2025-07-26 23:54:36 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6624
+2025-07-26 23:54:36 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6624
+2025-07-26 23:54:38 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6624 "HTTP/1.1 200 OK"
+2025-07-26 23:54:38 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6624 "HTTP/1.1 200 OK"
+2025-07-26 23:54:38 [INFO] __main__: Care page scrape took 1.81 seconds
+2025-07-26 23:54:38 [INFO] __main__: Care page scrape took 1.81 seconds
+2025-07-26 23:54:38 [INFO] __main__: Extracted Common Name: evergreen azalea
+2025-07-26 23:54:38 [INFO] __main__: Extracted Common Name: evergreen azalea
+2025-07-26 23:54:38 [INFO] __main__: Extracted Scientific Name: Rhododendron 'Girard Dwarf Lavender'
+2025-07-26 23:54:38 [INFO] __main__: Extracted Scientific Name: Rhododendron 'Girard Dwarf Lavender'
+2025-07-26 23:54:38 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6660
+2025-07-26 23:54:38 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6660
+2025-07-26 23:54:41 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6660 "HTTP/1.1 200 OK"
+2025-07-26 23:54:41 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6660 "HTTP/1.1 200 OK"
+2025-07-26 23:54:41 [INFO] __main__: Care page scrape took 3.44 seconds
+2025-07-26 23:54:41 [INFO] __main__: Care page scrape took 3.44 seconds
+2025-07-26 23:54:41 [INFO] __main__: Extracted Common Name: azalea
+2025-07-26 23:54:41 [INFO] __main__: Extracted Common Name: azalea
+2025-07-26 23:54:41 [INFO] __main__: Extracted Scientific Name: Rhododendron 'Lavender Girl'
+2025-07-26 23:54:41 [INFO] __main__: Extracted Scientific Name: Rhododendron 'Lavender Girl'
+2025-07-26 23:54:41 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6719
+2025-07-26 23:54:41 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/6719
+2025-07-26 23:54:44 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6719 "HTTP/1.1 200 OK"
+2025-07-26 23:54:44 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/6719 "HTTP/1.1 200 OK"
+2025-07-26 23:54:44 [INFO] __main__: Care page scrape took 2.83 seconds
+2025-07-26 23:54:44 [INFO] __main__: Care page scrape took 2.83 seconds
+2025-07-26 23:54:44 [INFO] __main__: Extracted Common Name: evergreen azalea
+2025-07-26 23:54:44 [INFO] __main__: Extracted Common Name: evergreen azalea
+2025-07-26 23:54:44 [INFO] __main__: Extracted Scientific Name: Rhododendron 'Schroeder's Lavender Rose'
+2025-07-26 23:54:44 [INFO] __main__: Extracted Scientific Name: Rhododendron 'Schroeder's Lavender Rose'
+2025-07-26 23:54:44 [INFO] __main__: Number of care entries found for 'Lavender': 32
+2025-07-26 23:54:44 [INFO] __main__: Number of care entries found for 'Lavender': 32
+2025-07-26 23:54:44 [INFO] __main__: Total number of entries: 44 
+2025-07-26 23:54:44 [INFO] __main__: Total number of entries: 44 
+2025-07-26 23:54:44 [INFO] __main__: Completed identification and care retrieval
+2025-07-26 23:54:44 [INFO] __main__: Completed identification and care retrieval
