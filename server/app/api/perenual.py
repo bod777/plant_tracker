@@ -1,3 +1,9 @@
+# TO DO: Save the returning dataframe to mongodb for future use
+# TO DO: Add a caching mechanism to avoid repeated API calls for the same plant
+# TO DO: Check the caching mechanism for the Perenual API
+# TO DO: Rework data models
+# TO DO: Extract more information from the Perenual API
+
 import logging
 import json
 import time
@@ -142,6 +148,7 @@ class PerenualClient:
         identified_plant.update(best_match)
         logger.info("Completed identification and care retrieval")
         return identified_plant, df
+
 
     @staticmethod
     def _data_columns() -> List[str]:
