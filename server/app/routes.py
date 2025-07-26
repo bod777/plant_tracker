@@ -8,7 +8,7 @@ from typing import List, Optional
 from bson import ObjectId
 from kindwise import PlantApi, PlantIdentification, ClassificationLevel
 
-from .mongodb_server import db
+from .mongodb_server import db, save_to_db
 from .models import (
     PlantResponse,
     Suggestion,
@@ -31,100 +31,15 @@ async def identify_plant(
     files: List[UploadFile] = File(..., description="up to 5 images"),
     latitude: float = Form(...),
     longitude: float = Form(...),
-    organs: Optional[List[str]] = Form(None),
     user=Depends(get_current_user),
 ):
     """Identify a plant from uploaded image files."""
     try:
-        img_bytes_list = [await f.read() for f in files]
-        encoded_images = [base64.b64encode(b).decode() for b in img_bytes_list]
-        details_to_return = [
-            "common_names",
-            "url",
-            "description",
-            "synonyms",
-            "edible_parts",
-            "propagation_methods",
-            "watering",
-            "best_watering",
-            "taxonomy",
-            "best_light_condition",
-            "best_soil_type",
-            "cultural_significance",
-            "image",
-        ]
-        # Pass the raw bytes list to the client
-        identification: PlantIdentification = plant_client.identify(
-            img_bytes_list,
-            details=details_to_return,
-            organs=organs,
-            latitude_longitude=(latitude, longitude),
-            language=["en"],
-            classification_level=ClassificationLevel.ALL,
-        )
-    except Exception as e:
-        raise HTTPException(status_code=502, detail=f"Identification failed: {e}")
-
-    if (
-        identification.status.name != "COMPLETED"
-        or not identification.result
-        or not identification.result.classification
-    ):
-        raise HTTPException(
-            status_code=500,
-            detail="Identification incomplete or missing classification",
-        )
-
-    suggestions: List[Suggestion] = []
-    for s in identification.result.classification.suggestions or []:
-        # Additional filtering based on probability could be done here
-        details = s.details
-        desc = None
-        if details.get("description"):
-            desc = details["description"].get("value")
-        suggestions.append(
-            Suggestion(
-                id=s.id,
-                name=s.name.title(),
-                probability=s.probability,
-                common_names=[c.title() for c in details.get("common_names")],
-                taxonomy=details.get("taxonomy"),
-                url=details.get("url"),
-                description=desc,
-                synonyms=details.get("synonyms"),
-                edible_parts=details.get("edible_parts"),
-                watering=details.get("watering"),
-                propagation_methods=details.get("propagation_methods"),
-                best_light_condition=details.get("best_light_condition"),
-                best_soil_type=details.get("best_soil_type"),
-                cultural_significance=details.get("cultural_significance"),
-                best_watering=details.get("best_watering"),
-                similar_images=[
-                    SimilarImage(url=img.url, similarity=img.similarity)
-                    for img in (s.similar_images or [])
-                ],
-            )
-        )
-
-    response = PlantResponse(
-        user_id=user["sub"],
-        access_token=identification.access_token,
-        is_plant_boolean=identification.result.is_plant.binary,
-        is_plant_probability=identification.result.is_plant.probability,
-        suggestions=suggestions,
-        notes="",
-        datetime=str(identification.input.datetime),
-        latitude=identification.input.latitude,
-        longitude=identification.input.longitude,
-        image_data=encoded_images,
-        organs=organs,
-        _ts=int(time.time()),
-    )
-
-    # Immediately save to MongoDB
-    doc = jsonable_encoder(response)
-    result = await db.plants.insert_one(doc)
-    response.id = str(result.inserted_id)
+        identification = identify(files, latitude, longitude, user)
+        response = parse_identification()
+        save_to_db(response)
+    except:
+        raise HTTPException(status_code=500, detail="Plant identification failed")
 
     return response
 
