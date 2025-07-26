@@ -1,0 +1,724 @@
+2025-07-26 23:15:23 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:15:23 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:15:23 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:15:24 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:15:24 [INFO] __main__: PlantNet API call took 0.77 seconds
+2025-07-26 23:15:24 [INFO] __main__: Fetching care data for plant: Cistus crispus L.
+2025-07-26 23:15:25 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Cistus%20crispus%20L. "HTTP/1.1 200 OK"
+2025-07-26 23:15:25 [INFO] __main__: Perenual API call took 0.84 seconds
+2025-07-26 23:15:25 [INFO] __main__: Number of care entries found for 'Cistus crispus L.': 0
+2025-07-26 23:15:25 [INFO] __main__: Fetching care data for plant: Wrinkle-leaved rockrose
+2025-07-26 23:15:25 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Wrinkle-leaved%20rockrose "HTTP/1.1 200 OK"
+2025-07-26 23:15:25 [INFO] __main__: Perenual API call took 0.69 seconds
+2025-07-26 23:15:25 [INFO] __main__: Number of care entries found for 'Wrinkle-leaved rockrose': 0
+2025-07-26 23:15:25 [INFO] __main__: Fetching care data for plant: Rock rose
+2025-07-26 23:15:26 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Rock%20rose "HTTP/1.1 200 OK"
+2025-07-26 23:15:26 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:15:26 [INFO] __main__: Number of care entries found for 'Rock rose': 0
+2025-07-26 23:15:26 [INFO] __main__: Fetching care data for plant: Wavy-leaf Rock Rose
+2025-07-26 23:15:27 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Wavy-leaf%20Rock%20Rose "HTTP/1.1 200 OK"
+2025-07-26 23:15:27 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:15:27 [INFO] __main__: Number of care entries found for 'Wavy-leaf Rock Rose': 0
+2025-07-26 23:15:58 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:15:58 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:15:58 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:16:01 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:16:01 [INFO] __main__: PlantNet API call took 2.23 seconds
+2025-07-26 23:16:01 [INFO] __main__: Fetching care data for plant: Camellia sasanqua Thunb.
+2025-07-26 23:16:01 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Camellia%20sasanqua%20Thunb. "HTTP/1.1 200 OK"
+2025-07-26 23:16:01 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:16:01 [INFO] __main__: Number of care entries found for 'Camellia sasanqua Thunb.': 0
+2025-07-26 23:16:01 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:16:01 [INFO] __main__: Fetching care data for plant: Camellia
+2025-07-26 23:16:03 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Camellia "HTTP/1.1 200 OK"
+2025-07-26 23:16:03 [INFO] __main__: Perenual API call took 1.33 seconds
+2025-07-26 23:16:03 [INFO] __main__: Number of care entries found for 'Camellia': 15
+2025-07-26 23:16:03 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:16:03 [INFO] __main__: Fetching care data for plant: Sasanqua camellia
+2025-07-26 23:16:03 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Sasanqua%20camellia "HTTP/1.1 200 OK"
+2025-07-26 23:16:03 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:16:04 [INFO] __main__: Number of care entries found for 'Sasanqua camellia': 0
+2025-07-26 23:16:04 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:16:04 [INFO] __main__: Fetching care data for plant: Christmas camellia
+2025-07-26 23:16:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Christmas%20camellia "HTTP/1.1 200 OK"
+2025-07-26 23:16:04 [INFO] __main__: Perenual API call took 0.86 seconds
+2025-07-26 23:16:04 [INFO] __main__: Number of care entries found for 'Christmas camellia': 0
+2025-07-26 23:16:04 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:16:04 [INFO] __main__: Completed identification and care retrieval
+2025-07-26 23:16:21 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:16:21 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:16:21 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:16:24 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:16:24 [INFO] __main__: PlantNet API call took 2.61 seconds
+2025-07-26 23:16:24 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:16:25 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:16:25 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:16:25 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:16:25 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:16:25 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:16:25 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:16:25 [INFO] __main__: Perenual API call took 0.70 seconds
+2025-07-26 23:16:25 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:16:25 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:16:25 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:16:26 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:16:26 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:16:26 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:16:26 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:16:26 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:16:27 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:16:27 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:16:27 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:16:27 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:16:27 [INFO] __main__: Completed identification and care retrieval
+2025-07-26 23:17:39 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:17:43 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:17:43 [INFO] __main__: Fetching care data for plant: lavender
+2025-07-26 23:17:44 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=lavender "HTTP/1.1 200 OK"
+2025-07-26 23:17:44 [INFO] __main__: Perenual API call took 1.01 seconds
+2025-07-26 23:28:05 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:28:05 [INFO] __main__: Scraping search results for: rock rose
+2025-07-26 23:28:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=rock%20rose "HTTP/1.1 200 OK"
+2025-07-26 23:28:07 [INFO] __main__: Search page scrape took 1.34 seconds
+2025-07-26 23:32:47 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:32:47 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:32:47 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:32:47 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:32:47 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:32:47 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:32:49 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:32:49 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:32:49 [INFO] __main__: PlantNet API call took 2.27 seconds
+2025-07-26 23:32:49 [INFO] __main__: PlantNet API call took 2.27 seconds
+2025-07-26 23:32:49 [INFO] __main__: Fetching care data for plant: Camellia sasanqua Thunb.
+2025-07-26 23:32:49 [INFO] __main__: Fetching care data for plant: Camellia sasanqua Thunb.
+2025-07-26 23:32:50 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Camellia%20sasanqua%20Thunb. "HTTP/1.1 200 OK"
+2025-07-26 23:32:50 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Camellia%20sasanqua%20Thunb. "HTTP/1.1 200 OK"
+2025-07-26 23:32:50 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:32:50 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:32:50 [INFO] __main__: Number of care entries found for 'Camellia sasanqua Thunb.': 0
+2025-07-26 23:32:50 [INFO] __main__: Number of care entries found for 'Camellia sasanqua Thunb.': 0
+2025-07-26 23:32:50 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:32:50 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:32:50 [INFO] __main__: Fetching care data for plant: Camellia
+2025-07-26 23:32:50 [INFO] __main__: Fetching care data for plant: Camellia
+2025-07-26 23:32:51 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Camellia "HTTP/1.1 200 OK"
+2025-07-26 23:32:51 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Camellia "HTTP/1.1 200 OK"
+2025-07-26 23:32:51 [INFO] __main__: Perenual API call took 1.28 seconds
+2025-07-26 23:32:51 [INFO] __main__: Perenual API call took 1.28 seconds
+2025-07-26 23:32:51 [INFO] __main__: Number of care entries found for 'Camellia': 15
+2025-07-26 23:32:51 [INFO] __main__: Number of care entries found for 'Camellia': 15
+2025-07-26 23:32:51 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:32:51 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:32:51 [INFO] __main__: Fetching care data for plant: Sasanqua camellia
+2025-07-26 23:32:51 [INFO] __main__: Fetching care data for plant: Sasanqua camellia
+2025-07-26 23:32:52 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Sasanqua%20camellia "HTTP/1.1 200 OK"
+2025-07-26 23:32:52 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Sasanqua%20camellia "HTTP/1.1 200 OK"
+2025-07-26 23:32:52 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:32:52 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:32:52 [INFO] __main__: Number of care entries found for 'Sasanqua camellia': 0
+2025-07-26 23:32:52 [INFO] __main__: Number of care entries found for 'Sasanqua camellia': 0
+2025-07-26 23:32:52 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:32:52 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:32:52 [INFO] __main__: Fetching care data for plant: Christmas camellia
+2025-07-26 23:32:52 [INFO] __main__: Fetching care data for plant: Christmas camellia
+2025-07-26 23:32:53 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Christmas%20camellia "HTTP/1.1 200 OK"
+2025-07-26 23:32:53 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Christmas%20camellia "HTTP/1.1 200 OK"
+2025-07-26 23:32:53 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:32:53 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:32:53 [INFO] __main__: Number of care entries found for 'Christmas camellia': 0
+2025-07-26 23:32:53 [INFO] __main__: Number of care entries found for 'Christmas camellia': 0
+2025-07-26 23:32:53 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:32:53 [INFO] __main__: Total number of entries: 15 
+2025-07-26 23:32:53 [INFO] __main__: Completed identification and care retrieval
+2025-07-26 23:32:53 [INFO] __main__: Completed identification and care retrieval
+2025-07-26 23:33:00 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:33:00 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:33:00 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:33:00 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:33:00 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:33:00 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:33:03 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:33:03 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:33:03 [INFO] __main__: PlantNet API call took 2.47 seconds
+2025-07-26 23:33:03 [INFO] __main__: PlantNet API call took 2.47 seconds
+2025-07-26 23:33:03 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:33:03 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:33:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:33:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:33:04 [INFO] __main__: Perenual API call took 1.09 seconds
+2025-07-26 23:33:04 [INFO] __main__: Perenual API call took 1.09 seconds
+2025-07-26 23:33:04 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:33:04 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:33:04 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:33:04 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:33:04 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:33:04 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:33:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:33:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:33:05 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:33:05 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:33:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:33:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:33:05 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:33:05 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:33:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:05 [INFO] __main__: Perenual API call took 0.80 seconds
+2025-07-26 23:33:05 [INFO] __main__: Perenual API call took 0.80 seconds
+2025-07-26 23:33:05 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:33:05 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:33:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:33:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:33:05 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:33:05 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:33:06 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:06 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:06 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:33:06 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:33:06 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:33:06 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:33:06 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:33:06 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:33:06 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:33:06 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:33:06 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:33:06 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:33:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:33:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:33:07 [INFO] __main__: Search page scrape took 1.09 seconds
+2025-07-26 23:33:07 [INFO] __main__: Search page scrape took 1.09 seconds
+2025-07-26 23:33:07 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:33:07 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:33:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:33:09 [INFO] __main__: Search page scrape took 1.26 seconds
+2025-07-26 23:33:09 [INFO] __main__: Search page scrape took 1.26 seconds
+2025-07-26 23:33:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:33:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:33:10 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:33:10 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:33:10 [INFO] __main__: Care page scrape took 1.44 seconds
+2025-07-26 23:33:10 [INFO] __main__: Care page scrape took 1.44 seconds
+2025-07-26 23:34:05 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:34:05 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:34:05 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:34:05 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:34:05 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:34:05 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:34:05 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:34:05 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:34:05 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:34:08 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:34:08 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:34:08 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:34:08 [INFO] __main__: PlantNet API call took 2.41 seconds
+2025-07-26 23:34:08 [INFO] __main__: PlantNet API call took 2.41 seconds
+2025-07-26 23:34:08 [INFO] __main__: PlantNet API call took 2.41 seconds
+2025-07-26 23:34:08 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:34:08 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:34:08 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:34:08 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:34:08 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:34:08 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:34:08 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:08 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:08 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:08 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:34:08 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:34:08 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:34:08 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:08 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:08 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:08 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:34:08 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:34:08 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:34:09 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:09 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:09 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:09 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:09 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:09 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:09 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:34:09 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:34:09 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:34:09 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:09 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:09 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:09 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:34:09 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:34:09 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:34:10 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:10 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:10 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:10 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:10 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:10 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:34:10 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:34:10 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:34:10 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:34:10 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:10 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:10 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:34:10 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:34:10 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:34:10 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:34:11 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:11 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:11 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:11 [INFO] __main__: Perenual API call took 0.84 seconds
+2025-07-26 23:34:11 [INFO] __main__: Perenual API call took 0.84 seconds
+2025-07-26 23:34:11 [INFO] __main__: Perenual API call took 0.84 seconds
+2025-07-26 23:34:11 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:34:11 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:34:11 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:34:11 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:34:11 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:34:11 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:34:11 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:34:11 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:34:11 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:34:11 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:34:11 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:34:11 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:34:12 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:34:12 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:34:12 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:34:12 [INFO] __main__: Search page scrape took 1.16 seconds
+2025-07-26 23:34:12 [INFO] __main__: Search page scrape took 1.16 seconds
+2025-07-26 23:34:12 [INFO] __main__: Search page scrape took 1.16 seconds
+2025-07-26 23:34:12 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:34:12 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:34:12 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:34:13 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:13 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:13 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:34:13 [INFO] __main__: Search page scrape took 1.25 seconds
+2025-07-26 23:34:13 [INFO] __main__: Search page scrape took 1.25 seconds
+2025-07-26 23:34:13 [INFO] __main__: Search page scrape took 1.25 seconds
+2025-07-26 23:34:13 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:34:13 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:34:13 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:34:15 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:34:15 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:34:15 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:34:15 [INFO] __main__: Care page scrape took 1.50 seconds
+2025-07-26 23:34:15 [INFO] __main__: Care page scrape took 1.50 seconds
+2025-07-26 23:34:15 [INFO] __main__: Care page scrape took 1.50 seconds
+2025-07-26 23:35:17 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:35:17 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:35:17 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:35:17 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:35:17 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:35:17 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:35:17 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:35:17 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:35:17 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:35:17 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:35:17 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:35:17 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:35:20 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:35:20 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:35:20 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:35:20 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:35:20 [INFO] __main__: PlantNet API call took 2.77 seconds
+2025-07-26 23:35:20 [INFO] __main__: PlantNet API call took 2.77 seconds
+2025-07-26 23:35:20 [INFO] __main__: PlantNet API call took 2.77 seconds
+2025-07-26 23:35:20 [INFO] __main__: PlantNet API call took 2.77 seconds
+2025-07-26 23:35:20 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:35:20 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:35:20 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:35:20 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:35:21 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:21 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:21 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:21 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:21 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:35:21 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:35:21 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:35:21 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:35:21 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:35:21 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:35:21 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:35:21 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:35:21 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:21 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:21 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:21 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:21 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:35:21 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:35:21 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:35:21 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:35:22 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:22 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:22 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:22 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:22 [INFO] __main__: Perenual API call took 0.80 seconds
+2025-07-26 23:35:22 [INFO] __main__: Perenual API call took 0.80 seconds
+2025-07-26 23:35:22 [INFO] __main__: Perenual API call took 0.80 seconds
+2025-07-26 23:35:22 [INFO] __main__: Perenual API call took 0.80 seconds
+2025-07-26 23:35:22 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:35:22 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:35:22 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:35:22 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:35:22 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:22 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:22 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:22 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:22 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:35:22 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:35:22 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:35:22 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:35:23 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:23 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:23 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:23 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:23 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:35:23 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:35:23 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:35:23 [INFO] __main__: Perenual API call took 0.78 seconds
+2025-07-26 23:35:23 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:35:23 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:35:23 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:35:23 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:35:23 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:23 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:23 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:23 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:35:23 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:35:23 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:35:23 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:35:23 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:35:24 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:24 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:24 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:24 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:24 [INFO] __main__: Perenual API call took 1.00 seconds
+2025-07-26 23:35:24 [INFO] __main__: Perenual API call took 1.00 seconds
+2025-07-26 23:35:24 [INFO] __main__: Perenual API call took 1.00 seconds
+2025-07-26 23:35:24 [INFO] __main__: Perenual API call took 1.00 seconds
+2025-07-26 23:35:24 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:35:24 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:35:24 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:35:24 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:35:24 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:35:24 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:35:24 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:35:24 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:35:24 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:35:24 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:35:24 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:35:24 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:35:24 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:35:24 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:35:24 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:35:24 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:35:25 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:25 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:25 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:25 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:35:25 [INFO] __main__: Search page scrape took 1.58 seconds
+2025-07-26 23:35:25 [INFO] __main__: Search page scrape took 1.58 seconds
+2025-07-26 23:35:25 [INFO] __main__: Search page scrape took 1.58 seconds
+2025-07-26 23:35:25 [INFO] __main__: Search page scrape took 1.58 seconds
+2025-07-26 23:35:25 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:35:25 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:35:25 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:35:25 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:35:26 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:26 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:26 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:26 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:35:26 [INFO] __main__: Search page scrape took 1.24 seconds
+2025-07-26 23:35:26 [INFO] __main__: Search page scrape took 1.24 seconds
+2025-07-26 23:35:26 [INFO] __main__: Search page scrape took 1.24 seconds
+2025-07-26 23:35:26 [INFO] __main__: Search page scrape took 1.24 seconds
+2025-07-26 23:35:26 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:35:26 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:35:26 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:35:26 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:35:28 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:35:28 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:35:28 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:35:28 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:35:28 [INFO] __main__: Care page scrape took 1.41 seconds
+2025-07-26 23:35:28 [INFO] __main__: Care page scrape took 1.41 seconds
+2025-07-26 23:35:28 [INFO] __main__: Care page scrape took 1.41 seconds
+2025-07-26 23:35:28 [INFO] __main__: Care page scrape took 1.41 seconds
+2025-07-26 23:36:01 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:36:01 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:36:01 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:36:01 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:36:01 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:36:01 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:36:01 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:36:01 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:36:01 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:36:01 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:36:01 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:36:01 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:36:01 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:36:01 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:36:01 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:36:03 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:36:03 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:36:03 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:36:03 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:36:03 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:36:03 [INFO] __main__: PlantNet API call took 2.36 seconds
+2025-07-26 23:36:03 [INFO] __main__: PlantNet API call took 2.36 seconds
+2025-07-26 23:36:03 [INFO] __main__: PlantNet API call took 2.36 seconds
+2025-07-26 23:36:03 [INFO] __main__: PlantNet API call took 2.36 seconds
+2025-07-26 23:36:03 [INFO] __main__: PlantNet API call took 2.36 seconds
+2025-07-26 23:36:03 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:36:03 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:36:03 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:36:03 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:36:03 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:36:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:04 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:04 [INFO] __main__: Perenual API call took 0.70 seconds
+2025-07-26 23:36:04 [INFO] __main__: Perenual API call took 0.70 seconds
+2025-07-26 23:36:04 [INFO] __main__: Perenual API call took 0.70 seconds
+2025-07-26 23:36:04 [INFO] __main__: Perenual API call took 0.70 seconds
+2025-07-26 23:36:04 [INFO] __main__: Perenual API call took 0.70 seconds
+2025-07-26 23:36:04 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:36:04 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:36:04 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:36:04 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:36:04 [INFO] __main__: Number of care entries found for 'Lavandula angustifolia Mill.': 0
+2025-07-26 23:36:04 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:04 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:04 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:04 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:04 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:04 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:36:04 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:36:04 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:36:04 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:36:04 [INFO] __main__: Fetching care data for plant: English lavender
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'English lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Common Lavender
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Common%20Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:36:05 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Number of care entries found for 'Common Lavender': 0
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Total number of entries: 0 
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:36:05 [INFO] __main__: Fetching care data for plant: Lavender
+2025-07-26 23:36:06 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:06 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:06 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:06 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:06 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:06 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:36:06 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:36:06 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:36:06 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:36:06 [INFO] __main__: Perenual API call took 0.83 seconds
+2025-07-26 23:36:06 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:36:06 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:36:06 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:36:06 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:36:06 [INFO] __main__: Number of care entries found for 'Lavender': 2
+2025-07-26 23:36:06 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:36:06 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:36:06 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:36:06 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:36:06 [INFO] __main__: Total number of entries: 2 
+2025-07-26 23:36:06 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:36:06 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:36:06 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:36:06 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:36:06 [WARNING] __main__: No sufficiently similar match found for scientific name 'Lavandula angustifolia Mill.'
+2025-07-26 23:36:06 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:36:06 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:36:06 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:36:06 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:36:06 [INFO] __main__: Scraping search results for: Lavandula angustifolia Mill.
+2025-07-26 23:36:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:07 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=Lavandula%20angustifolia%20Mill. "HTTP/1.1 200 OK"
+2025-07-26 23:36:07 [INFO] __main__: Search page scrape took 1.11 seconds
+2025-07-26 23:36:07 [INFO] __main__: Search page scrape took 1.11 seconds
+2025-07-26 23:36:07 [INFO] __main__: Search page scrape took 1.11 seconds
+2025-07-26 23:36:07 [INFO] __main__: Search page scrape took 1.11 seconds
+2025-07-26 23:36:07 [INFO] __main__: Search page scrape took 1.11 seconds
+2025-07-26 23:36:07 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:36:07 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:36:07 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:36:07 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:36:07 [INFO] __main__: Scraping search results for: English lavender
+2025-07-26 23:36:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:09 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder?search=English%20lavender "HTTP/1.1 200 OK"
+2025-07-26 23:36:09 [INFO] __main__: Search page scrape took 1.12 seconds
+2025-07-26 23:36:09 [INFO] __main__: Search page scrape took 1.12 seconds
+2025-07-26 23:36:09 [INFO] __main__: Search page scrape took 1.12 seconds
+2025-07-26 23:36:09 [INFO] __main__: Search page scrape took 1.12 seconds
+2025-07-26 23:36:09 [INFO] __main__: Search page scrape took 1.12 seconds
+2025-07-26 23:36:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:36:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:36:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:36:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:36:09 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:36:10 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:36:10 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:36:10 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:36:10 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:36:10 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:36:10 [INFO] __main__: Care page scrape took 1.61 seconds
+2025-07-26 23:36:10 [INFO] __main__: Care page scrape took 1.61 seconds
+2025-07-26 23:36:10 [INFO] __main__: Care page scrape took 1.61 seconds
+2025-07-26 23:36:10 [INFO] __main__: Care page scrape took 1.61 seconds
+2025-07-26 23:36:10 [INFO] __main__: Care page scrape took 1.61 seconds
+2025-07-26 23:39:28 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:39:28 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:39:28 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:39:30 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:39:30 [INFO] __main__: PlantNet API call took 2.47 seconds
+2025-07-26 23:39:30 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:39:31 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:39:31 [INFO] __main__: Perenual API call took 0.92 seconds
+2025-07-26 23:39:31 [ERROR] __main__: Failed fetching care guide for Lavandula angustifolia Mill.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill.'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2025-07-26 23:40:39 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:40:39 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:40:41 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:40:41 [INFO] __main__: Care page scrape took 1.48 seconds
+2025-07-26 23:40:58 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:40:58 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:40:58 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:40:58 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:41:00 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:41:00 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:41:00 [INFO] __main__: Care page scrape took 1.62 seconds
+2025-07-26 23:41:00 [INFO] __main__: Care page scrape took 1.62 seconds
+2025-07-26 23:41:28 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:41:28 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:41:28 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:41:28 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:41:28 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:41:28 [INFO] __main__: Scraping care page at: https://perenual.com/plant-species-database-search-finder/species/4702
+2025-07-26 23:41:30 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:41:30 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:41:30 [INFO] httpx: HTTP Request: GET https://perenual.com/plant-species-database-search-finder/species/4702 "HTTP/1.1 200 OK"
+2025-07-26 23:41:30 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:41:30 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:41:30 [INFO] __main__: Care page scrape took 1.64 seconds
+2025-07-26 23:41:30 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:41:30 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:41:30 [INFO] __main__: Extracted Common Name: English lavender
+2025-07-26 23:41:30 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia
+2025-07-26 23:41:30 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia
+2025-07-26 23:41:30 [INFO] __main__: Extracted Scientific Name: Lavandula angustifolia
+2025-07-26 23:41:40 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:41:40 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:41:40 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:41:40 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:41:40 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:41:40 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:41:40 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:41:40 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:41:40 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:41:42 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:41:42 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:41:42 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:41:42 [INFO] __main__: PlantNet API call took 2.25 seconds
+2025-07-26 23:41:42 [INFO] __main__: PlantNet API call took 2.25 seconds
+2025-07-26 23:41:42 [INFO] __main__: PlantNet API call took 2.25 seconds
+2025-07-26 23:41:42 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:41:42 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:41:42 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:41:43 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:41:43 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:41:43 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:41:43 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:41:43 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:41:43 [INFO] __main__: Perenual API call took 0.77 seconds
+2025-07-26 23:41:43 [ERROR] __main__: Failed fetching care guide for Lavandula angustifolia Mill.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill.'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2025-07-26 23:41:43 [ERROR] __main__: Failed fetching care guide for Lavandula angustifolia Mill.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill.'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2025-07-26 23:41:43 [ERROR] __main__: Failed fetching care guide for Lavandula angustifolia Mill.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-BY6T687a9e958639511466&q=Lavandula%20angustifolia%20Mill.'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2025-07-26 23:44:25 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:44:25 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:44:25 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:44:27 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:44:27 [INFO] __main__: PlantNet API call took 2.58 seconds
+2025-07-26 23:44:27 [INFO] __main__: Fetching care data for plant: Lavandula angustifolia Mill.
+2025-07-26 23:44:28 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Lavandula%20angustifolia%20Mill. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:44:28 [INFO] __main__: Perenual API call took 0.72 seconds
+2025-07-26 23:44:28 [ERROR] __main__: Failed fetching care guide for Lavandula angustifolia Mill.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Lavandula%20angustifolia%20Mill.'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2025-07-26 23:46:53 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:46:53 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:46:53 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:46:55 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:46:55 [INFO] __main__: PlantNet API call took 1.88 seconds
+2025-07-26 23:46:55 [INFO] __main__: Fetching care data for plant: Mentha spicata L.
+2025-07-26 23:46:56 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Mentha%20spicata%20L. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:46:56 [INFO] __main__: Perenual API call took 0.81 seconds
+2025-07-26 23:46:56 [ERROR] __main__: Failed fetching care guide for Mentha spicata L.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Mentha%20spicata%20L.'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2025-07-26 23:47:04 [INFO] __main__: Initialized PlantInfoFetcher with timeout=10.0
+2025-07-26 23:47:04 [INFO] __main__: Identifying plant and retrieving care information
+2025-07-26 23:47:04 [INFO] __main__: Sending identification request with data: {'organs': ['auto']}
+2025-07-26 23:47:04 [INFO] httpx: HTTP Request: POST https://my-api.plantnet.org/v2/identify/all?api-key=2b10uztmWSXBQhAsctxZTu "HTTP/1.1 200 OK"
+2025-07-26 23:47:04 [INFO] __main__: PlantNet API call took 0.66 seconds
+2025-07-26 23:47:04 [INFO] __main__: Fetching care data for plant: Cistus crispus L.
+2025-07-26 23:47:05 [INFO] httpx: HTTP Request: GET https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Cistus%20crispus%20L. "HTTP/1.1 429 Too Many Requests"
+2025-07-26 23:47:05 [INFO] __main__: Perenual API call took 0.73 seconds
+2025-07-26 23:47:05 [ERROR] __main__: Failed fetching care guide for Cistus crispus L.: Client error '429 Too Many Requests' for url 'https://perenual.com/api/species-care-guide-list?key=sk-Qe3y68855a240f67111574&q=Cistus%20crispus%20L.'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
