@@ -1,7 +1,8 @@
-# TO DO: fix the idnetify_plant function to deal with the new plantid.py class
-# TO DO: Create a new route for plantnet and perenual apis
-# TO DO: Rename the identify-plant route
-
+# TO DO: Update Data Models
+# TO DO: Update PlantNet route to save information in MongoDB
+# TO DO: Update Perenual route to save information in MongoDB
+# TO DO: Add a route to fetch plant information by ID
+# TO DO: Update the notes route to check that the user is the owner of the plant
 
 import os
 import base64
@@ -14,6 +15,9 @@ from bson import ObjectId
 from kindwise import PlantApi, PlantIdentification, ClassificationLevel
 
 from .mongodb_server import db, save_to_db
+from .api.plantid import PlantIdClient
+from .api.plantnet import PlantNetClient
+from .api.perenual import PerenualClient
 from .models import (
     PlantResponse,
     Suggestion,
@@ -28,11 +32,14 @@ router = APIRouter(prefix="/api")
 api_key = os.getenv("PLANT_ID_API_KEY")
 if not api_key:
     raise RuntimeError("PLANT_ID_API_KEY not set in environment variables")
-plant_client = PlantApi(api_key=api_key)
+
+plantid_client = PlantIdClient()
+plantnet_client = PlantNetClient()
+perenual_client = PerenualClient()
 
 
-@router.post("/identify-plant")
-async def identify_plant(
+@router.post("/plant-id")
+async def get_plant_id(
     files: List[UploadFile] = File(..., description="up to 5 images"),
     latitude: float = Form(...),
     longitude: float = Form(...),
@@ -40,31 +47,69 @@ async def identify_plant(
 ):
     """Identify a plant from uploaded image files."""
     try:
-        identification = identify(files, latitude, longitude, user)
-        response = parse_identification()
+        # Use the combined identify_and_parse helper
+        response: PlantResponse = await plantid_client.identify_and_parse(
+            user_id=user.id,
+            files=files,
+            latitude=latitude,
+            longitude=longitude,
+        )
+        # Persist the result
         save_to_db(response)
-    except:
-        raise HTTPException(status_code=500, detail="Plant identification failed")
+    except HTTPException:
+        # Propagate HTTP exceptions as-is
+        raise
+    except Exception as exc:
+        # Wrap other errors in a 500
+        raise HTTPException(status_code=500, detail=f"Plant identification with plantid failed: {exc}")
 
     return response
 
 
-@router.put("/update-plant-notes")
-async def update_plant_notes(request: UpdateNotesRequest):
-    if not ObjectId.is_valid(request.id):
-        raise HTTPException(status_code=400, detail="Invalid plant ID")
-    result = await db.plants.update_one(
-        {"_id": ObjectId(request.id)},
-        {"$set": {"notes": request.notes, "_ts": int(time.time())}},
-    )
-    if result.matched_count == 0:
-        raise HTTPException(status_code=404, detail="Plant not found")
-    return {"id": request.id, "notes": request.notes}
+@router.post("/plant-net")
+async def get_plant_net(
+    files: List[UploadFile] = File(..., description="up to 5 images"),
+    organs: Optional[List[str]] = Form(None, description="List of plant organs to identify"),
+    user=Depends(get_current_user),
+):
+    """Identify a plant from uploaded image files."""
+    try:
+        response = PlantNetClient.identify(files, organs)
+    except:
+        raise HTTPException(status_code=500, detail="Plant identification with plantnet failed")
+
+    return response
 
 
-@router.delete("/delete-plant/{plant_id}")
-async def delete_plant(plant_id: str, user=Depends(get_current_user)):
-    """Delete a plant record by id for the current user."""
+@router.post("/perenual")
+async def get_plant_net(
+    identified_plant: dict,
+    user=Depends(get_current_user)
+):
+    """Identify a plant from uploaded image files."""
+    try:
+        response, df = PerenualClient.get_plant_info(identified_plant)
+    except:
+        raise HTTPException(status_code=500, detail="Perenual search failed")
+
+    return response
+
+
+# --- Fetch Plants ---
+@router.get("/plants", response_model=List[PlantResponse])
+async def get_plants(user=Depends(get_current_user)):
+    # with the index in place this is now a quick lookup
+    docs = await db.plants.find({"user_id": user["sub"]}).to_list(length=20)
+    results = []
+    for doc in docs:
+        doc["id"] = str(doc.get("_id"))
+        results.append(PlantResponse(**doc))
+    return results
+
+
+@router.delete("/plants/{plant_id}")
+async def delete_plant_by_id(plant_id: str, user=Depends(get_current_user)):
+    """Delete a plant record by ID for the current user."""
     if not ObjectId.is_valid(plant_id):
         raise HTTPException(status_code=400, detail="Invalid plant ID")
     result = await db.plants.delete_one(
@@ -75,16 +120,17 @@ async def delete_plant(plant_id: str, user=Depends(get_current_user)):
     return {"id": plant_id}
 
 
-# --- Fetch Plants ---
-@router.get("/my-plants", response_model=List[PlantResponse])
-async def get_plants(user=Depends(get_current_user)):
-    # with the index in place this is now a quick lookup
-    docs = await db.plants.find({"user_id": user["sub"]}).to_list(length=20)
-    results = []
-    for doc in docs:
-        doc["id"] = str(doc.get("_id"))
-        results.append(PlantResponse(**doc))
-    return results
+@router.put("/plants/{plant_id}/notes")
+async def update_plant_notes_by_id(plant_id: str, request: UpdateNotesRequest):
+    if not ObjectId.is_valid(plant_id):
+        raise HTTPException(status_code=400, detail="Invalid plant ID")
+    result = await db.plants.update_one(
+        {"_id": ObjectId(plant_id)},
+        {"$set": {"notes": request.notes, "_ts": int(time.time())}},
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Plant not found")
+    return {"id": plant_id, "notes": request.notes}
 
 
 @router.get("/auth/me")

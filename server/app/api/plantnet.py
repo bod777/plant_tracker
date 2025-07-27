@@ -1,3 +1,5 @@
+# TO DO: Return all possible results as a dataframe
+
 import logging
 import time
 import httpx
@@ -15,8 +17,7 @@ class PlantNetClient:
         self.timeout = timeout
         logger.info("Initialized PlantNetClient with timeout=%s", timeout)
 
-    async def identify(self, image_files: List[str], organs: List[str]) -> Dict[str, object]:
-        logger.info("Identifying plant and retrieving care information")
+    def _parse_input(image_files: List[str], organs: List[str]):
         files = []
         for image_file in image_files:
             logger.debug("Reading image file: %s", image_file)
@@ -28,7 +29,12 @@ class PlantNetClient:
         logger.debug("Using organs list: %s", organs)
 
         data = {'organs': organs}
-        logger.info("Sending identification request with data: %s", data)
+        return data, files
+
+
+    async def identify(self, image_files: List[str], organs: List[str]) -> Dict[str, object]:
+        logger.info("Identifying plant and retrieving care information")
+        data, files = self._parse_input(image_files, organs)
 
         api_url = f"{Config.PLANTNET_API}{Config.PROJECT}?api-key={Config.PLANTNET_KEY}"
         safe_url = redact_sensitive(api_url)
@@ -37,7 +43,7 @@ class PlantNetClient:
         try:
             start = time.monotonic()
             async with httpx.AsyncClient(timeout=self.timeout) as client:
-                response = await client.post(api_url, data={"organs": organs}, files=files)
+                response = await client.post(api_url, data=data, files=files)
             elapsed = time.monotonic() - start
             logger.info("PlantNet API call took %.2f seconds", elapsed)
 
