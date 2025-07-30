@@ -29,16 +29,14 @@ const apiClient = axios.create({
 export async function identifyPlant(
   files: File[],
   latitude?: number,
-  longitude?: number,
-  organs?: string[],
+  longitude?: number
 ): Promise<IdentifiedPlant> {
   const formData = new FormData();
   files.forEach(f => formData.append('files', f));
   if (latitude !== undefined) formData.append('latitude', latitude.toString());
   if (longitude !== undefined) formData.append('longitude', longitude.toString());
-  if (organs) organs.forEach(o => formData.append('organs', o));
 
-  const response = await apiClient.post<ApiPlantResponse>('/identify-plant', formData, {
+  const response = await apiClient.post<ApiPlantResponse>('/plant-id', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
   const resp = response.data

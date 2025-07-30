@@ -78,8 +78,7 @@ const Index = () => {
       const resp = await identifyPlant(
         images.map(i => i.file),
         latitude ?? undefined,
-        longitude ?? undefined,
-        images.map(i => i.organ)
+        longitude ?? undefined
       );
 
       if (!resp) {

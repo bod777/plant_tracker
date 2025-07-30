@@ -12,7 +12,7 @@ from urllib.parse import urljoin, urlparse
 import httpx
 import pandas as pd
 from bs4 import BeautifulSoup
-from config import Config
+from .config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -111,7 +111,7 @@ class PerenualClient:
         return result
 
 
-    async def get_plant_info(self, identified_plant: Dict[str]) -> Tuple[Dict, pd.DataFrame]:
+    async def get_plant_info(self, identified_plant: Dict) -> Tuple[Dict, pd.DataFrame]:
         names = [identified_plant.get("scientific_name", "")] + identified_plant.get("common_names", [])                    
         df = pd.DataFrame(columns=['search_term', 'species id', 'perenual scientific name', 'perenual common name', 'watering', 'sunlight', 'pruning'])
 

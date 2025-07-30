@@ -5,8 +5,8 @@ import time
 import httpx
 from typing import List, Dict
 
-from config import Config
-from logging_setup import redact_sensitive
+from .config import Config
+from .logging_setup import redact_sensitive
 
 logger = logging.getLogger(__name__)
 
