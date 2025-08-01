@@ -1,5 +1,6 @@
 import logging
 import logging.handlers
+from ..config import settings
 
 # Centralized logging configuration
 logging.basicConfig(
@@ -27,5 +28,4 @@ root_logger.addHandler(file_handler)
 # Helper
 
 def redact_sensitive(text: str) -> str:
-    from config import Config
-    return text.replace(Config.PLANTNET_KEY, "<api-key>")
+    return text.replace(settings.plantnet_api_key or "", "<api-key>")

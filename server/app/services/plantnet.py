@@ -2,13 +2,15 @@
 
 import logging
 import time
-import httpx
 from typing import List, Dict
 
-from .config import Config
+import httpx
+
 from .logging_setup import redact_sensitive
+from ..config import settings
 
 logger = logging.getLogger(__name__)
+
 
 class PlantNetClient:
     """Handles identification via the PlantNet API."""
@@ -31,12 +33,11 @@ class PlantNetClient:
         data = {'organs': organs}
         return data, files
 
-
     async def identify(self, image_files: List[str], organs: List[str]) -> Dict[str, object]:
         logger.info("Identifying plant and retrieving care information")
         data, files = self._parse_input(image_files, organs)
 
-        api_url = f"{Config.PLANTNET_API}{Config.PROJECT}?api-key={Config.PLANTNET_KEY}"
+        api_url = f"https://my-api.plantnet.org/v2/identify/all?api-key={settings.plantnet_api_key}"
         safe_url = redact_sensitive(api_url)
         logger.debug("Sending image data to PlantNet API at %s", safe_url)
 
@@ -68,3 +69,4 @@ class PlantNetClient:
         except (KeyError, ValueError, TypeError) as e:
             logger.error("Error parsing PlantNet response: %s", e)
             raise
+
