@@ -7,10 +7,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi import Request, HTTPException
 import os
+from .config import settings
 
-from .routes import router
-from .auth import router as auth_router
-from .mongodb_server import db  # <-- your Motor client
+from .auth import router as oauth_router
+from .routers import auth as auth_routes, identification, plants
+from .services.database import db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,24 +28,25 @@ app = FastAPI(lifespan=lifespan)
 # === Middlewares ===
 app.add_middleware(
     SessionMiddleware,
-    secret_key=os.getenv("SESSION_SECRET_KEY", "a-strong-fallback-secret"),
+    secret_key=settings.session_secret_key,
     session_cookie="session",
     max_age=86400,
 )
 
-origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:8080")
-origins_array = [o.strip() for o in origins.split(",")]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins_array,
+    allow_origins=settings.allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+
 # === Routers ===
-app.include_router(auth_router)
-app.include_router(router)
+app.include_router(oauth_router)
+app.include_router(auth_routes.router)
+app.include_router(identification.router)
+app.include_router(plants.router)
 
 # === Static Files ===
 frontend_dir = os.path.abspath(

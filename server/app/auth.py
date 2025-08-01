@@ -1,11 +1,8 @@
 # server/app/auth.py
-import os
+from .config import settings
 from fastapi import APIRouter, Request
 from fastapi.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuth, OAuthError
-from dotenv import load_dotenv
-
-load_dotenv()
 
 router = APIRouter(prefix="/api/auth")
 
@@ -13,8 +10,8 @@ router = APIRouter(prefix="/api/auth")
 oauth = OAuth()
 oauth.register(
     name='google',
-    client_id=os.getenv('GOOGLE_CLIENT_ID'),
-    client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
+    client_id=settings.google_client_id,
+    client_secret=settings.google_client_secret,
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={'scope': 'openid email profile'}
 )
@@ -52,9 +49,9 @@ async def auth_callback(request: Request):
         "email": user_info["email"],
         "exp": time.time() + 3600
     }
-    jwt_token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm="HS256")
+    jwt_token = jwt.encode(payload, settings.jwt_secret, algorithm="HS256")
 
-    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:8080/")
+    frontend_url = settings.frontend_url
     response = RedirectResponse(url=frontend_url)  # send user home
     response.set_cookie("access_token", jwt_token, httponly=True, max_age=3600)
     return response

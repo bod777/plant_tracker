@@ -9,7 +9,6 @@ class SimilarImage(BaseModel):
 
 
 class Suggestion(BaseModel):
-    id: str
     name: str
     probability: float
     common_names: Optional[List[str]] = []
@@ -44,5 +43,4 @@ class PlantResponse(BaseModel):
 
 
 class UpdateNotesRequest(BaseModel):
-    id: str
     notes: str

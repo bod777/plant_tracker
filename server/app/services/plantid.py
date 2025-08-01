@@ -1,10 +1,10 @@
-import os
 import time
 import base64
 from typing import List
 
 from fastapi import UploadFile, HTTPException
 from kindwise import PlantApi, PlantIdentification, ClassificationLevel
+from ..config import settings
 
 from ..models import PlantResponse, Suggestion, SimilarImage
 
@@ -16,7 +16,8 @@ class PlantIdClient:
 
     def __init__(self, api_key: str = None):
         # Initialize API key and client
-        key = api_key or os.getenv("PLANT_ID_API_KEY")
+
+        key = api_key or settings.plant_id_api_key
         if not key:
             raise RuntimeError("PLANT_ID_API_KEY not set in environment variables or provided")
         self.plant_client = PlantApi(api_key=key)

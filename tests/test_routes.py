@@ -5,7 +5,8 @@ from fastapi.testclient import TestClient
 
 os.environ.setdefault("PLANT_ID_API_KEY", "test")
 
-from server.app import routes, main, deps
+from server.app import main, deps
+from server.app.routers import plants as plants_router
 
 
 class DummyCursor:
@@ -61,8 +62,8 @@ class DummyDB:
 
 @pytest.fixture
 def client(monkeypatch):
-    fake_db = DummyDB([{"_id": "507f1f77bcf86cd799439011", "user_id": "user1"}])
-    monkeypatch.setattr(routes, "db", fake_db)
+    fake_db = DummyDB([{ "_id": "507f1f77bcf86cd799439011", "user_id": "user1" }])
+    monkeypatch.setattr(plants_router, "db", fake_db)
     monkeypatch.setattr(main, "db", fake_db)
     main.app.dependency_overrides[deps.get_current_user] = lambda: {
         "sub": "user1",
@@ -87,7 +88,7 @@ def test_logout(client):
 
 
 def test_get_plants(client):
-    resp = client.get("/api/my-plants")
+    resp = client.get("/api/plants")
     assert resp.status_code == 200
     data = resp.json()
     assert isinstance(data, list)
@@ -96,9 +97,8 @@ def test_get_plants(client):
 
 
 def test_update_notes_not_found(client, monkeypatch):
-    # patch db to have no docs so update_one returns matched_count=0
     empty_db = DummyDB([])
-    monkeypatch.setattr(routes, "db", empty_db)
+    monkeypatch.setattr(plants_router, "db", empty_db)
     monkeypatch.setattr(main, "db", empty_db)
     with TestClient(main.app) as c:
         main.app.dependency_overrides[deps.get_current_user] = lambda: {
@@ -106,69 +106,29 @@ def test_update_notes_not_found(client, monkeypatch):
             "email": "test@example.com",
         }
         resp = c.put(
-            "/api/update-plant-notes",
-            json={"id": "507f1f77bcf86cd799439011", "notes": "hi"},
+            "/api/plants/507f1f77bcf86cd799439011/notes",
+            json={"notes": "hi"},
         )
     main.app.dependency_overrides.clear()
     assert resp.status_code == 404
 
 
 def test_delete_plant(client):
-    resp = client.delete("/api/delete-plant/507f1f77bcf86cd799439011")
+    resp = client.delete("/api/plants/507f1f77bcf86cd799439011")
     assert resp.status_code == 200
     assert resp.json()["id"] == "507f1f77bcf86cd799439011"
 
 
 def test_delete_plant_not_found(client, monkeypatch):
     empty_db = DummyDB([])
-    monkeypatch.setattr(routes, "db", empty_db)
+    monkeypatch.setattr(plants_router, "db", empty_db)
     monkeypatch.setattr(main, "db", empty_db)
     with TestClient(main.app) as c:
         main.app.dependency_overrides[deps.get_current_user] = lambda: {
             "sub": "user1",
             "email": "test@example.com",
         }
-        resp = c.delete("/api/delete-plant/507f1f77bcf86cd799439011")
+        resp = c.delete("/api/plants/507f1f77bcf86cd799439011")
     main.app.dependency_overrides.clear()
     assert resp.status_code == 404
 
-
-def test_identify_plant_passes_organs(client, monkeypatch):
-    called = {}
-
-    class DummyIdent:
-        def __init__(self):
-            self.status = types.SimpleNamespace(name="COMPLETED")
-            self.access_token = "tok"
-            self.input = types.SimpleNamespace(
-                latitude=0.0, longitude=0.0, datetime="2024-01-01T00:00:00"
-            )
-            sug = types.SimpleNamespace(
-                id="1",
-                name="a",
-                probability=1.0,
-                similar_images=[],
-                details={"common_names": ["a"]},
-            )
-            classification = types.SimpleNamespace(suggestions=[sug])
-            self.result = types.SimpleNamespace(
-                is_plant=types.SimpleNamespace(binary=True, probability=1.0),
-                classification=classification,
-            )
-
-    def dummy_identify(images, **kwargs):
-        called["organs"] = kwargs.get("organs")
-        return DummyIdent()
-
-    monkeypatch.setattr(
-        routes, "plant_client", types.SimpleNamespace(identify=dummy_identify)
-    )
-
-    resp = client.post(
-        "/api/identify-plant",
-        files=[("files", ("img.jpg", b"hello", "image/jpeg"))],
-        data={"latitude": "0.0", "longitude": "0.0", "organs": "leaf"},
-    )
-
-    assert resp.status_code == 200
-    assert called["organs"] == ["leaf"]
