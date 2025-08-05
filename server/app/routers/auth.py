@@ -5,6 +5,7 @@ from authlib.integrations.starlette_client import OAuth, OAuthError
 
 from ..config import settings
 from ..deps import get_current_user
+from ..services.database import upsert_user
 
 router = APIRouter(prefix="/api/auth")
 
@@ -36,20 +37,16 @@ async def auth_callback(request: Request):
     # user_info = await oauth.google.parse_id_token(request, token)
     resp = await oauth.google.get('https://openidconnect.googleapis.com/v1/userinfo', token=token)
     user_info = resp.json()
-    # user_info contains keys like: sub, email, name, picture, ...
-    # Now you can upsert this user into Mongo and issue your own JWT / session cookie
+    stored_user = await upsert_user(user_info)
 
-    # e.g.:
-    # db.users.update_one({ "google_id": user_info["sub"] }, { "$set": {...} }, upsert=True)
-    #
-    # Then create your own signed token (JWT) to send back:
     from fastapi import Response
     import jwt, time
 
     payload = {
-        "sub": user_info["sub"],
-        "email": user_info["email"],
-        "exp": time.time() + 3600
+        "sub": stored_user["sub"],
+        "email": stored_user.get("email"),
+        "tier": stored_user.get("tier"),
+        "exp": time.time() + 3600,
     }
     jwt_token = jwt.encode(payload, settings.jwt_secret, algorithm="HS256")
 
