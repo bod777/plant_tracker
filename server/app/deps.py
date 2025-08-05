@@ -4,20 +4,21 @@ from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 
+from .services.database import get_user_by_sub
+
 oauth2_scheme = HTTPBearer(auto_error=False)
 
 async def get_current_user(request: Request):
-    """Return JWT payload from header or cookie."""
+    """Retrieve the current user document from the database."""
     credentials: HTTPAuthorizationCredentials | None = await oauth2_scheme(request)
-    token = None
-    if credentials:
-        token = credentials.credentials
-    else:
-        token = request.cookies.get("access_token")
+    token = credentials.credentials if credentials else request.cookies.get("access_token")
     if not token:
         raise HTTPException(401, "Invalid auth token")
     try:
         payload = jwt.decode(token, settings.jwt_secret, algorithms=["HS256"])
     except jwt.PyJWTError:
         raise HTTPException(401, "Invalid auth token")
-    return payload  # e.g. { sub, email, exp }
+    user = await get_user_by_sub(payload.get("sub"))
+    if not user:
+        raise HTTPException(401, "User not found")
+    return user

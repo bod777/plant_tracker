@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel, HttpUrl
 from typing import List, Optional, Dict, Any
 
@@ -24,6 +25,16 @@ class Suggestion(BaseModel):
     cultural_significance: Optional[str] = None
     best_watering: Optional[str] = None
     similar_images: Optional[List[SimilarImage]] = []
+
+
+class User(BaseModel):
+    id: Optional[str] = None
+    sub: str
+    email: str
+    name: Optional[str] = None
+    picture: Optional[HttpUrl] = None
+    tier: Optional[str] = None
+    created_at: Optional[datetime] = None
 
 
 class PlantResponse(BaseModel):

@@ -18,8 +18,9 @@ async def lifespan(app: FastAPI):
     # --- Startup code ---
     # 1) Warm up the driver / open pool & auth
     await db.client.admin.command("ping")
-    # 2) Create index on user_id for fast lookups
+    # 2) Create indexes for fast lookups
     await db.plants.create_index("user_id", name="idx_user_id")
+    await db.users.create_index("sub", unique=True, name="idx_users_sub")
     yield
     # --- (optional) Shutdown code could go here ---
 
