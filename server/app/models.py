@@ -1,46 +1,43 @@
-from pydantic import BaseModel, HttpUrl
-from typing import List, Optional, Dict, Any
+from typing import List, Literal, Optional
+from datetime import datetime
+from pydantic import BaseModel, Field, EmailStr
 
 
-# --- Pydantic Models ---
-class SimilarImage(BaseModel):
-    url: HttpUrl
-    similarity: float
+class User(BaseModel):
+    userId: str = Field(..., description="Google's sub ID (primary key)")
+    name: str = Field(..., description="Full name of the user")
+    email: EmailStr = Field(..., description="User's email address")
+    createdAt: datetime = Field(default_factory=datetime.utcnow, description="Account creation timestamp")
+    tier: Literal['free', 'pro', 'enterprise'] = Field(..., description="User subscription tier")
 
 
-class Suggestion(BaseModel):
-    name: str
-    probability: float
-    common_names: Optional[List[str]] = []
-    taxonomy: Optional[Dict[str, Any]] = None
-    url: Optional[HttpUrl] = None
-    description: Optional[str] = None
-    synonyms: Optional[List[str]] = []
-    edible_parts: Optional[List[str]] = None
-    watering: Optional[Dict[str, Any]] = None
-    propagation_methods: Optional[List[str]] = []
-    best_light_condition: Optional[str] = None
-    best_soil_type: Optional[str] = None
-    cultural_significance: Optional[str] = None
-    best_watering: Optional[str] = None
-    similar_images: Optional[List[SimilarImage]] = []
+class PlantConfidence(BaseModel):
+    plantId: str = Field(..., description="ID of the detected plant")
+    confidence: float = Field(..., ge=0.0, le=1.0, description="Confidence score between 0 and 1")
 
 
-class PlantResponse(BaseModel):
-    id: Optional[str] = None
-    user_id: Optional[str] = None
-    access_token: Optional[str] = None
-    is_plant_boolean: Optional[bool] = None
-    is_plant_probability: Optional[float] = None
-    suggestions: Optional[List[Suggestion]] = []
-    notes: Optional[str] = None
+class PlantImage(BaseModel):
+    image_data: str = None
+    organs: str = None
+
+
+class PlantRecord(BaseModel):
+    recordId: str = Field(..., description="Unique record ID (primary key)")
+    userId: str = Field(..., description="ID of the user who created this record")
+    plants: List[PlantConfidence] = Field(..., description="List of detected plants with confidence scores")
+    photos: List[PlantImage] = Field(..., description="List of photos with their organ classifications")
+    notes: Optional[str] = Field(None, description="User-provided notes about the plant record")
+    locations: List[str] = Field(default_factory=list, description="List of location names or coordinates")
     datetime: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    image_data: Optional[List[str]] = None
-    organs: Optional[List[str]] = None
     _ts: Optional[int] = None
 
 
-class UpdateNotesRequest(BaseModel):
-    notes: str
+class PlantInfo(BaseModel):
+    plantId: str = Field(..., description="Unique plant ID (primary key)")
+    commonName: Optional[str] = Field(None, description="Common name of the plant")
+    scientificName: Optional[str] = Field(None, description="Scientific name of the plant")
+    photos: List[str] = Field(default_factory=list, description="List of reference photo URLs")
+    source: Literal['perennial', 'plant_id'] = Field(..., description="Source of the plant information")
+    sunlight: Optional[str] = Field(None, description="Sunlight requirements description")
+    watering: Optional[str] = Field(None, description="Watering instructions")
+    originalApiResponse: Optional[dict] = Field(None, description="Additional info (description, taxonomy, pruning, etc.)")
