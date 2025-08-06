@@ -5,7 +5,7 @@ from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException
 
 from ..models import PlantResponse, UpdateNotesRequest
-from ..deps import get_current_user
+from .auth.deps import get_current_user
 from ..services.database import db
 
 router = APIRouter(prefix="/api")

@@ -1,11 +1,12 @@
 import types
 import os
+from plant_tracker.server.app.routers.auth import deps
 import pytest
 from fastapi.testclient import TestClient
 
 os.environ.setdefault("PLANT_ID_API_KEY", "test")
 
-from server.app import main, deps
+from server.app import main
 from server.app.routers import plants as plants_router
 
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from typing import List, Optional
 
 from ..models import PlantResponse
-from ..deps import get_current_user
+from .auth.deps import get_current_user
 from ..services.plantid import PlantIdClient
 from ..services.plantnet import PlantNetClient
 from ..services.perenual import PerenualClient

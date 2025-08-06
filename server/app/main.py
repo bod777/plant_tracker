@@ -7,10 +7,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi import Request, HTTPException
 import os
-from .config import settings
+
+from .routers.auth import auth as auth_routes
+from .routers.auth.authig import settings
 
 from .auth import router as oauth_router
-from .routers import auth as auth_routes, identification, plants
+from .routers import identification, plants
 from .services.database import db
 
 @asynccontextmanager

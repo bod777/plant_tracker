@@ -3,8 +3,8 @@ from fastapi.responses import JSONResponse
 from fastapi.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuth, OAuthError
 
-from ..config import settings
-from ..deps import get_current_user
+from ...config import settings
+from .deps import get_current_user
 
 router = APIRouter(prefix="/api/auth")
 

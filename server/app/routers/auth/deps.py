@@ -1,5 +1,5 @@
 # server/app/deps.py
-from .config import settings
+from ...config import settings
 from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
