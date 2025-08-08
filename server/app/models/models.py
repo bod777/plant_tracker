@@ -1,4 +1,4 @@
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Tuple
 from datetime import datetime
 from pydantic import BaseModel, Field, EmailStr
 
@@ -18,26 +18,43 @@ class PlantConfidence(BaseModel):
 
 class PlantImage(BaseModel):
     image_data: str = None
-    organs: str = None
+    organs: str = "auto"
 
 
 class PlantRecord(BaseModel):
     recordId: str = Field(..., description="Unique record ID (primary key)")
     userId: str = Field(..., description="ID of the user who created this record")
     plants: List[PlantConfidence] = Field(..., description="List of detected plants with confidence scores")
+    customName: Optional[str] = Field(None, description="Custom name of the plant")
     photos: List[PlantImage] = Field(..., description="List of photos with their organ classifications")
     notes: Optional[str] = Field(None, description="User-provided notes about the plant record")
-    locations: List[str] = Field(default_factory=list, description="List of location names or coordinates")
-    datetime: Optional[str] = None
+    location: Tuple[float, float] = Field(default_factory=list, description="A tuple of latitude and longitude coordinates")
+    createdAt: Optional[str] = None
     _ts: Optional[int] = None
+
+
+class PlantIdObject(BaseModel):
+    accessToken: str = Field(..., description="Access token for Plant.id API")
+    id: str = Field(..., description="Unique identifier for the plant")
+    taxonomy = Field(..., description="Taxonomy information of the plant")
+    url = Field(..., description="URL to the plant's page on Plant.id")
+    description = Field(..., description="Description of the plant")
+    synonyms = Field(..., description="List of synonyms for the plant")
+    image = Field(..., description="Base64 encoded image of the plant")
+    edible_parts = Field(..., description="List of edible parts of the plant")
+    propagation_methods = Field(..., description="List of propagation methods for the plant")
+    best_soil_type = Field(..., description="Best soil type for the plant")
+    cultural_significance = Field(..., description="Cultural significance of the plant")
 
 
 class PlantInfo(BaseModel):
     plantId: str = Field(..., description="Unique plant ID (primary key)")
+    createdAt: Optional[str] = None
+    _ts: Optional[int] = None
+    source: Literal['perennial', 'plant_id'] = Field(..., description="Source of the plant information")
     commonName: Optional[str] = Field(None, description="Common name of the plant")
     scientificName: Optional[str] = Field(None, description="Scientific name of the plant")
     photos: List[str] = Field(default_factory=list, description="List of reference photo URLs")
-    source: Literal['perennial', 'plant_id'] = Field(..., description="Source of the plant information")
     sunlight: Optional[str] = Field(None, description="Sunlight requirements description")
     watering: Optional[str] = Field(None, description="Watering instructions")
-    originalApiResponse: Optional[dict] = Field(None, description="Additional info (description, taxonomy, pruning, etc.)")
+    originalApiResponse: Optional[PlantIdObject] = Field(None, description="Additional info (description, taxonomy, pruning, etc.)")

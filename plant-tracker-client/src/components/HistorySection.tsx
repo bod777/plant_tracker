@@ -11,7 +11,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import { IdentifiedPlant } from '@/api/models';
+import { PlantInfo, PlantRecord } from '@/api/models';
 import PlantCard from './PlantCard';
 
 interface HistorySectionProps {

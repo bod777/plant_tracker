@@ -44,6 +44,10 @@ class DummyPlants:
     async def create_index(self, *args, **kwargs):
         pass
 
+class DummyUsers:
+    async def create_index(self, *args, **kwargs):
+        pass
+
 
 class DummyClientAdmin:
     async def command(self, *args, **kwargs):
@@ -59,6 +63,7 @@ class DummyDB:
     def __init__(self, docs=None):
         self.client = DummyClient()
         self.plants = DummyPlants(docs)
+        self.users = DummyUsers()
 
 
 @pytest.fixture

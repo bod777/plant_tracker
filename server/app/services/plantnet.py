@@ -7,7 +7,7 @@ from typing import List, Dict
 import httpx
 
 from .logging_setup import redact_sensitive
-from ..config import settings
+from ..config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +37,7 @@ class PlantNetClient:
         logger.info("Identifying plant and retrieving care information")
         data, files = self._parse_input(image_files, organs)
 
-        api_url = f"https://my-api.plantnet.org/v2/identify/all?api-key={settings.plantnet_api_key}"
+        api_url = f"https://my-api.plantnet.org/v2/identify/all?api-key={Config.PLANTNET_API_KEY}"
         safe_url = redact_sensitive(api_url)
         logger.debug("Sending image data to PlantNet API at %s", safe_url)
 

@@ -8,20 +8,20 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi import Request, HTTPException
 import os
 
-from .routers.auth import auth as auth_routes
-from .routers.auth.authig import settings
-
-from .auth import router as oauth_router
+from .routers.auth import auth as auth_router
+from .config import Config
 from .routers import identification, plants
 from .services.database import db
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # --- Startup code ---
     # 1) Warm up the driver / open pool & auth
     await db.client.admin.command("ping")
-    # 2) Create index on user_id for fast lookups
+    # 2) Create indexes for fast lookups
     await db.plants.create_index("user_id", name="idx_user_id")
+    await db.users.create_index("userId", unique=True, name="idx_users_userId")
     yield
     # --- (optional) Shutdown code could go here ---
 
@@ -30,14 +30,14 @@ app = FastAPI(lifespan=lifespan)
 # === Middlewares ===
 app.add_middleware(
     SessionMiddleware,
-    secret_key=settings.session_secret_key,
+    secret_key=Config.SESSION_SECRET_KEY,
     session_cookie="session",
     max_age=86400,
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.allowed_origins,
+    allow_origins=Config.ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -45,8 +45,7 @@ app.add_middleware(
 
 
 # === Routers ===
-app.include_router(oauth_router)
-app.include_router(auth_routes.router)
+app.include_router(auth_router.router)
 app.include_router(identification.router)
 app.include_router(plants.router)
 

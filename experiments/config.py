@@ -11,6 +11,8 @@ class Config():
     SESSION_SECRET_KEY = os.getenv("SESSION_SECRET_KEY", "a-strong-fallback-secret")
     ALLOWED_ORIGINS =  os.getenv("ALLOWED_ORIGINS", "http://localhost:8080")
     ORIGINS_ARRAY = [o.strip() for o in ALLOWED_ORIGINS.split(",")]
+    PLANTNET_API = "https://my-api.plantnet.org/v2/identify/"
+    PLANTNET_PROJECT = "all"
     PLANT_ID_API_KEY = os.getenv("PLANT_ID_API_KEY")
     PLANTNET_API_KEY = os.getenv("PLANTNET_API_KEY")
     PERENUAL_API_KEY = os.getenv("PERENUAL_API_KEY")

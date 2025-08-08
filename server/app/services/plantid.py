@@ -1,13 +1,16 @@
 import time
 import base64
 from typing import List
+import os
+from datetime import datetime, timezone
+import uuid
 
 from fastapi import UploadFile, HTTPException
 from kindwise import PlantApi, PlantIdentification, ClassificationLevel
-from ..config import settings
+from ..config import Config
 
-from ..models import PlantResponse, Suggestion, SimilarImage
-
+from ..models.models import PlantInfo, PlantConfidence, PlantIdObject
+from ..services.database import insert_plant_info
 
 class PlantIdClient:
     """
@@ -16,8 +19,7 @@ class PlantIdClient:
 
     def __init__(self, api_key: str = None):
         # Initialize API key and client
-
-        key = api_key or settings.plant_id_api_key
+        key = api_key or Config.PLANT_ID_API_KEY
         if not key:
             raise RuntimeError("PLANT_ID_API_KEY not set in environment variables or provided")
         self.plant_client = PlantApi(api_key=key)
@@ -68,70 +70,60 @@ class PlantIdClient:
             )
 
         return identification
-
+    
     async def parse_identification(
         self,
-        user_id: str,
-        encoded_images: List[str],
         identification: PlantIdentification
-    ) -> PlantResponse:
-        """
-        Parse the PlantIdentification result into a PlantResponse model.
-        """
-        suggestions: List[Suggestion] = []
+    ) -> PlantInfo:
+        
+        plant_identifications = []
+        list_plant_info = []
+        now = datetime.now(timezone.utc)
         for s in identification.result.classification.suggestions or []:
             details = s.details or {}
-            description_val = None
-            if details.get("description"):
-                description_val = details["description"].get("value")
+            plantId = str(uuid.uuid4())
 
-            suggestions.append(
-                Suggestion(
+            plant_info = PlantInfo(
+                plantId=plantId,
+                createdAt=now.isoformat(),  # ISO 8601 with timezone
+                _ts=int(now.timestamp()),  # Unix timestamp (seconds)
+                source="plant_id",
+                commonName=details.get("common_names")[0].title(),
+                scientificName=details.get("scientific_name"),
+                photos=[img.url for img in (s.similar_images or [])],
+                sunlight=details.get("best_light_condition"),
+                watering=details.get("watering"),
+                originalApiResponse=PlantIdObject(
+                    accessToken=identification.access_token,
                     id=s.id,
-                    name=s.name.title(),
-                    probability=s.probability,
-                    common_names=[c.title() for c in details.get("common_names") or []],
-                    taxonomy=details.get("taxonomy"),
-                    url=details.get("url"),
-                    description=description_val,
-                    synonyms=details.get("synonyms"),
-                    edible_parts=details.get("edible_parts"),
-                    watering=details.get("watering"),
-                    propagation_methods=details.get("propagation_methods"),
-                    best_light_condition=details.get("best_light_condition"),
+                    taxonomy=s.taxonomy,
+                    url=s.url,
+                    description=s.description,
+                    synonyms=s.synonyms,
+                    image=base64.b64encode(s.image).decode('utf-8'),
+                    edible_parts=details.get("edible_parts", []),
+                    propagation_methods=details.get("propagation_methods", []),
                     best_soil_type=details.get("best_soil_type"),
                     cultural_significance=details.get("cultural_significance"),
-                    best_watering=details.get("best_watering"),
-                    similar_images=[
-                        SimilarImage(url=img.url, similarity=img.similarity)
-                        for img in (s.similar_images or [])
-                    ],
                 )
             )
 
-        response = PlantResponse(
-            user_id=user_id,
-            access_token=identification.access_token,
-            is_plant_boolean=identification.result.is_plant.binary,
-            is_plant_probability=identification.result.is_plant.probability,
-            suggestions=suggestions,
-            notes="",
-            datetime=str(identification.input.datetime),
-            latitude=identification.input.latitude,
-            longitude=identification.input.longitude,
-            image_data=encoded_images,
-            _ts=int(time.time()),
-        )
+            insert_plant_info(plant_info)
+            list_plant_info.append(plant_info)
+            plant_identifications.append({
+                "plantId": plantId,
+                "confidence": s.probability
+            })
 
-        return response
+        return plant_identifications, list_plant_info
+
 
     async def identify_and_parse(
         self,
-        user_id: str,
         files: List[UploadFile],
         latitude: float,
         longitude: float
-    ) -> PlantResponse:
+    ) -> List[PlantConfidence]:
         """
         High-level helper: reads uploaded files, performs identification, and parses the results.
         """
@@ -153,7 +145,5 @@ class PlantIdClient:
 
         # Parse into response model
         return await self.parse_identification(
-            user_id=user_id,
-            encoded_images=encoded_images,
             identification=identification
         )

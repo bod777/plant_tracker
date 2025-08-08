@@ -11,15 +11,9 @@ import time
 from typing import List, Dict, Tuple
 from urllib.parse import urljoin, urlparse
 import httpx
-try:
-    import pandas as pd
-except ImportError:
-    pd = None  # pandas is optional
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    BeautifulSoup = None  # bs4 is optional
-from ..config import settings
+import pandas as pd
+from bs4 import BeautifulSoup
+from ..config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -34,8 +28,8 @@ class PerenualClient:
     async def fetch_info(self, plant_name: str) -> pd.DataFrame:
         """Try API first; on 429 rate-limit, fall back to scraping."""
         logger.info("Fetching care data for plant: %s", plant_name)
-        api_url = f"https://perenual.com/api/species-care-guide-list?key={settings.perenual_api_key}&q={plant_name}"
-        safe_url = api_url.replace(settings.perenual_api_key or "", "<api-key>")
+        api_url = f"https://perenual.com/api/species-care-guide-list?key={Config.PERENUAL_API_KEY}&q={plant_name}"
+        safe_url = api_url.replace(Config.PERENUAL_API_KEY or "", "<api-key>")
         logger.debug("Calling URL: %s", safe_url)
 
         try:

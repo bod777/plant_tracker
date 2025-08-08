@@ -1,77 +1,68 @@
-/**
- * Frontend models for Plant Tracker
- */
+// models.ts
 
-export interface SimilarImage {
-  url: string;
-  similarity: number;
-}
+/** User subscription tiers */
+export type Tier = 'free' | 'pro' | 'enterprise';
 
-export interface Suggestion {
-  id: string;
+/** User */
+export interface User {
+  userId: string;
   name: string;
-  probability: number;
-  common_names?: string[];
-  taxonomy?: Record<string, unknown>;
-  url?: string;
-  description?: string;
-  synonyms?: string[];
-  edible_parts?: string[];
-  watering?: Record<string, unknown>;
-  propagation_methods?: string[];
-  best_light_condition?: string;
-  best_soil_type?: string;
-  cultural_significance?: string;
-  best_watering?: string;
-  similar_images?: SimilarImage[];
+  email: string; 
+  createdAt: string;
+  tier: Tier;
 }
 
-/**
- * Represents the raw response from the `identifyPlant` API endpoint.
- */
-export interface ApiPlantResponse {
-  id?: string;
-  user_id?: string;
-  access_token?: string;
-  is_plant_boolean: boolean;
-  is_plant_probability: number;
-  suggestions: Suggestion[];
-  notes?: string;
-  datetime?: string;
-  latitude?: number;
-  longitude?: number;
-  image_data?: string[];
-  organs?: string[];
-  threshold?: number;
+/** Confidence for a detected plant */
+export interface PlantConfidence {
+  plantId: string;
+  confidence: number;
 }
 
-/**
- * Represents a processed, flattened plant identification result used within the application's state.
- * This is derived from the top suggestion of an `ApiPlantResponse`.
- */
-export interface IdentifiedPlant {
-  id: string; // Unique ID for the result in the history list
-  image_data: string[]; // All uploaded images
-  plantName: string; // The primary name from the top suggestion
-  scientificName?: string; // A common name, if available
-  confidence: number; // Probability percentage
-  description?: string;
-  watering?: string;
-  soil_type?: string;
-  light_condition?: string;
-  url?: string;
-  taxonomy?: Record<string, string>;
-  similar_images?: SimilarImage[];
-  timestamp: Date;
-  notes?: string;
+/** Uploaded/derived plant image */
+export interface PlantImage {
+  image_data: string | null;
+  organs: string;
 }
 
-/**
- * Payload to update an existing plant's notes.
- */
-export interface UpdateNotesRequest {
-  /** Document ID of the plant to update */
-  id: string;
-  /** New notes text */
-  notes: string;
+/** A plant record owned by a user */
+export interface PlantRecord {
+  recordId: string;
+  userId: string;
+  plants: PlantConfidence[];
+  customName?: string | null;
+  photos: PlantImage[];
+  notes?: string | null;
+  location: [number, number];
+  createdAt?: string | null;
+  _ts?: number | null;
+}
+
+/** Static information about a plant */
+export type PlantInfoSource = 'perennial' | 'plant_id';
+
+export interface PlantIdObject {
+    accessToken: string;
+    id: string;
+    taxonomy: string[];
+    url: string;
+    description: string;
+    synonyms: string[];
+    image: string[];
+    edible_parts: string[];
+    propagation_methods: string[];
+    best_soil_type: string;
+    cultural_significance: string;
+}
+
+export interface PlantInfo {
+  plantId: string;
+  createdAt?: string | null;
+  _ts?: number | null;
+  source: PlantInfoSource;
+  commonName?: string | null;
+  scientificName?: string | null;
+  photos: string[];
+  sunlight?: string | null;
+  watering?: string | null;
+  originalApiResponse?: PlantIdObject | null; // Store raw API response if needed
 }

@@ -4,11 +4,10 @@ import { ArrowLeft, Clock, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { IdentifiedPlant } from '../api/models';
+import { PlantRecord, PlantInfo } from '../api/models';
 import { updatePlantNotes } from '@/api/api';
 import { toast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
-import TaxonomyChart from './TaxonomyChart';
 import {
   Carousel,
   CarouselContent,
@@ -166,14 +165,6 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
         </Card>
       </div>
 
-      {/* Taxonomy */}
-      {result.taxonomy && (
-        <Card className="p-6 space-y-4">
-          <h4 className="text-xl font-semibold text-gray-800">Taxonomy</h4>
-          <TaxonomyChart taxonomy={result.taxonomy} />
-        </Card>
-      )}
-
       {/* Notes */}
       <Card className="p-6 space-y-4">
         <div className="flex items-center justify-between">
@@ -228,11 +219,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           </div>
           <div className="bg-yellow-50 p-4 rounded-lg">
             <h5 className="font-semibold text-yellow-800 mb-2">Light</h5>
-            <p className="text-yellow-700">{result.light_condition}</p>
-          </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <h5 className="font-semibold text-green-800 mb-2">Soil</h5>
-            <p className="text-green-700">{result.soil_type}</p>
+            <p className="text-yellow-700">{result.sunlight}</p>
           </div>
         </div>
       </Card>

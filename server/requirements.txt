@@ -11,3 +11,4 @@ PyJWT==2.10.1
 itsdangerous==2.2.0
 kindwise-api-client==0.6.0
 httpx==0.28.1
+email-validator==2.1.0
