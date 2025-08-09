@@ -7,19 +7,25 @@ from fastapi import APIRouter, Depends, HTTPException
 # from ..models import PlantResponse, UpdateNotesRequest
 from .auth.deps import get_current_user
 from ..services.database import db
+from ..models.models import PlantRecord, PlantInfo
 
 router = APIRouter(prefix="/api")
 
 
-# @router.get("/plants", response_model=List[PlantResponse])
-# async def get_plants(user=Depends(get_current_user)):
-#     """Fetch all plants for the current user."""
-#     docs = await db.plants.find({"user_id": user["userId"]}).to_list(length=20)
-#     results = []
-#     for doc in docs:
-#         doc["id"] = str(doc.get("_id"))
-#         results.append(PlantResponse(**doc))
-#     return results
+@router.get("/plant-records", response_model=List[PlantRecord])
+async def get_plant_records(user=Depends(get_current_user)):
+    """Fetch all plant records for the current user."""
+    docs = await db.plantRecord.find({"userId": user["userId"]}, {"_id": 0}).to_list(length=100)
+    return docs
+
+
+@router.get("/plant-info/{plant_id}", response_model=PlantInfo)
+async def get_plant_info(plant_id: str):
+    """Fetch static plant information by plant ID."""
+    doc = await db.plantInfo.find_one({"plantId": plant_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Plant info not found")
+    return doc
 
 
 @router.delete("/plants/{plant_id}")
