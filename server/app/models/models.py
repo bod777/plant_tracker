@@ -36,15 +36,15 @@ class PlantRecord(BaseModel):
 class PlantIdObject(BaseModel):
     accessToken: str = Field(..., description="Access token for Plant.id API")
     id: str = Field(..., description="Unique identifier for the plant")
-    taxonomy = Field(..., description="Taxonomy information of the plant")
-    url = Field(..., description="URL to the plant's page on Plant.id")
-    description = Field(..., description="Description of the plant")
-    synonyms = Field(..., description="List of synonyms for the plant")
-    image = Field(..., description="Base64 encoded image of the plant")
-    edible_parts = Field(..., description="List of edible parts of the plant")
-    propagation_methods = Field(..., description="List of propagation methods for the plant")
-    best_soil_type = Field(..., description="Best soil type for the plant")
-    cultural_significance = Field(..., description="Cultural significance of the plant")
+    taxonomy: List[str] = Field(..., description="Taxonomy information of the plant")
+    url: str = Field(..., description="URL to the plant's page on Plant.id")
+    description: str = Field(..., description="Description of the plant")
+    synonyms: List[str] = Field(..., description="List of synonyms for the plant")
+    image: List[str] = Field(..., description="Base64 encoded image of the plant")
+    edible_parts: List[str] = Field(..., description="List of edible parts of the plant")
+    propagation_methods: List[str] = Field(..., description="List of propagation methods for the plant")
+    best_soil_type: str = Field(..., description="Best soil type for the plant")
+    cultural_significance: str = Field(..., description="Cultural significance of the plant")
 
 
 class PlantInfo(BaseModel):
