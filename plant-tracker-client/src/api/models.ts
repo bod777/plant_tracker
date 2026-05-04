@@ -42,7 +42,6 @@ export interface ApiPlantResponse {
   longitude?: number;
   image_urls?: string[];
   image_data?: string[];
-  threshold?: number;
 }
 
 /**

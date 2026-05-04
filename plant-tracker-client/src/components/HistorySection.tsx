@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ArrowLeft, Calendar, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -31,7 +31,7 @@ const HistorySection: React.FC<HistorySectionProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [sortOption, setSortOption] = React.useState<'newest' | 'oldest' | 'nameAsc' | 'nameDesc'>('newest');
-  const totalPages = Math.ceil(totalCount / pageSize);
+  const hasMore = history.length < totalCount;
 
   const filteredHistory = history.filter(item =>
     item.plantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -154,33 +154,18 @@ const HistorySection: React.FC<HistorySectionProps> = ({
         </div>
       )}
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-4">
+      {/* Load More */}
+      {(hasMore || loading) && (
+        <div className="flex justify-center pt-2">
           <Button
             variant="outline"
-            size="sm"
-            onClick={() => onPageChange(page - 1)}
-            disabled={page <= 1 || loading}
-          >
-            <ChevronLeft className="h-4 w-4" />
-            Prev
-          </Button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
-          <Button
-            variant="outline"
-            size="sm"
             onClick={() => onPageChange(page + 1)}
-            disabled={page >= totalPages || loading}
+            disabled={loading}
+            className="w-40"
           >
-            Next
-            <ChevronRight className="h-4 w-4" />
+            {loading ? 'Loading...' : 'Load More'}
           </Button>
         </div>
-      )}
-
-      {loading && (
-        <div className="text-center text-gray-500 py-4">Loading...</div>
       )}
 
       {/* Stats */}

@@ -24,11 +24,14 @@ interface PlantResultProps {
   identifying?: boolean;
 }
 
+const DESCRIPTION_LIMIT = 300;
+
 const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory, identifying }) => {
   const [notes, setNotes] = React.useState(result?.notes || '');
   const [saving, setSaving] = React.useState(false);
   const [editing, setEditing] = React.useState(!result?.notes);
   const [showSaved, setShowSaved] = React.useState(false);
+  const [descExpanded, setDescExpanded] = React.useState(false);
 
   React.useEffect(() => {
     setNotes(result?.notes || '');
@@ -86,7 +89,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
         </Button>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-8 items-start">
         {/* Image Carousel */}
         <Card className="overflow-hidden">
           <Carousel className="w-full">
@@ -99,7 +102,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
                   <img
                     src={src}
                     alt={`Plant image ${idx}`}
-                    className="w-full h-80 object-cover"
+                    className="w-full object-contain max-h-80 bg-gray-100"
                   />
                 </CarouselItem>
               ))}
@@ -109,7 +112,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           </Carousel>
         </Card>
 
-        {/* Results */}
+        {/* Key info + actions */}
         <Card className="p-6 space-y-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -130,13 +133,6 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
                 {result.scientificName}
               </p>
             </div>
-
-            <div className="pt-4 border-t">
-              <h4 className="font-semibold text-gray-800 mb-2">Description</h4>
-              <p className="text-gray-600 leading-relaxed">
-                {result.description}
-              </p>
-            </div>
           </div>
 
           <div className="flex space-x-3">
@@ -151,7 +147,6 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
               </a>
             </Button>
 
-            {/* Button to Google search the plant name */}
             <Button asChild variant="outline" className="flex-1">
               <a
                 href={`https://www.google.com/search?q=${encodeURIComponent(result.plantName)}`}
@@ -165,6 +160,26 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           </div>
         </Card>
       </div>
+
+      {/* Description */}
+      {result.description && (
+        <Card className="p-6 space-y-3">
+          <h4 className="font-semibold text-gray-800">Description</h4>
+          <p className="text-gray-600 leading-relaxed">
+            {descExpanded || result.description.length <= DESCRIPTION_LIMIT
+              ? result.description
+              : `${result.description.slice(0, DESCRIPTION_LIMIT).trimEnd()}…`}
+          </p>
+          {result.description.length > DESCRIPTION_LIMIT && (
+            <button
+              onClick={() => setDescExpanded(prev => !prev)}
+              className="text-sm text-green-600 hover:underline"
+            >
+              {descExpanded ? 'Show less' : 'Show more'}
+            </button>
+          )}
+        </Card>
+      )}
 
       {/* Taxonomy */}
       {result.taxonomy && (

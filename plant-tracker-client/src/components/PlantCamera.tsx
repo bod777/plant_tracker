@@ -67,13 +67,13 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
 
     if (!context) return;
 
-    const MAX = 1024;
+    const MAX = 2048;
     const scale = Math.min(1, MAX / Math.max(video.videoWidth, video.videoHeight));
     canvas.width = video.videoWidth * scale;
     canvas.height = video.videoHeight * scale;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    const imageData = canvas.toDataURL('image/jpeg', 0.7);
+    const imageData = canvas.toDataURL('image/jpeg', 0.85);
     setCaptures(prev => [...prev, imageData]);
   };
 
@@ -129,7 +129,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
             autoPlay
             playsInline
             muted
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             style={{ display: isLoading ? 'none' : 'block' }}
           />
           
@@ -154,7 +154,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {captures.map((img, idx) => (
                 <div key={idx} className="relative">
-                <img src={img} alt={`capture-${idx}`} className="w-full h-32 object-cover rounded-lg" />
+                <img src={img} alt={`capture-${idx}`} className="w-full h-32 object-contain rounded-lg bg-gray-100" />
                 <Button
                   onClick={() => setCaptures(c => c.filter((_, i) => i !== idx))}
                   variant="outline"

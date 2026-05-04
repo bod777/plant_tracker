@@ -30,13 +30,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
     reader.onload = (e) => {
       const img = new window.Image();
       img.onload = () => {
-        const MAX = 1024;
+        const MAX = 2048;
         const scale = Math.min(1, MAX / Math.max(img.width, img.height));
         const canvas = document.createElement('canvas');
         canvas.width = img.width * scale;
         canvas.height = img.height * scale;
         canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height);
-        setPreviews(prev => [...prev, canvas.toDataURL('image/jpeg', 0.7)]);
+        setPreviews(prev => [...prev, canvas.toDataURL('image/jpeg', 0.85)]);
       };
       img.src = e.target?.result as string;
     };
@@ -160,7 +160,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
                   <img
                     src={p}
                     alt={`preview-${idx}`}
-                    className="w-full h-40 object-cover rounded-lg"
+                    className="w-full h-40 object-contain rounded-lg bg-gray-100"
                   />
                   <Button
                     onClick={() => clearPreview(idx)}

@@ -55,12 +55,13 @@ async def auth_callback(request: Request):
     jwt_token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm="HS256")
 
     frontend_url = os.getenv("FRONTEND_URL", "http://localhost:8080/")
+    is_secure = frontend_url.startswith("https://")
     response = RedirectResponse(url=frontend_url)  # send user home
     response.set_cookie(
         "access_token", jwt_token,
         httponly=True,
         max_age=3600,
-        secure=True,
+        secure=is_secure,
         samesite="lax",
     )
     return response

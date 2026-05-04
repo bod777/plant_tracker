@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git rm *)",
+      "Bash(python -m venv .venv)",
+      "Bash(.venv\\\\Scripts\\\\pip install *)",
+      "Bash(.venv\\\\Scripts\\\\python migrate_images_to_r2.py)",
+      "Bash(.venvScriptspython.exe fix_image_urls.py)",
+      "Bash(.venv/Scripts/python.exe:*)",
+      "Bash(.venv/Scripts/pip.exe install:*)"
+    ]
+  }
+}

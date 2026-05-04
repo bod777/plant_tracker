@@ -21,32 +21,32 @@ const apiClient = axios.create({
   withCredentials: true,    // ← this line!
 });
 
-/**
- * Send one or more base64 images to the identify endpoint and save immediately.
- * @param images Array of base64-encoded image strings
- * @param notes Optional user notes
- * @param userId Optional user identifier
- * @returns PlantResponse from server
- */
+function dataURLToBlob(dataURL: string): Blob {
+  const [header, data] = dataURL.split(',');
+  const mime = header.match(/:(.*?);/)?.[1] ?? 'image/jpeg';
+  const binary = atob(data);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new Blob([bytes], { type: mime });
+}
+
 export async function identifyPlant(
   image_data: string[],
   latitude?: number,
   longitude?: number,
-  userId?: string,
-  threshold?: number,
 ): Promise<IdentifiedPlant> {
-  const payload: Partial<ApiPlantResponse> = {
-    image_data,
-    latitude,
-    longitude
-  };
-  if (userId) payload.user_id = userId;
-  if (threshold) {
-    payload.threshold = threshold;
-  } else {
-    payload.threshold = 0.01;
-  }
-  const response = await apiClient.post<ApiPlantResponse>('/identify-plant', payload);
+  const formData = new FormData();
+  image_data.forEach((dataURL, i) => {
+    const blob = dataURLToBlob(dataURL);
+    const ext = blob.type.split('/')[1] === 'jpeg' ? 'jpg' : (blob.type.split('/')[1] ?? 'jpg');
+    formData.append('images', blob, `image${i}.${ext}`);
+  });
+  if (latitude !== undefined) formData.append('latitude', String(latitude));
+  if (longitude !== undefined) formData.append('longitude', String(longitude));
+
+  const response = await apiClient.post<ApiPlantResponse>('/identify-plant', formData, {
+    headers: { 'Content-Type': undefined },
+  });
   const resp = response.data
   // It's good practice to check if suggestions exist
   if (!resp.suggestions || resp.suggestions.length === 0) {

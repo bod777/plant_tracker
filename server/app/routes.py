@@ -1,17 +1,16 @@
 import os
-import base64
 from concurrent.futures import ThreadPoolExecutor
-from fastapi import Depends, APIRouter, HTTPException
+from fastapi import Depends, APIRouter, HTTPException, File, Form, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from typing import List
+from typing import List, Optional
 from bson import ObjectId
 from kindwise import PlantApi, PlantIdentification, ClassificationLevel
 
 from .mongodb_server import db
-from .models import PlantResponse, IdentifyRequest, Suggestion, SimilarImage, UpdateNotesRequest
+from .models import PlantResponse, Suggestion, SimilarImage, UpdateNotesRequest
 from .deps import get_current_user
-from .storage import upload_base64_image, delete_image
+from .storage import upload_image_bytes, delete_image
 
 router = APIRouter(prefix="/api")
 
@@ -22,24 +21,30 @@ if not api_key:
 plant_client = PlantApi(api_key=api_key)
 
 @router.post("/identify-plant")
-async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user)):
-    """Identify a plant from one or more base64-encoded image strings."""
+async def identify_plant(
+    images: List[UploadFile] = File(...),
+    latitude: Optional[float] = Form(None),
+    longitude: Optional[float] = Form(None),
+    user=Depends(get_current_user),
+):
+    """Identify a plant from one or more uploaded images."""
     try:
-        # Decode each base64 string to raw bytes
-        b64_images = [img.split(",", 1)[1] if "," in img else img for img in request.image_data]
-        img_bytes_list = [base64.b64decode(b64) for b64 in b64_images]
+        img_bytes_list = [await img.read() for img in images]
+        content_types = [img.content_type or "image/jpeg" for img in images]
         details_to_return = [
             'common_names', 'url', 'description', 'synonyms', 'edible_parts',
             'propagation_methods', 'watering', 'best_watering', 'taxonomy',
             'best_light_condition', 'best_soil_type', 'cultural_significance', 'image'
         ]
-        # Pass the raw bytes list to the client
+        kwargs = {}
+        if latitude is not None and longitude is not None:
+            kwargs['latitude_longitude'] = (latitude, longitude)
         identification: PlantIdentification = plant_client.identify(
             img_bytes_list,
             details=details_to_return,
-            latitude_longitude=(request.latitude, request.longitude),
             language=['en'],
-            classification_level=ClassificationLevel.ALL
+            classification_level=ClassificationLevel.ALL,
+            **kwargs,
         )
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Identification failed: {e}")
@@ -54,8 +59,6 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
 
     suggestions: List[Suggestion] = []
     for s in identification.result.classification.suggestions or []:
-        # if s.probability < request.threshold:
-        #     continue
         details = s.details
         desc = None
         if details.get('description'):
@@ -85,7 +88,7 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
     with ThreadPoolExecutor() as pool:
         image_urls = list(await loop.run_in_executor(
             pool,
-            lambda: [upload_base64_image(img) for img in request.image_data]
+            lambda: [upload_image_bytes(b, ct) for b, ct in zip(img_bytes_list, content_types)]
         ))
 
     response = PlantResponse(
