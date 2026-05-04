@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi import Request, HTTPException
@@ -23,6 +25,9 @@ async def lifespan(app: FastAPI):
     # --- (optional) Shutdown code could go here ---
 
 app = FastAPI(lifespan=lifespan)
+
+# Trust Railway's proxy so request.url_for() generates https:// URLs
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts="*")
 
 # === Middlewares ===
 app.add_middleware(
