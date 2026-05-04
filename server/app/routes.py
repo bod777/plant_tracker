@@ -121,10 +121,20 @@ async def delete_plant(plant_id: str, user=Depends(get_current_user)):
     return {"id": plant_id}
 
 # --- Fetch Plants ---
+@router.get("/my-plants/count")
+async def get_plants_count(user=Depends(get_current_user)):
+    count = await db.plants.count_documents({"user_id": user["sub"]})
+    return {"count": count}
+
 @router.get("/my-plants", response_model=List[PlantResponse])
-async def get_plants(user=Depends(get_current_user)):
-    # with the index in place this is now a quick lookup
-    docs = await db.plants.find({"user_id": user["sub"]}).sort("_id", -1).to_list(length=20)
+async def get_plants(user=Depends(get_current_user), page: int = 1):
+    page_size = 10
+    skip = (page - 1) * page_size
+    cursor = db.plants.find(
+        {"user_id": user["sub"]},
+        {"image_data": 0}
+    ).sort("_id", -1).skip(skip).limit(page_size)
+    docs = await cursor.to_list(length=page_size)
     results = []
     for doc in docs:
         doc["id"] = str(doc.get("_id"))

@@ -7,7 +7,7 @@ import HistorySection from '@/components/HistorySection';
 import AuthButton from '@/components/AuthButton';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { identifyPlant, fetchPlants, deletePlant, API_BASE } from '../api/api';
+import { identifyPlant, fetchPlants, fetchPlantCount, deletePlant, API_BASE } from '../api/api';
 import { IdentifiedPlant } from '../api/models';
 import { useGeolocation } from '@/hooks/use-location';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
@@ -19,6 +19,9 @@ const Index = () => {
 
   const [currentResult, setCurrentResult] = useState<IdentifiedPlant | null>(null);
   const [identificationHistory, setIdentificationHistory] = useState<IdentifiedPlant[]>([]);
+  const [plantCount, setPlantCount] = useState<number>(0);
+  const [historyPage, setHistoryPage] = useState(1);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const { latitude, longitude } = useGeolocation();
   const [isLoading, setIsLoading] = useState(true);
   const [identifying, setIdentifying] = useState(false);
@@ -55,22 +58,38 @@ const Index = () => {
     }
   }, [didReplaceAuthRoute, authLoading, user, navigate]);
 
-  // Load history after auth
+  // Load just the count after auth
   useEffect(() => {
     if (!user) return;
     (async () => {
       setIsLoading(true);
       try {
-        const historyData = await fetchPlants();
-        setIdentificationHistory(historyData);
+        const count = await fetchPlantCount();
+        setPlantCount(count);
       } catch (error) {
-        console.error('Failed to fetch identification history:', error);
-        toast({ description: 'Could not load previous identifications.' });
+        console.error('Failed to fetch plant count:', error);
       } finally {
         setIsLoading(false);
       }
     })();
   }, [user]);
+
+  // Load a page of history when history page changes
+  useEffect(() => {
+    if (!user || historyPage === 0) return;
+    (async () => {
+      setHistoryLoading(true);
+      try {
+        const historyData = await fetchPlants(historyPage);
+        setIdentificationHistory(historyPage === 1 ? historyData : prev => [...prev, ...historyData]);
+      } catch (error) {
+        console.error('Failed to fetch history:', error);
+        toast({ description: 'Could not load plant history.' });
+      } finally {
+        setHistoryLoading(false);
+      }
+    })();
+  }, [user, historyPage]);
 
   const handleImageCapture = async (images: string[]) => {
     setIdentifying(true);
@@ -202,16 +221,16 @@ const Index = () => {
             </Card>
           </div>
 
-          {identificationHistory.length > 0 && (
+          {plantCount > 0 && (
             <div className="text-center">
               <Button
-                onClick={() => navigate('/history')}
+                onClick={() => { setHistoryPage(1); navigate('/history'); }}
                 variant="outline"
                 size="lg"
                 className="text-green-600 border-green-600 hover:bg-green-50"
               >
                 <History className="mr-2 h-5 w-5" />
-                View History ({identificationHistory.length})
+                View History ({plantCount})
               </Button>
             </div>
           )}
@@ -249,6 +268,11 @@ const Index = () => {
             element={
               <HistorySection
                 history={identificationHistory}
+                totalCount={plantCount}
+                page={historyPage}
+                pageSize={10}
+                onPageChange={setHistoryPage}
+                loading={historyLoading}
                 onBack={() => navigate('/')}
                 onSelectResult={(result) => {
                   setCurrentResult(result);

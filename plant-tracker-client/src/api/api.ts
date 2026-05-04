@@ -75,41 +75,43 @@ export async function identifyPlant(
 }
 
 /**
- * Fetch all saved plants from the server.
- * @returns Array of IdentifiedPlant
+ * Fetch the count of saved plants for the current user.
  */
-export async function fetchPlants(): Promise<IdentifiedPlant[]> {
-  const response = await apiClient.get<ApiPlantResponse[]>('/my-plants');
-  
-  // Map the raw API response to the frontend's IdentifiedPlant model
-  const identifiedPlants = response.data.map(resp => {
-    // A saved plant should always have suggestions, but it's safe to guard this.
-    if (!resp.suggestions || resp.suggestions.length === 0) {
-      console.warn('Skipping a history item with no suggestions:', resp);
-      return null;
-    }
-    const topSuggestion = resp.suggestions[0];
+export async function fetchPlantCount(): Promise<number> {
+  const response = await apiClient.get<{ count: number }>('/my-plants/count');
+  return response.data.count;
+}
 
-    const newIdentification: IdentifiedPlant = {
-      id: resp.id || topSuggestion.id || resp.datetime || Date.now().toString(),
-      image_data: resp.image_data,
-      plantName: topSuggestion.common_names?.[0] || topSuggestion.name,
-      scientificName: topSuggestion.name,
-      confidence: Math.round(topSuggestion.probability * 100),
-      description: topSuggestion.description,
-      watering: topSuggestion.best_watering,
+function mapResponseToPlant(resp: ApiPlantResponse): IdentifiedPlant | null {
+  if (!resp.suggestions || resp.suggestions.length === 0) {
+    console.warn('Skipping a history item with no suggestions:', resp);
+    return null;
+  }
+  const topSuggestion = resp.suggestions[0];
+  return {
+    id: resp.id || topSuggestion.id || resp.datetime || Date.now().toString(),
+    image_data: resp.image_data,
+    plantName: topSuggestion.common_names?.[0] || topSuggestion.name,
+    scientificName: topSuggestion.name,
+    confidence: Math.round(topSuggestion.probability * 100),
+    description: topSuggestion.description,
+    watering: topSuggestion.best_watering,
     soil_type: topSuggestion.best_soil_type,
     light_condition: topSuggestion.best_light_condition,
     taxonomy: topSuggestion.taxonomy as Record<string, string> | undefined,
     url: topSuggestion.url,
     similar_images: topSuggestion.similar_images,
     timestamp: new Date(resp.datetime!),
-    notes: resp.notes
+    notes: resp.notes,
   };
-    return newIdentification;
-  }).filter((plant): plant is IdentifiedPlant => plant !== null); // Filter out any nulls
+}
 
-  return identifiedPlants;
+/**
+ * Fetch a page of saved plants from the server (10 per page, no image data).
+ */
+export async function fetchPlants(page = 1): Promise<IdentifiedPlant[]> {
+  const response = await apiClient.get<ApiPlantResponse[]>('/my-plants', { params: { page } });
+  return response.data.map(mapResponseToPlant).filter((p): p is IdentifiedPlant => p !== null);
 }
 
 /**

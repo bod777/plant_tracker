@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ArrowLeft, Calendar, Search } from 'lucide-react';
+import { ArrowLeft, Calendar, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,14 +16,22 @@ import PlantCard from './PlantCard';
 
 interface HistorySectionProps {
   history: IdentifiedPlant[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+  loading: boolean;
   onBack: () => void;
   onSelectResult: (result: IdentifiedPlant) => void;
   onDelete?: (id: string) => void;
 }
 
-const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSelectResult, onDelete }) => {
+const HistorySection: React.FC<HistorySectionProps> = ({
+  history, totalCount, page, pageSize, onPageChange, loading, onBack, onSelectResult, onDelete
+}) => {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [sortOption, setSortOption] = React.useState<'newest' | 'oldest' | 'nameAsc' | 'nameDesc'>('newest');
+  const totalPages = Math.ceil(totalCount / pageSize);
 
   const filteredHistory = history.filter(item =>
     item.plantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -146,13 +154,42 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
         </div>
       )}
 
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onPageChange(page - 1)}
+            disabled={page <= 1 || loading}
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Prev
+          </Button>
+          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onPageChange(page + 1)}
+            disabled={page >= totalPages || loading}
+          >
+            Next
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
+
+      {loading && (
+        <div className="text-center text-gray-500 py-4">Loading...</div>
+      )}
+
       {/* Stats */}
-      {history.length > 0 && (
+      {totalCount > 0 && (
         <Card className="p-6">
           <h4 className="text-lg font-semibold text-gray-800 mb-4">Your Plant Journey</h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-green-600">{history.length}</div>
+              <div className="text-2xl font-bold text-green-600">{totalCount}</div>
               <div className="text-sm text-gray-600">Plants Identified</div>
             </div>
             <div>
@@ -163,13 +200,13 @@ const HistorySection: React.FC<HistorySectionProps> = ({ history, onBack, onSele
             </div>
             <div>
               <div className="text-2xl font-bold text-purple-600">
-                {Math.round(history.reduce((sum, h) => sum + h.confidence, 0) / history.length)}%
+                {history.length > 0 ? Math.round(history.reduce((sum, h) => sum + h.confidence, 0) / history.length) : 0}%
               </div>
               <div className="text-sm text-gray-600">Avg. Confidence</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-orange-600">
-                {Math.max(...history.map(h => h.confidence)).toFixed(1)}%
+                {history.length > 0 ? Math.max(...history.map(h => h.confidence)).toFixed(1) : 0}%
               </div>
               <div className="text-sm text-gray-600">Best Match</div>
             </div>
