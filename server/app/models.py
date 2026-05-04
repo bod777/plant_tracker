@@ -41,6 +41,7 @@ class PlantResponse(BaseModel):
     datetime: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
+    image_urls: Optional[List[str]] = None
     image_data: Optional[List[str]] = None
 
 class UpdateNotesRequest(BaseModel):

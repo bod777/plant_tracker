@@ -58,7 +58,7 @@ export async function identifyPlant(
 
   const newIdentification: IdentifiedPlant = {
     id: resp.id || topSuggestion.id || Date.now().toString(),
-    image_data: resp.image_data,
+    image_urls: resp.image_urls?.length ? resp.image_urls : (resp.image_data || []),
     plantName: topSuggestion.common_names?.[0] || topSuggestion.name, // Prefer common name, fallback to scientific
     scientificName: topSuggestion.name, // Always store the scientific name
     confidence: Math.round(topSuggestion.probability * 100),
@@ -90,7 +90,7 @@ function mapResponseToPlant(resp: ApiPlantResponse): IdentifiedPlant | null {
   const topSuggestion = resp.suggestions[0];
   return {
     id: resp.id || topSuggestion.id || resp.datetime || Date.now().toString(),
-    image_data: resp.image_data,
+    image_urls: resp.image_urls?.length ? resp.image_urls : (resp.image_data || []),
     plantName: topSuggestion.common_names?.[0] || topSuggestion.name,
     scientificName: topSuggestion.name,
     confidence: Math.round(topSuggestion.probability * 100),

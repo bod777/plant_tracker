@@ -92,7 +92,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           <Carousel className="w-full">
             <CarouselContent>
               {[
-                ...(result.image_data),
+                ...(result.image_urls || []),
                 ...(result.similar_images?.map(img => img.url) || [])
               ].map((src, idx) => (
                 <CarouselItem key={idx} className="flex items-center justify-center">

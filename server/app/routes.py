@@ -1,5 +1,6 @@
 import os
 import base64
+from concurrent.futures import ThreadPoolExecutor
 from fastapi import Depends, APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -10,6 +11,7 @@ from kindwise import PlantApi, PlantIdentification, ClassificationLevel
 from .mongodb_server import db
 from .models import PlantResponse, IdentifyRequest, Suggestion, SimilarImage, UpdateNotesRequest
 from .deps import get_current_user
+from .storage import upload_base64_image, delete_image
 
 router = APIRouter(prefix="/api")
 
@@ -78,6 +80,14 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
                              for img in (s.similar_images or [])]
         ))
 
+    # Upload images to R2 in a thread pool (boto3 is synchronous)
+    loop = __import__('asyncio').get_event_loop()
+    with ThreadPoolExecutor() as pool:
+        image_urls = list(await loop.run_in_executor(
+            pool,
+            lambda: [upload_base64_image(img) for img in request.image_data]
+        ))
+
     response = PlantResponse(
         user_id=user["sub"],
         access_token=identification.access_token,
@@ -88,7 +98,7 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
         datetime=str(identification.input.datetime),
         latitude=identification.input.latitude,
         longitude=identification.input.longitude,
-        image_data=request.image_data,
+        image_urls=image_urls,
     )
 
     # Immediately save to MongoDB
@@ -115,9 +125,16 @@ async def delete_plant(plant_id: str, user=Depends(get_current_user)):
     """Delete a plant record by id for the current user."""
     if not ObjectId.is_valid(plant_id):
         raise HTTPException(status_code=400, detail="Invalid plant ID")
-    result = await db.plants.delete_one({"_id": ObjectId(plant_id), "user_id": user["sub"]})
-    if result.deleted_count == 0:
+    doc = await db.plants.find_one({"_id": ObjectId(plant_id), "user_id": user["sub"]}, {"image_urls": 1})
+    if not doc:
         raise HTTPException(status_code=404, detail="Plant not found")
+    await db.plants.delete_one({"_id": ObjectId(plant_id)})
+    loop = __import__('asyncio').get_event_loop()
+    with ThreadPoolExecutor() as pool:
+        await loop.run_in_executor(
+            pool,
+            lambda: [delete_image(url) for url in (doc.get("image_urls") or [])]
+        )
     return {"id": plant_id}
 
 # --- Fetch Plants ---

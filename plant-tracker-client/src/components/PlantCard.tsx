@@ -33,7 +33,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick, onDelete }) => {
     >
       <div className="relative">
         <img
-          src={plant.image_data[0]}
+          src={plant.image_urls[0]}
           alt={plant.plantName}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
         />
