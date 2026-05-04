@@ -90,7 +90,7 @@ async def identify_plant(request: IdentifyRequest, user=Depends(get_current_user
         latitude=identification.input.latitude,
         longitude=identification.input.longitude,
         image_data=request.image_data,
-        _ts=int(time.time())
+        ts=int(time.time())
     )
 
     # Immediately save to MongoDB
@@ -106,7 +106,7 @@ async def update_plant_notes(request: UpdateNotesRequest):
         raise HTTPException(status_code=400, detail="Invalid plant ID")
     result = await db.plants.update_one(
         {"_id": ObjectId(request.id)},
-        {"$set": {"notes": request.notes, "_ts": int(time.time())}}
+        {"$set": {"notes": request.notes, "ts": int(time.time())}}
     )
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Plant not found")
@@ -126,7 +126,7 @@ async def delete_plant(plant_id: str, user=Depends(get_current_user)):
 @router.get("/my-plants", response_model=List[PlantResponse])
 async def get_plants(user=Depends(get_current_user)):
     # with the index in place this is now a quick lookup
-    docs = await db.plants.find({"user_id": user["sub"]}).to_list(length=20)
+    docs = await db.plants.find({"user_id": user["sub"]}).sort("ts", -1).to_list(length=20)
     results = []
     for doc in docs:
         doc["id"] = str(doc.get("_id"))
