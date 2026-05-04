@@ -56,5 +56,11 @@ async def auth_callback(request: Request):
 
     frontend_url = os.getenv("FRONTEND_URL", "http://localhost:8080/")
     response = RedirectResponse(url=frontend_url)  # send user home
-    response.set_cookie("access_token", jwt_token, httponly=True, max_age=3600)
+    response.set_cookie(
+        "access_token", jwt_token,
+        httponly=True,
+        max_age=3600,
+        secure=True,
+        samesite="lax",
+    )
     return response
