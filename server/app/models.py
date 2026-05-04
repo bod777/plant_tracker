@@ -42,7 +42,6 @@ class PlantResponse(BaseModel):
     latitude: Optional[float] = None
     longitude: Optional[float] = None
     image_data: Optional[List[str]] = None
-    ts: Optional[int] = None
 
 class UpdateNotesRequest(BaseModel):
     id: str
