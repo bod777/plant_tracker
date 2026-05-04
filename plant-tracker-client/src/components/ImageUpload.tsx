@@ -28,8 +28,17 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      const imageData = e.target?.result as string;
-      setPreviews(prev => [...prev, imageData]);
+      const img = new window.Image();
+      img.onload = () => {
+        const MAX = 1024;
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height);
+        setPreviews(prev => [...prev, canvas.toDataURL('image/jpeg', 0.7)]);
+      };
+      img.src = e.target?.result as string;
     };
     reader.readAsDataURL(file);
   };

@@ -67,11 +67,13 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
 
     if (!context) return;
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0);
+    const MAX = 1024;
+    const scale = Math.min(1, MAX / Math.max(video.videoWidth, video.videoHeight));
+    canvas.width = video.videoWidth * scale;
+    canvas.height = video.videoHeight * scale;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    const imageData = canvas.toDataURL('image/jpeg', 0.8);
+    const imageData = canvas.toDataURL('image/jpeg', 0.7);
     setCaptures(prev => [...prev, imageData]);
   };
 
