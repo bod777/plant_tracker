@@ -2,39 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be OKLCH. Each token is stored as raw "L C H" components (no oklch()
+wrapper) so tailwind.config.ts can compose them as oklch(var(--token) / <alpha-value>).
+
+Palette: "The Field Notebook" — a warm terracotta primary (hue 54, evoking clay pots and
+dried botanical ink) on a pure-white canvas, paired with a deep ink-navy secondary accent.
+See DESIGN.md for the full rationale; this replaces the inherited shadcn/Tailwind defaults
+(the "Inherited Palette Rule") that were previously flagged as a placeholder, not a brand.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 1 0 0;
+    --foreground: 0.20 0.02 54;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 1 0 0;
+    --card-foreground: 0.20 0.02 54;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 1 0 0;
+    --popover-foreground: 0.20 0.02 54;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0.56 0.15 54;
+    --primary-foreground: 1 0 0;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0.97 0.006 54;
+    --secondary-foreground: 0.20 0.02 54;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0.97 0.006 54;
+    --muted-foreground: 0.52 0.012 54;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0.95 0.01 54;
+    --accent-foreground: 0.20 0.02 54;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0.55 0.19 25;
+    --destructive-foreground: 1 0 0;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --success: 0.50 0.13 150;
+    --success-foreground: 1 0 0;
+
+    --warning: 0.55 0.15 85;
+    --warning-foreground: 1 0 0;
+
+    --info: 0.28 0.07 235;
+    --info-foreground: 1 0 0;
+
+    --border: 0.90 0.008 54;
+    --input: 0.90 0.008 54;
+    --ring: 0.56 0.15 54;
 
     --radius: 0.5rem;
 
@@ -56,33 +71,42 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0.14 0.016 54;
+    --foreground: 0.94 0.01 54;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0.21 0.018 54;
+    --card-foreground: 0.94 0.01 54;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0.21 0.018 54;
+    --popover-foreground: 0.94 0.01 54;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0.57 0.14 54;
+    --primary-foreground: 1 0 0;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0.24 0.02 54;
+    --secondary-foreground: 0.94 0.01 54;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0.24 0.02 54;
+    --muted-foreground: 0.66 0.02 54;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0.26 0.02 54;
+    --accent-foreground: 0.94 0.01 54;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0.58 0.18 25;
+    --destructive-foreground: 1 0 0;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --success: 0.55 0.13 150;
+    --success-foreground: 1 0 0;
+
+    --warning: 0.55 0.15 85;
+    --warning-foreground: 1 0 0;
+
+    --info: 0.54 0.10 235;
+    --info-foreground: 1 0 0;
+
+    --border: 0.30 0.02 54;
+    --input: 0.30 0.02 54;
+    --ring: 0.57 0.14 54;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -102,4 +126,82 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Fallback for browsers without OKLCH support (pre-2023 engines, e.g. a very
+   stale Samsung Internet build): every Tailwind utility here resolves through
+   oklch(var(--token) / <alpha-value>), so on an engine that doesn't recognize
+   oklch() the whole declaration is invalid and text/backgrounds can render
+   invisible rather than just less pretty. This restates the tokens actually
+   used in this app as plain sRGB hex, via a handful of shared custom
+   properties so a palette retune only needs updating one line per color
+   rather than every selector that uses it. Opacity-modified classes
+   (bg-primary/10 etc.) fall back to a solid fill rather than a tint -- a
+   cosmetic loss, not a functional one. The whole block is skipped by any
+   browser that supports oklch(), i.e. effectively everything by now. */
+@supports not (color: oklch(0 0 0)) {
+  :root {
+    --fb-white: #ffffff;
+    --fb-ink: #1d140d;
+    --fb-muted-ink: #6f6763;
+    --fb-surface: #f8f4f1;
+    --fb-accent-surface: #f4ede8;
+    --fb-border: #e2ddd9;
+    --fb-primary: #b55600;
+    --fb-destructive: #c92f33;
+    --fb-success: #137738;
+    --fb-warning: #996700;
+    --fb-info: #002d46;
+  }
+
+  .bg-accent, [class*="bg-accent/"] { background-color: var(--fb-accent-surface) !important; }
+  .bg-background, [class*="bg-background/"] { background-color: var(--fb-white) !important; }
+  .bg-border, [class*="bg-border/"] { background-color: var(--fb-border) !important; }
+  .bg-card, [class*="bg-card/"] { background-color: var(--fb-white) !important; }
+  .bg-destructive, [class*="bg-destructive/"] { background-color: var(--fb-destructive) !important; }
+  .bg-foreground, [class*="bg-foreground/"] { background-color: var(--fb-ink) !important; }
+  .bg-info, [class*="bg-info/"] { background-color: var(--fb-info) !important; }
+  .bg-muted, [class*="bg-muted/"] { background-color: var(--fb-surface) !important; }
+  .bg-popover, [class*="bg-popover/"] { background-color: var(--fb-white) !important; }
+  .bg-primary, [class*="bg-primary/"] { background-color: var(--fb-primary) !important; }
+  .bg-secondary, [class*="bg-secondary/"] { background-color: var(--fb-surface) !important; }
+  .bg-success, [class*="bg-success/"] { background-color: var(--fb-success) !important; }
+  .bg-warning, [class*="bg-warning/"] { background-color: var(--fb-warning) !important; }
+  .border-border, [class*="border-border/"] { border-color: var(--fb-border) !important; }
+  .border-destructive, [class*="border-destructive/"] { border-color: var(--fb-destructive) !important; }
+  .border-input, [class*="border-input/"] { border-color: var(--fb-border) !important; }
+  .border-muted, [class*="border-muted/"] { border-color: var(--fb-surface) !important; }
+  .border-primary, [class*="border-primary/"] { border-color: var(--fb-primary) !important; }
+  .fill-foreground, [class*="fill-foreground/"] { fill: var(--fb-ink) !important; }
+  .fill-muted, [class*="fill-muted/"] { fill: var(--fb-surface) !important; }
+  .fill-muted-foreground, [class*="fill-muted-foreground/"] { fill: var(--fb-muted-ink) !important; }
+  .ring-destructive { --tw-ring-color: var(--fb-destructive) !important; }
+  .ring-ring { --tw-ring-color: var(--fb-primary) !important; }
+  .ring-offset-background { --tw-ring-offset-color: var(--fb-white) !important; }
+  .text-accent-foreground, [class*="text-accent-foreground/"] { color: var(--fb-ink) !important; }
+  .text-card-foreground, [class*="text-card-foreground/"] { color: var(--fb-ink) !important; }
+  .text-destructive, [class*="text-destructive/"] { color: var(--fb-destructive) !important; }
+  .text-destructive-foreground, [class*="text-destructive-foreground/"] { color: var(--fb-white) !important; }
+  .text-foreground, [class*="text-foreground/"] { color: var(--fb-ink) !important; }
+  .text-info, [class*="text-info/"] { color: var(--fb-info) !important; }
+  .text-muted-foreground, [class*="text-muted-foreground/"] { color: var(--fb-muted-ink) !important; }
+  .text-popover-foreground, [class*="text-popover-foreground/"] { color: var(--fb-ink) !important; }
+  .text-primary, [class*="text-primary/"] { color: var(--fb-primary) !important; }
+  .text-primary-foreground, [class*="text-primary-foreground/"] { color: var(--fb-white) !important; }
+  .text-secondary-foreground, [class*="text-secondary-foreground/"] { color: var(--fb-ink) !important; }
+  .text-success, [class*="text-success/"] { color: var(--fb-success) !important; }
+  .text-success-foreground, [class*="text-success-foreground/"] { color: var(--fb-white) !important; }
+  .text-warning, [class*="text-warning/"] { color: var(--fb-warning) !important; }
+  .text-warning-foreground, [class*="text-warning-foreground/"] { color: var(--fb-white) !important; }
 }

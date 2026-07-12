@@ -65,7 +65,7 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
             markerHeight="6"
             orient="auto"
           >
-            <path d="M0 0 L6 3 L0 6 Z" fill="#22c55e" />
+            <path d="M0 0 L6 3 L0 6 Z" fill="oklch(0.56 0.15 54)" />
           </marker>
         </defs>
         {entries.map(({ level, value }, idx) => {
@@ -86,7 +86,7 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
                   y1={y}
                   x2={isMobile ? x : nextX}
                   y2={isMobile ? nextY : y}
-                  stroke="#22c55e"
+                  stroke="oklch(0.56 0.15 54)"
                   strokeWidth={2}
                   markerEnd="url(#arrow)"
                 />
@@ -95,11 +95,11 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
                 x={x}
                 y={y - NODE_RADIUS - TEXT_OFFSET / 2}
                 textAnchor="middle"
-                className={cn('capitalize text-gray-700', isMobile ? 'text-[10px]' : 'text-xs')}
+                className={cn('capitalize fill-foreground', isMobile ? 'text-[10px]' : 'text-xs')}
               >
                 {level}
               </text>
-              <circle cx={x} cy={y} r={NODE_RADIUS} fill="#4ade80" />
+              <circle cx={x} cy={y} r={NODE_RADIUS} fill="oklch(0.48 0.15 54)" />
               <text
                 x={x}
                 y={y}
@@ -113,7 +113,7 @@ const TaxonomyChart: React.FC<TaxonomyChartProps> = ({ taxonomy }) => {
                 x={x}
                 y={y + NODE_RADIUS + TEXT_OFFSET}
                 textAnchor="middle"
-                className={cn(isMobile ? 'text-[10px]' : 'text-xs')}
+                className={cn('fill-foreground', isMobile ? 'text-[10px]' : 'text-xs')}
               >
                 {value}
               </text>

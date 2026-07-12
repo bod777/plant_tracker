@@ -101,7 +101,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
           <X className="mr-2 h-4 w-4" />
           Back
         </Button>
-        <h2 className="text-2xl font-bold text-gray-800">Upload Image</h2>
+        <h1 className="text-2xl font-bold text-foreground">Upload Image</h1>
         <div></div>
       </div>
 
@@ -110,8 +110,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
           <div
             className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-colors ${
               dragActive
-                ? 'border-green-500 bg-green-50'
-                : 'border-gray-300 hover:border-green-400 hover:bg-green-50'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary/50 hover:bg-primary/5'
             }`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
@@ -127,27 +127,24 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
             />
             
             <div className="space-y-4">
-              <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center">
-                <Upload className="h-8 w-8 text-green-600" />
+              <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <Upload className="h-8 w-8 text-primary" />
               </div>
-              
+
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h2 className="text-xl font-semibold text-foreground mb-2">
                   Drop your plant image here
-                </h3>
-                <p className="text-gray-600 mb-4">
+                </h2>
+                <p className="text-muted-foreground mb-4">
                   or click to browse from your device
                 </p>
-                <Button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="bg-green-600 hover:bg-green-700"
-                >
+                <Button onClick={() => fileInputRef.current?.click()}>
                   <Image className="mr-2 h-4 w-4" />
                   Choose Image
                 </Button>
               </div>
-              
-              <p className="text-sm text-gray-500">
+
+              <p className="text-sm text-muted-foreground">
                 Supports: JPG, PNG, GIF (max 10MB)
               </p>
             </div>
@@ -159,14 +156,16 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
                 <div key={idx} className="relative">
                   <img
                     src={p}
-                    alt={`preview-${idx}`}
-                    className="w-full h-40 object-contain rounded-lg bg-gray-100"
+                    alt={`Selected plant photo ${idx + 1}`}
+                    loading="lazy"
+                    className="w-full h-40 object-contain rounded-lg bg-muted"
                   />
                   <Button
                     onClick={() => clearPreview(idx)}
                     variant="outline"
                     size="sm"
-                    className="absolute top-1 right-1 bg-white"
+                    aria-label="Remove photo"
+                    className="absolute top-1 right-1 h-11 w-11 bg-background"
                   >
                     <X className="h-3 w-3" />
                   </Button>
@@ -181,7 +180,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
                     onChange={handleFileInput}
                     className="hidden"
                   />
-                  <Upload className="h-8 w-8 text-gray-400" />
+                  <Upload className="h-8 w-8 text-muted-foreground" />
                 </div>
               )}
             </div>
@@ -190,7 +189,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, onBack, identifying
               <Button onClick={() => clearPreview()} variant="outline">
                 Clear All
               </Button>
-              <Button onClick={handleUpload} className="bg-green-600 hover:bg-green-700">
+              <Button onClick={handleUpload}>
                 Identify Plant
               </Button>
             </div>

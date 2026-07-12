@@ -35,7 +35,6 @@ const Index = () => {
         const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: 'include' });
         if (res.ok) {
           const data = await res.json();
-          // console.log(data);
           setUser(data);
         } else {
           setUser(null);
@@ -101,9 +100,21 @@ const Index = () => {
       );
 
       if (!resp) {
-        alert(
-          'Failed to identify plant. Try taking more photos. Tips: https://plant.id/collection/xQQUmUFTkdZp1iI'
-        );
+        toast({
+          description: (
+            <>
+              Failed to identify plant. Try taking more photos.{' '}
+              <a
+                href="https://plant.id/collection/xQQUmUFTkdZp1iI"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Tips
+              </a>
+            </>
+          ),
+        });
         return;
       }
 
@@ -126,20 +137,16 @@ const Index = () => {
       setIdentificationHistory(prev => prev.filter(p => p.id !== id));
     } catch (e) {
       console.error(e);
-      alert(
-        'Failed to identify plant. Try taking more photos. Tips: https://plant.id/collection/xQQUmUFTkdZp1iI'
-      );
-    } finally {
-      setIdentifying(false);
+      toast({ description: 'Failed to delete plant record.' });
     }
   };
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+      <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-6 md:py-8 text-center">
-          <Leaf className="h-8 w-8 text-green-600 animate-pulse mx-auto" />
-          <p className="mt-4 text-gray-600">Checking authentication...</p>
+          <Leaf className="h-8 w-8 text-primary animate-pulse mx-auto" />
+          <p className="mt-4 text-muted-foreground">Checking authentication...</p>
         </div>
       </div>
     );
@@ -147,12 +154,12 @@ const Index = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-center space-y-6 py-16 bg-gradient-to-br from-green-50 to-blue-50">
+      <div className="min-h-screen flex flex-col items-center justify-center text-center space-y-6 py-16 bg-background">
         <div>
-          <Leaf className="h-10 w-10 text-green-600 mx-auto" />
-          <h1 className="text-5xl font-bold text-gray-800 mt-4">Plant Tracker</h1>
+          <Leaf className="h-10 w-10 text-primary mx-auto" />
+          <h1 className="text-5xl font-bold text-foreground mt-4">Plant Tracker</h1>
         </div>
-        <p className="text-lg text-gray-600 max-w-xl">
+        <p className="text-lg text-muted-foreground max-w-xl">
           Sign in with Google to identify plants from photos and keep a history of your discoveries.
         </p>
         <div>
@@ -166,8 +173,8 @@ const Index = () => {
     if (isLoading) {
       return (
         <div className="text-center space-y-4 pt-16">
-          <Leaf className="h-8 w-8 text-green-600 animate-pulse mx-auto" />
-          <p className="text-xl text-gray-600">Loading your plant history...</p>
+          <Leaf className="h-8 w-8 text-primary animate-pulse mx-auto" />
+          <p className="text-xl text-muted-foreground">Loading your plant history...</p>
         </div>
       );
     }
@@ -176,45 +183,63 @@ const Index = () => {
       <>
         <div className="flex justify-between items-center mb-6 md:mb-8">
           <div className="flex items-center">
-            <Leaf className="h-8 w-8 text-green-600 mr-2" />
-            <h1 className="text-4xl font-bold text-gray-800">Plant Tracker</h1>
+            <Leaf className="h-8 w-8 text-primary mr-2" />
+            <h1 className="text-4xl font-bold text-foreground">Plant Tracker</h1>
           </div>
           <AuthButton />
         </div>
 
         <div className="space-y-6 md:space-y-8">
           <div className="text-center space-y-4">
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Identify plants instantly using your camera or by uploading photos. Discover the botanical world around you!
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto">
             <Card
-              className="p-6 md:p-8 hover:shadow-lg transition-shadow cursor-pointer group"
+              role="button"
+              tabIndex={0}
+              aria-label="Take Photo — use your device camera to identify a plant"
+              className="p-6 md:p-8 hover:shadow-lg transition-shadow cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               onClick={() => navigate('/camera')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navigate('/camera');
+                }
+              }}
             >
               <div className="text-center space-y-4">
-                <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors">
-                  <Camera className="h-8 w-8 text-green-600" />
+                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                  <Camera className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-800">Take Photo</h3>
-                <p className="text-gray-600">
+                <h2 className="text-2xl font-semibold text-foreground">Take Photo</h2>
+                <p className="text-muted-foreground">
                   Use your device camera to capture a plant and get instant identification
                 </p>
               </div>
             </Card>
 
             <Card
-              className="p-6 md:p-8 hover:shadow-lg transition-shadow cursor-pointer group"
+              role="button"
+              tabIndex={0}
+              aria-label="Upload Image — select a photo to identify a plant"
+              className="p-6 md:p-8 hover:shadow-lg transition-shadow cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               onClick={() => navigate('/upload')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navigate('/upload');
+                }
+              }}
             >
               <div className="text-center space-y-4">
-                <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                  <Upload className="h-8 w-8 text-blue-600" />
+                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                  <Upload className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-800">Upload Image</h3>
-                <p className="text-gray-600">
+                <h2 className="text-2xl font-semibold text-foreground">Upload Image</h2>
+                <p className="text-muted-foreground">
                   Select a photo from your gallery to identify plants you've photographed before
                 </p>
               </div>
@@ -227,7 +252,7 @@ const Index = () => {
                 onClick={() => { setHistoryPage(1); navigate('/history'); }}
                 variant="outline"
                 size="lg"
-                className="text-green-600 border-green-600 hover:bg-green-50"
+                className="text-primary border-primary hover:bg-primary/10"
               >
                 <History className="mr-2 h-5 w-5" />
                 View History ({plantCount})
@@ -240,7 +265,7 @@ const Index = () => {
   };
 
   return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+      <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-6 md:py-8">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />

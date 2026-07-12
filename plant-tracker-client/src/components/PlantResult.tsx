@@ -56,7 +56,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
   if (!result) {
     return (
       <Card className="max-w-2xl mx-auto p-8 text-center">
-        <div className="text-gray-500">No result to display</div>
+        <div className="text-muted-foreground">No result to display</div>
         <Button onClick={onBack} variant="outline" className="mt-4">
           Go Back
         </Button>
@@ -64,8 +64,11 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
     );
   }
 
-  const confidenceColor = result.confidence >= 90 ? 'bg-green-500' : 
-                          result.confidence >= 70 ? 'bg-yellow-500' : 'bg-red-500';
+  const confidenceClasses = result.confidence >= 90
+    ? 'bg-success text-success-foreground'
+    : result.confidence >= 70
+    ? 'bg-warning text-warning-foreground'
+    : 'bg-destructive text-destructive-foreground';
 
   return (
     <div className="relative max-w-4xl mx-auto space-y-6">
@@ -82,7 +85,6 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
-        {/* <h2 className="text-2xl font-bold text-gray-800">Plant Identified</h2> */}
         <Button onClick={onViewHistory} variant="outline" size="lg">
           <Eye className="mr-2 h-4 w-4" />
           History
@@ -95,14 +97,21 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           <Carousel className="w-full">
             <CarouselContent>
               {[
-                ...(result.image_urls || []),
-                ...(result.similar_images?.map(img => img.url) || [])
-              ].map((src, idx) => (
+                ...(result.image_urls || []).map((url, i) => ({
+                  url,
+                  alt: `Your photo ${i + 1} of ${result.plantName}`,
+                })),
+                ...(result.similar_images || []).map((img, i) => ({
+                  url: img.url,
+                  alt: `Reference image ${i + 1} of ${result.plantName} for comparison`,
+                })),
+              ].map(({ url, alt }, idx) => (
                 <CarouselItem key={idx} className="flex items-center justify-center">
                   <img
-                    src={src}
-                    alt={`Plant image ${idx}`}
-                    className="w-full object-contain max-h-80 bg-gray-100"
+                    src={url}
+                    alt={alt}
+                    loading="lazy"
+                    className="w-full object-contain max-h-80 bg-muted"
                   />
                 </CarouselItem>
               ))}
@@ -116,27 +125,27 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
         <Card className="p-6 space-y-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <Badge variant="outline" className={`${confidenceColor} text-white px-3 py-1`}>
+              <Badge variant="outline" className={`${confidenceClasses} px-3 py-1 border-none`}>
                 {result.confidence.toFixed(1)}% Match
               </Badge>
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-muted-foreground">
                 <Clock className="mr-1 h-4 w-4" />
                 {result.timestamp.toLocaleDateString()}
               </div>
             </div>
 
             <div>
-              <h3 className="text-3xl font-bold text-gray-800 mb-2">
+              <h1 className="text-3xl font-bold text-foreground mb-2">
                 {result.plantName}
-              </h3>
-              <p className="text-lg text-gray-600 italic">
+              </h1>
+              <p className="text-lg text-muted-foreground italic">
                 {result.scientificName}
               </p>
             </div>
           </div>
 
           <div className="flex space-x-3">
-            <Button asChild className="flex-1 bg-green-600 hover:bg-green-700">
+            <Button asChild className="flex-1">
               <a
                 href={result.url}
                 target="_blank"
@@ -164,8 +173,8 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       {/* Description */}
       {result.description && (
         <Card className="p-6 space-y-3">
-          <h4 className="font-semibold text-gray-800">Description</h4>
-          <p className="text-gray-600 leading-relaxed">
+          <h2 className="font-semibold text-foreground">Description</h2>
+          <p className="text-muted-foreground leading-relaxed">
             {descExpanded || result.description.length <= DESCRIPTION_LIMIT
               ? result.description
               : `${result.description.slice(0, DESCRIPTION_LIMIT).trimEnd()}…`}
@@ -173,7 +182,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           {result.description.length > DESCRIPTION_LIMIT && (
             <button
               onClick={() => setDescExpanded(prev => !prev)}
-              className="text-sm text-green-600 hover:underline"
+              className="text-sm text-primary hover:underline"
             >
               {descExpanded ? 'Show less' : 'Show more'}
             </button>
@@ -184,7 +193,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       {/* Taxonomy */}
       {result.taxonomy && (
         <Card className="p-6 space-y-4">
-          <h4 className="text-xl font-semibold text-gray-800">Taxonomy</h4>
+          <h2 className="text-xl font-semibold text-foreground">Taxonomy</h2>
           <TaxonomyChart taxonomy={result.taxonomy} />
         </Card>
       )}
@@ -192,9 +201,9 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
       {/* Notes */}
       <Card className="p-6 space-y-4">
         <div className="flex items-center justify-between">
-          <h4 className="text-xl font-semibold text-gray-800">Your Notes</h4>
+          <h2 id="notes-heading" className="text-xl font-semibold text-foreground">Your Notes</h2>
           {showSaved && (
-            <span className="text-sm text-green-600">Saved!</span>
+            <span className="text-sm text-success">Saved!</span>
           )}
         </div>
         {editing ? (
@@ -203,6 +212,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Add notes..."
+              aria-labelledby="notes-heading"
             />
             <div className="flex space-x-2">
               <Button onClick={handleSaveNotes} disabled={saving}>
@@ -223,7 +233,7 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
           </>
         ) : (
           <div className="space-y-2">
-            <p className="whitespace-pre-wrap text-gray-700">{notes}</p>
+            <p className="whitespace-pre-wrap text-foreground">{notes}</p>
             <Button variant="outline" onClick={() => setEditing(true)}>
               Edit
             </Button>
@@ -233,21 +243,21 @@ const PlantResult: React.FC<PlantResultProps> = ({ result, onBack, onViewHistory
 
       {/* Additional Information */}
       <Card className="p-6">
-        <h4 className="text-xl font-semibold text-gray-800 mb-4">
+        <h2 className="text-xl font-semibold text-foreground mb-4">
           Plant Care Tips
-        </h4>
+        </h2>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h5 className="font-semibold text-blue-800 mb-2">Watering</h5>
-            <p className="text-blue-700">{result.watering}</p>
+          <div className="bg-info/10 p-4 rounded-lg">
+            <h3 className="font-semibold text-info mb-2">Watering</h3>
+            <p className="text-foreground">{result.watering}</p>
           </div>
-          <div className="bg-yellow-50 p-4 rounded-lg">
-            <h5 className="font-semibold text-yellow-800 mb-2">Light</h5>
-            <p className="text-yellow-700">{result.light_condition}</p>
+          <div className="bg-warning/10 p-4 rounded-lg">
+            <h3 className="font-semibold text-warning mb-2">Light</h3>
+            <p className="text-foreground">{result.light_condition}</p>
           </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <h5 className="font-semibold text-green-800 mb-2">Soil</h5>
-            <p className="text-green-700">{result.soil_type}</p>
+          <div className="bg-success/10 p-4 rounded-lg">
+            <h3 className="font-semibold text-success mb-2">Soil</h3>
+            <p className="text-foreground">{result.soil_type}</p>
           </div>
         </div>
       </Card>

@@ -85,7 +85,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
     return (
       <Card className="max-w-2xl mx-auto p-8 text-center">
         <div className="space-y-4">
-          <div className="text-red-500 text-lg">{error}</div>
+          <div className="text-destructive text-lg">{error}</div>
           <Button onClick={onBack} variant="outline">
             Go Back
           </Button>
@@ -109,7 +109,7 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
           <X className="mr-2 h-4 w-4" />
           Back
         </Button>
-        <h2 className="text-2xl font-bold text-gray-800">Take Photo</h2>
+        <h1 className="text-2xl font-bold text-foreground">Take Photo</h1>
         <Button onClick={switchCamera} variant="outline" size="lg">
           <RotateCcw className="mr-2 h-4 w-4" />
           Flip
@@ -140,7 +140,8 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
               <Button
                 onClick={capturePhoto}
                 size="lg"
-                className="w-16 h-16 rounded-full bg-white hover:bg-gray-100 text-gray-800 border-4 border-gray-300"
+                aria-label="Take photo"
+                className="w-16 h-16 rounded-full bg-background hover:bg-secondary text-foreground border-4 border-border"
               >
                 <Camera className="h-8 w-8" />
               </Button>
@@ -154,12 +155,13 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {captures.map((img, idx) => (
                 <div key={idx} className="relative">
-                <img src={img} alt={`capture-${idx}`} className="w-full h-32 object-contain rounded-lg bg-gray-100" />
+                <img src={img} alt={`Captured plant photo ${idx + 1}`} loading="lazy" className="w-full h-32 object-contain rounded-lg bg-muted" />
                 <Button
                   onClick={() => setCaptures(c => c.filter((_, i) => i !== idx))}
                   variant="outline"
                   size="sm"
-                  className="absolute top-1 right-1 bg-white"
+                  aria-label="Remove photo"
+                  className="absolute top-1 right-1 h-11 w-11 bg-background"
                 >
                   <X className="h-3 w-3" />
                 </Button>
@@ -170,14 +172,14 @@ const PlantCamera: React.FC<PlantCameraProps> = ({ onCapture, onBack, identifyin
             <Button onClick={() => setCaptures([])} variant="outline">
               Clear All
             </Button>
-            <Button onClick={() => onCapture(captures)} disabled={captures.length === 0} className="bg-green-600 hover:bg-green-700">
+            <Button onClick={() => onCapture(captures)} disabled={captures.length === 0}>
               Identify Plant
             </Button>
           </div>
         </div>
       )}
 
-      <div className="text-center text-gray-600">
+      <div className="text-center text-muted-foreground">
         <p>Position the plant in the center of the frame and tap the camera button to capture</p>
       </div>
     </div>
