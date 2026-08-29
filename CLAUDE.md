@@ -76,6 +76,10 @@ start.cmd
 |---|---|
 | `VITE_API_BASE` | Backend URL (e.g. `http://localhost:8000`) |
 
+## Design Context
+
+`PRODUCT.md` and `DESIGN.md` at the repo root capture the design strategy for this app (register: `product`, platform: `web`). Short version: a personal plant-ID/tracking tool for a small circle of friends/family, where the fast capture→identify→save loop and the growing browsable history matter most; personality is calm, natural, warm, "field notebook" — explicitly not a corporate SaaS dashboard. The current UI (`DESIGN.md`) runs on unmodified shadcn defaults plus ad hoc Tailwind `green-600`/`blue-600` accents — documented as an honest baseline, not a settled brand palette. Read both before making UI/UX changes; use `/impeccable` commands (e.g. `colorize`, `polish`, `critique`) for design work.
+
 ## Common Gotchas
 - **`secure` cookie on localhost**: The auth cookie uses `secure=True` only when `FRONTEND_URL` starts with `https://`. Plain `http://localhost` will set `secure=False` so browsers accept the cookie.
 - **`FRONTEND_URL` / `ALLOWED_ORIGINS` in production env**: If you run locally with a `server/.env` that still points to the Railway/production URL, the OAuth callback will redirect to production instead of localhost.

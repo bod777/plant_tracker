@@ -38,7 +38,6 @@ export default function AuthButton() {
         // Redirect to your FastAPI Google login endpoint:
         window.location.href = `${API_BASE}/api/auth/google/login`;
       }}
-      className="bg-green-600 hover:bg-green-700 text-white"
     >
       Sign in with Google
     </Button>

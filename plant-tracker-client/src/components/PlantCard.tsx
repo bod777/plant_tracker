@@ -23,28 +23,44 @@ interface PlantCardProps {
 }
 
 const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick, onDelete }) => {
-  const confidenceColor = plant.confidence >= 90 ? 'bg-green-500' : 
-                          plant.confidence >= 70 ? 'bg-yellow-500' : 'bg-red-500';
+  const confidenceClasses = plant.confidence >= 90
+    ? 'bg-success text-success-foreground'
+    : plant.confidence >= 70
+    ? 'bg-warning text-warning-foreground'
+    : 'bg-destructive text-destructive-foreground';
 
   return (
-    <Card 
-      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
+    <Card
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${plant.plantName}`}
+      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
     >
       <div className="relative">
         <img
           src={plant.image_urls[0]}
           alt={plant.plantName}
+          loading="lazy"
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
         />
         {onDelete && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <button
-                className="absolute top-2 left-2 bg-red-600 bg-opacity-75 text-white rounded-full p-1 hover:bg-opacity-100"
+                type="button"
+                aria-label="Delete plant record"
+                className="absolute top-2 left-2 h-11 w-11 flex items-center justify-center bg-destructive/75 text-destructive-foreground rounded-full hover:bg-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.stopPropagation()}
               >
-                <Trash className="h-3 w-3" />
+                <Trash className="h-4 w-4" />
               </button>
             </AlertDialogTrigger>
             <AlertDialogContent onClick={(e) => e.stopPropagation()}>
@@ -65,7 +81,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick, onDelete }) => {
         )}
         <Badge
           variant="outline"
-          className={`absolute top-2 right-2 ${confidenceColor} text-white border-none`}
+          className={`absolute top-2 right-2 ${confidenceClasses} border-none`}
         >
           <Award className="mr-1 h-3 w-3" />
           {plant.confidence.toFixed(0)}%
@@ -73,14 +89,14 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onClick, onDelete }) => {
       </div>
       
       <div className="p-4 space-y-2">
-        <h3 className="font-semibold text-gray-800 truncate">
+        <h3 className="font-semibold text-foreground truncate">
           {plant.plantName}
         </h3>
-        <p className="text-sm text-gray-600 italic truncate">
+        <p className="text-sm text-muted-foreground italic truncate">
           {plant.scientificName}
         </p>
-        
-        <div className="flex items-center justify-between text-xs text-gray-500">
+
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
           <div className="flex items-center">
             <Clock className="mr-1 h-3 w-3" />
             {plant.timestamp.toLocaleDateString()}

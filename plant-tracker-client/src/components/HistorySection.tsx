@@ -70,16 +70,17 @@ const HistorySection: React.FC<HistorySectionProps> = ({
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
-        <h2 className="text-2xl font-bold text-gray-800">Identification History</h2>
+        <h1 className="text-2xl font-bold text-foreground">Identification History</h1>
         <div className="w-24"></div>
       </div>
 
       {/* Search */}
       <Card className="p-4 space-y-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search plants..."
+            aria-label="Search plants"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -104,10 +105,10 @@ const HistorySection: React.FC<HistorySectionProps> = ({
       {Object.keys(groupedHistory).length === 0 ? (
         <Card className="p-12 text-center">
           <div className="space-y-4">
-            <div className="text-gray-500 text-lg">
+            <div className="text-muted-foreground text-lg">
               {searchTerm ? 'No plants found matching your search' : 'No plant identifications yet'}
             </div>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground">
               {searchTerm ? 'Try adjusting your search terms' : 'Start identifying plants to see your history here'}
             </p>
           </div>
@@ -122,9 +123,9 @@ const HistorySection: React.FC<HistorySectionProps> = ({
             )
             .map(([date, items]) => (
               <div key={date} className="space-y-4">
-                <div className="flex items-center space-x-2 text-gray-600">
+                <div className="flex items-center space-x-2 text-muted-foreground">
                   <Calendar className="h-4 w-4" />
-                  <h3 className="font-semibold">{date}</h3>
+                  <h2 className="font-semibold text-base">{date}</h2>
                   <span className="text-sm">({items.length} identification{items.length !== 1 ? 's' : ''})</span>
                 </div>
 
@@ -171,29 +172,29 @@ const HistorySection: React.FC<HistorySectionProps> = ({
       {/* Stats */}
       {totalCount > 0 && (
         <Card className="p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">Your Plant Journey</h4>
+          <h2 className="text-lg font-semibold text-foreground mb-4">Your Plant Journey</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-green-600">{totalCount}</div>
-              <div className="text-sm text-gray-600">Plants Identified</div>
+              <div className="text-2xl font-bold text-primary">{totalCount}</div>
+              <div className="text-sm text-muted-foreground">Plants Identified</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-primary">
                 {new Set(history.map(h => h.plantName)).size}
               </div>
-              <div className="text-sm text-gray-600">Unique Species</div>
+              <div className="text-sm text-muted-foreground">Unique Species</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-bold text-primary">
                 {history.length > 0 ? Math.round(history.reduce((sum, h) => sum + h.confidence, 0) / history.length) : 0}%
               </div>
-              <div className="text-sm text-gray-600">Avg. Confidence</div>
+              <div className="text-sm text-muted-foreground">Avg. Confidence</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-primary">
                 {history.length > 0 ? Math.max(...history.map(h => h.confidence)).toFixed(1) : 0}%
               </div>
-              <div className="text-sm text-gray-600">Best Match</div>
+              <div className="text-sm text-muted-foreground">Best Match</div>
             </div>
           </div>
         </Card>
