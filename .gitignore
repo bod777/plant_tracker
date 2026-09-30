@@ -3,3 +3,5 @@ dist
 __pycache__
 .env
 .venv
+# Per-machine Claude Code settings
+.claude/settings.local.json
